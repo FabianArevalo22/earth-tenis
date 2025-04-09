@@ -1,7 +1,7 @@
 /* =====================================================
    Home Slider
 ===================================================== */
-const homeImages = ['assets/imgs/img1.png', 'assets/imgs/img2.png', 'assets/imgs/img3.png'];
+const homeImages = ['assets/imgs/Home Images/home-image-1.png', 'assets/imgs/Home Images/home-image-2.png', 'assets/imgs/Home Images/home-image-3.png'];
 let imageIndex = 0;
 
 //Arrow Fuction to swipe the images.
@@ -91,6 +91,40 @@ setInterval(swipeImg, 4500);
       }, 100);
    });
 });
+
+/* =====================================================
+   Product Swiper
+===================================================== */
+var swiper = new Swiper(".product-img-swiper", {
+   slidesPerView: 1,
+   spaceBetween: 30,
+   loop: true,
+   pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      renderBullet: function (index, className) {
+         // Select the atual slide with the Index.
+         var slide = document.querySelectorAll('.swiper-slide')[index];
+         // Select the image under slide.
+         var imgSrc = slide.querySelector('img').src;
+         // Return a HTML with the found image
+         return (
+           '<span class="' +
+           className +
+           '"><img src="' +
+           imgSrc +
+           '" alt="Slide ' +
+           (index + 1) +
+           '" /></span>'
+         );
+      },
+   },
+   navigation: {
+     nextEl: ".swiper-button-next",
+     prevEl: ".swiper-button-prev",
+   },
+ });
+
 
 /* =====================================================
    Shrink the height of the header on scroll
