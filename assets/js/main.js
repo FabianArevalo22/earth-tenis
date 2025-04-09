@@ -1,16 +1,24 @@
 /* =====================================================
    Home Slider
 ===================================================== */
-const imgs = ['assets/imgs/img1.png', 'assets/imgs/img2.png', 'assets/imgs/img3.png'];
-let imgIndex = 0;
+const homeImages = ['assets/imgs/img1.png', 'assets/imgs/img2.png', 'assets/imgs/img3.png'];
+let imageIndex = 0;
 
+//Arrow Fuction to swipe the images.
 const swipeImg = () => {
-   const sliderImg = document.querySelector(".shoe-img img");
-   imgIndex = (imgIndex + 1) % imgs.length; 
-   sliderImg.src = imgs[imgIndex]; 
 
-}
-setInterval(swipeImg, 2000);
+   const slider = document.querySelector(".shoe-img img");
+   slider.style.opacity = 0
+
+   setTimeout(() => {
+   imageIndex = (imageIndex + 1) % homeImages.length; 
+   slider.src = homeImages[imageIndex];
+   slider.style.opacity = 1; 
+   }, 500); 
+
+};
+
+setInterval(swipeImg, 4500);
 
 
 /* =====================================================

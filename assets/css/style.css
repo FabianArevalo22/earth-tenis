@@ -102,6 +102,13 @@
        box-shadow: 0 2px 4px hsl(0, 0%, 1%, .25);
     }
 
+    
+
+
+    .product-card,
+    .product-card .product-info .product-options .option {
+      box-shadow: 0 2px 8px hsl(0, 0%, 1%, .10);
+    }
  }
 
 /* =========================================
@@ -377,8 +384,8 @@ letter-spacing: -1px;
 .shoe-img img{
     position: absolute;
     width: 120%;
+    transition: opacity 0.5s ease-in-out;
 }
-
 .home-social{
     position: absolute;
     left: 0;
@@ -537,7 +544,10 @@ letter-spacing: -1px;
 }
 .product-card .product-info{
    position: relative;
-   padding: 10px 15px 15px 20px;
+   padding: 10px 15px 20px 20px;
+}
+.product-card .product-info .info{
+   margin-top: 3px;
 }
 .product-card .product-info span{
    color: var(--color-04);
@@ -549,29 +559,52 @@ letter-spacing: -1px;
    color: var(--color-02);
    font-size: var(--small-font-size);
    font-weight: var(--font-medium);
-   margin-top: 3px;   
+   /* margin-top: 3px;    */
+}
+.product-card .product-info .product-stars{
+   color: var(--color-01);
+   font-size: 1.1rem;
+}
+.product-card .product-info .product-options{
+   max-width: 100%;
+   display: flex;
+   gap: 10px;
+   justify-content: left;
+   align-items: center;
+}
+.product-info .product-options .option{
+   background: var(--footer-bg);
+   text-align: left;
+   border-radius: 3px;
+}
+.product-options .option p{
+   color: var(--color-01);
+   font-size: var(--tiny-font-size);
+   font-weight: var(--font-medium);
+   letter-spacing: -1px;
+   margin: 2px 10px 2px 10px;
 }
 .product-card .product-info .normal-price{
    color: var(--color-04);
    font-weight: var(--font-regular);
-   margin-top: 3px;   
+   /* margin-top: 5px;    */
 }
 .product-card .product-info .price-with-descount{
    color: var(--color-01);
    font-weight: var(--font-medium);
-   margin-top: 0;
+   /* margin-top: 0; */
 }
-.product-card .product-info i{
+.product-card .product-info .shop-icon{
    position: absolute;
    right: 0;
    bottom: 0;
    color: var(--primary-color);
-   font-size: 1.7rem;
+   font-size: 1.4rem;
    margin: 17px;
    transform: scale(0);
    transition: .3s;
 }
-.product-card:hover .product-info i{
+.product-card:hover .product-info .shop-icon{
    transform: scale(1);
 }
 .product-modal-backdrop{
