@@ -1,0 +1,124 @@
+/* =====================================================
+   Home Slider
+===================================================== */
+const imgs = ['assets/imgs/img1.png', 'assets/imgs/img2.png', 'assets/imgs/img3.png'];
+let imgIndex = 0;
+
+const swipeImg = () => {
+   const sliderImg = document.querySelector(".shoe-img img");
+   imgIndex = (imgIndex + 1) % imgs.length; 
+   sliderImg.src = imgs[imgIndex]; 
+
+}
+setInterval(swipeImg, 2000);
+
+
+/* =====================================================
+   Product modals, tabs and cards
+===================================================== */
+
+// Filter product cards according to product tabs.
+   document.addEventListener("DOMContentLoaded", () => {
+   const productTabs = document.querySelector(".products-tabs");
+   const productTabBtns = productTabs.querySelectorAll(".tab-btn");
+   const cardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
+
+   productTabBtns.forEach((tabBtn) =>{
+      tabBtn.addEventListener("click", () =>{
+         const filter = tabBtn.getAttribute("data-filter");
+
+         cardsWithModals.forEach((cardWithModal) => {
+            if(filter === "all" || cardWithModal.classList.contains(filter)){
+               cardWithModal.classList.remove("hidden");
+
+               setTimeout(() => {
+                  cardWithModal.style.opacity = "1";
+                  cardWithModal.style.transition = ".5s ease";
+               }, 1);
+            }
+            else {
+               cardWithModal.classList.add("hidden");
+
+               setTimeout(() => {
+                  cardWithModal.style.opacity = "0";
+                  cardWithModal.style.transition = ".5s ease";
+               }, 1);
+            }
+         });
+         // Add active class to the clicked tab button.
+         productTabBtns.forEach((tabBtn) => tabBtn.classList.remove("active"));
+         tabBtn.classList.add("active");
+      });
+   });
+});
+
+// Open/Close product modals.
+   const productCardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
+   productCardsWithModals.forEach((productCardWithModal) => {
+   const productCard = productCardWithModal.querySelector(".product-card");
+   const productBackdrop = productCardWithModal.querySelector(".product-modal-backdrop");
+   const modalCloseBtn = productCardWithModal.querySelector(".modal-close-btn");
+   const productModal = productCardWithModal.querySelector(".product-modal");
+
+   productCard.addEventListener("click", () => {
+      productBackdrop.style.display = "flex";
+
+      setTimeout(() => {
+         productBackdrop.classList.add("active");
+      }, 300);
+      
+      setTimeout(() => {
+         productModal.classList.add("active");
+      }, 300);
+   });
+
+   modalCloseBtn.addEventListener("click", () => {
+      setTimeout(() => {
+         productBackdrop.style.display = "none";
+      }, 500);
+      
+      setTimeout(() => {
+         productBackdrop.classList.remove("active");
+         productModal.classList.remove("active");
+      }, 100);
+   });
+});
+
+/* =====================================================
+   Shrink the height of the header on scroll
+===================================================== */
+window.addEventListener("scroll", () => {
+    const FabianHeader = document.querySelector(".earth-tenis-header");
+ 
+    FabianHeader.classList.toggle("shrink", window.scrollY > 0);
+ });
+
+
+/* =====================================================
+   Website dark/light theme
+===================================================== */
+
+// Change theme and save current theme on click the theme button.
+const themeBtn = document.querySelector(".theme-btn");
+
+themeBtn.addEventListener("click", () => {
+   // Change theme icon and theme on click theme button.
+   themeBtn.classList.toggle("active-sun-icon");
+   document.body.classList.toggle("light-theme");
+
+   // Save theme icon and them on click theme button.
+   const getCurrentIcon = () => themeBtn.classList.contains("active-sun-icon") ? "sun" : "moon";
+   const getCurrentTheme = () => document.body.classList.contains("light-theme") ? "light" : "dark";
+
+   localStorage.setItem("fabian-saved-icon", getCurrentIcon());
+   localStorage.setItem("fabian-saved-theme", getCurrentTheme());
+});
+
+// Get saved theme icon and theme on document loaded.
+const savedIcon = localStorage.getItem("fabian-saved-icon");
+const savedTheme = localStorage.getItem("fabian-saved-theme");
+
+document.addEventListener("DOMContentLoaded", () => {
+   themeBtn.classList[savedIcon === "sun" ? "add" : "remove"]("active-sun-icon");
+   document.body.classList[savedTheme === "light" ? "add" : "remove"]("light-theme");
+});
