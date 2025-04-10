@@ -98,7 +98,6 @@ setInterval(swipeImg, 4500);
 var swiper = new Swiper(".product-img-swiper", {
    slidesPerView: 1,
    spaceBetween: 30,
-   loop: true,
    pagination: {
       el: ".swiper-pagination",
       clickable: true,
@@ -119,20 +118,29 @@ var swiper = new Swiper(".product-img-swiper", {
          );
       },
    },
-   navigation: {
-     nextEl: ".swiper-button-next",
-     prevEl: ".swiper-button-prev",
-   },
  });
 
+//Product Size
+document.addEventListener("DOMContentLoaded", () => {
+const productSize = document.querySelector(".product-size");
+const productSizeBtns = productSize.querySelectorAll(".size-btn");
+
+productSizeBtns.forEach((sizeBtn) =>{
+   sizeBtn.addEventListener("click", () =>{
+      // Add active class to the clicked tab button.
+      productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
+      sizeBtn.classList.add("active");
+   });
+});
+});
 
 /* =====================================================
    Shrink the height of the header on scroll
 ===================================================== */
 window.addEventListener("scroll", () => {
-    const FabianHeader = document.querySelector(".earth-tenis-header");
+    const earthTenisHeader = document.querySelector(".earth-tenis-header");
  
-    FabianHeader.classList.toggle("shrink", window.scrollY > 0);
+    earthTenisHeader.classList.toggle("shrink", window.scrollY > 0);
  });
 
 
