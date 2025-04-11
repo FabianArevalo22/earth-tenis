@@ -15,7 +15,6 @@ const swipeImg = () => {
    slider.src = homeImages[imageIndex];
    slider.style.opacity = 1; 
    }, 500); 
-
 };
 
 setInterval(swipeImg, 4500);
@@ -92,9 +91,7 @@ setInterval(swipeImg, 4500);
    });
 });
 
-/* =====================================================
-   Product Swiper
-===================================================== */
+// Product Swiper
 var swiper = new Swiper(".product-img-swiper", {
    slidesPerView: 1,
    spaceBetween: 30,
@@ -120,19 +117,38 @@ var swiper = new Swiper(".product-img-swiper", {
    },
  });
 
-//Product Size
+//Product Modal Size
 document.addEventListener("DOMContentLoaded", () => {
 const productSize = document.querySelector(".product-size");
 const productSizeBtns = productSize.querySelectorAll(".size-btn");
 
 productSizeBtns.forEach((sizeBtn) =>{
    sizeBtn.addEventListener("click", () =>{
-      // Add active class to the clicked tab button.
       productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
       sizeBtn.classList.add("active");
    });
 });
 });
+
+//Product Modal Quantity button
+const decreaseBtn = document.querySelector(".decrease-btn");
+const increaseBtn = document.querySelector(".increase-btn");
+const quantityDisplay = document.querySelector(".quantity");
+
+let quantity = quantityDisplay.textContent;
+
+decreaseBtn.addEventListener("click", () => {
+   if(quantity > 1) {
+      quantity--;
+      quantityDisplay.textContent = quantity;
+   };
+});
+
+increaseBtn.addEventListener("click", () => {
+      quantity++;
+      quantityDisplay.textContent = quantity;
+});
+
 
 /* =====================================================
    Shrink the height of the header on scroll
