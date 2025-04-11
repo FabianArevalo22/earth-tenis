@@ -109,6 +109,10 @@
     .product-card .product-info .product-options .option {
       box-shadow: 0 2px 8px hsl(0, 0%, 1%, .10);
     }
+
+    .comment .comment-text p{
+      color: var(--dark-color);
+   }
  }
 
 /* =========================================
@@ -795,12 +799,57 @@ letter-spacing: -1px;
    background: var(--hover-color);
    border: 2px solid var(--hover-color);
 }
+
+
 .modal-content .product-comments{
    position: relative;
    width: 100%;
    display: flex;
    flex-direction: column;
    height: fit-content;
+}
+.modal-content .product-comments .comment{
+   position: relative;
+   width: fit-content;
+   margin: 20px 30px 20px 0px;
+   padding: 20px 30px 20px 30px;
+   border-radius: 10px;
+   background: rgba(0,0,0,0.1);
+   
+}
+.comment .comment-user{
+   position: relative;
+   top: 0;
+   left: 0;
    display: flex;
+   width: fit-content;
+   gap: 15px;
+   justify-content: center;
+   align-items: center;
+}
+.comment .comment-user-img{
+   width: 85px;
+   height: 85px;
+}
+.comment .comment-user-img img{
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border-radius: 50%;
+}
+.comment .comment-user-info{
+   display: flex;
+   height: 85px;
    flex-direction: column;
+   justify-content: space-between;
+}
+.comment .comment-user-info .comment-stars{
+   display: flex;
+   font-size: 1.2rem;
+   color: var(--color-01);
+   font-weight: var(--font-medium);
+   gap: 7px;
+}
+.comment .comment-text p{
+   margin-top: 10px;
 }

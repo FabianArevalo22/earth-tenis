@@ -24,11 +24,10 @@
                 </div>
                 <div class="header-btns">
                     <ul class="header-menu">
-                        <li class="menu-item"><a href="#">Home</a></li>
-                        <li class="menu-item"><a href="#">About Us</a></li>
-                        <li class="menu-item"><a href="#">Popular</a></li>
-                        <li class="menu-item"><a href="#">Products</a></li>
-                        <li class="menu-item"><a href="#">Contact</a></li>
+                        <li class="menu-item"><a href="#home">Início</a></li>
+                        <!-- <li class="menu-item"><a href="#">Popular</a></li> -->
+                        <li class="menu-item"><a href="#products">Produtos</a></li>
+                        <!-- <li class="menu-item"><a href="#">Contact</a></li> -->
                     </ul>
                     <div class="theme-btn">
                         <i class="ri-sun-fill sun-icon"></i>
@@ -59,7 +58,7 @@
 
                 <div class="shoe-container">
                     <div class="shoe-img">
-                        <img src="assets/imgs/Home Images/home-image-1.png" alt="">
+                        <img src="assets/imgs/home-imgs/home-image-1.png" alt="">
                     </div>
                     <div class="shoe-info">
                         <div class="text-content">
@@ -89,12 +88,12 @@
             <div class="earth-tenis-wrapper">
                 
                 <div class="section-title">
-                    <h3>Products</h3>
-                    <p>Tenis e Mais</p>
+                    <h3>Produtos</h3>
+                    <p>Qualidade e ótimo valor!</p>
                 </div>
 
                 <div class="products-tabs">
-                    <a class="tab-btn active" data-filter="all">All</a>
+                    <a class="tab-btn active" data-filter="all">Todos</a>
                     <a class="tab-btn" data-filter="nike">Nike</a>
                     <a class="tab-btn" data-filter="adidas">Adidas</a>
                     <a class="tab-btn" data-filter="new-balance">New Balance</a>
@@ -107,7 +106,7 @@
                         <div class="card-with-modal nike">
                             <div class="product-card">
                                 <div class="product-img">
-                                    <img src="assets/imgs/Home Images/home-image-1.png" alt="">
+                                    <img src="assets/imgs/products-imgs/product-img-1.png" alt="">
                                 </div>
                                 <div class="product-info">
                                     <span>Nike</span>
@@ -138,17 +137,17 @@
                                                 <div class="swiper-wrapper">
                                                     <div class="swiper-slide">
                                                         <div class="modal-img">
-                                                            <img src="assets/imgs/Home Images/home-image-1.png" alt="">
+                                                            <img src="assets/imgs/products-imgs/product-img-1.png" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <div class="modal-img">
-                                                            <img src="assets/imgs/Home Images/home-image-2.png" alt="">
+                                                            <img src="assets/imgs/products-imgs/product-img-2.png" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <div class="modal-img">
-                                                            <img src="assets/imgs/Home Images/home-image-3.png" alt="">
+                                                            <img src="assets/imgs/products-imgs/product-img-3.png" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -157,7 +156,7 @@
                                         </div>
                                         <div class="product-description">
                                             <h3>Nike SB x Air Jordan 4 Pine Green</h3>
-                                            <p>Unleash iconic style with the Air Jordan 4 SB Pine Green. These sneakers combine classic Jordan design with vibrant Pine Green accents for a standout look. Perfect for those who want to make a bold statement and stay on top of their game.</p>
+                                            <p>Liberte o estilo icônico com o Air Jordan 4 SB Pine Green. Estes tênis combinam o design clássico da Jordan com detalhes vibrantes em Verde Pinho para um visual marcante. Perfeito para quem quer fazer uma declaração ousada e ficar no topo do jogo.</p>
                                             <p><strong><s>R$ 1199,99</s></strong></p>
                                             <h4>R$ 999,99</h4>
                                             <p>BRA</p>
@@ -177,7 +176,7 @@
                                                     <button class="increase-btn">+</button>
                                                 </div>
                                                 <div class="add-to-cart-btn border-btn">
-                                                    Add to Cart! <i class="ri-shopping-cart-2-fill"></i>
+                                                    Adicionar ao carrinho <i class="ri-shopping-cart-2-fill"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -185,42 +184,74 @@
 
                                         <div class="product-comments">
 
-                                            <h3>Comentários <span>0</span></h3>
+                                            <h3 class="comments-display"></h3>
 
-                                            <div class="comment">
+                                            <div class="comment border-btn">
                                                 <div class="comment-user">
-                                                    <img src="assets/imgs/Home Images/home-image-1.png" alt="">
+                                                    <div class="comment-user-img">
+                                                        <img class="border-btn" src="assets/imgs/products-users/products-user-1.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment-user-info">
+                                                        <h4>Rafael M.</h4>
+                                                        <ul class="comment-stars">
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                        </ul>
+                                                        <p>18/04/2025</p>
+                                                    </div>
                                                 </div>
                                                 <div class="comment-text">
-                                                    <h4>Lucas</h4>
-                                                    <ul class="comment-stars">
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-half-line"></i>
-                                                    </ul>
-                                                    <p>Adorei esse tênis, muito confortável!</p>
+                                                    <p><strong>Simplesmente impecável!</strong> Já tinha outros AJ4, mas essa edição Pine Green tem um toque especial. O couro parece mais premium, e o contraste com os detalhes verdes ficou sensacional. Conforto nota 10 e ainda recebi no prazo certinho. Loja está de parabéns pelo cuidado na entrega!</p>
                                                 </div>
                                             </div>
 
-                                            <div class="comment">
+                                            <div class="comment border-btn">
                                                 <div class="comment-user">
-                                                    <img src="assets/imgs/Home Images/home-image-2.png" alt="">
+                                                    <div class="comment-user-img">
+                                                        <img class="border-btn" src="assets/imgs/products-users/products-user-2.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment-user-info">
+                                                        <h4>Juliana S.</h4>
+                                                        <ul class="comment-stars">
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-line"></i></li>
+                                                        </ul>
+                                                        <p>10/03/2025</p>
+                                                    </div>
                                                 </div>
                                                 <div class="comment-text">
-                                                    <h4>Maria</h4>
-                                                    <ul class="comment-stars">
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                    </ul>
-                                                    <p>Produto excelente, recomendo a todos!</p>
+                                                    <p><strong>Tênis lindo e super estiloso!</strong> A combinação de branco com verde deu um ar retrô que combina com tudo. Só achei que ele veste um pouco justo no início, então recomendo considerar meio número maior se você gosta de mais folga. No mais, qualidade Jordan como sempre!</p>
                                                 </div>
                                             </div>
-                                            
+
+                                            <div class="comment border-btn">
+                                                <div class="comment-user">
+                                                    <div class="comment-user-img">
+                                                        <img class="border-btn" src="assets/imgs/products-users/products-user-3.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment-user-info">
+                                                        <h4>Bruno T.</h4>
+                                                        <ul class="comment-stars">
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                            <li><i class="ri-star-fill"></i></li>
+                                                        </ul>
+                                                        <p>18/04/2025</p>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    <p><strong>O Pine Green virou meu favorito da coleção!</strong> Ele chama atenção sem ser chamativo demais. A palmilha é confortável, e o shape é clássico. Ideal pra quem curte aquele visual old school com um toque moderno. Loja entregou rápido e ainda veio bem embalado, com caixa impecável.</p>
+                                                </div>
+                                            </div> 
+
                                         </div>
 
 

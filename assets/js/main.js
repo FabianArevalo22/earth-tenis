@@ -1,7 +1,7 @@
 /* =====================================================
    Home Slider
 ===================================================== */
-const homeImages = ['assets/imgs/Home Images/home-image-1.png', 'assets/imgs/Home Images/home-image-2.png', 'assets/imgs/Home Images/home-image-3.png'];
+const homeImages = ['assets/imgs/home-imgs/home-image-1.png', 'assets/imgs/home-imgs/home-image-2.png', 'assets/imgs/home-imgs/home-image-3.png'];
 let imageIndex = 0;
 
 //Arrow Fuction to swipe the images.
@@ -149,6 +149,12 @@ increaseBtn.addEventListener("click", () => {
       quantityDisplay.textContent = quantity;
 });
 
+//Product Modal Comments
+const comments = document.querySelectorAll(".comment");
+const commentsDisplay = document.querySelector(".comments-display");
+commentsDisplay.textContent = `${comments.length} ${comments.length === 1 ? 'Comentário' : 'Comentários'}`;
+
+//Product Modal Stars
 
 /* =====================================================
    Shrink the height of the header on scroll
