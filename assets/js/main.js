@@ -18,78 +18,9 @@ const swipeImg = () => {
 
 setInterval(swipeImg, 4500);
 
-
 /* =====================================================
    Product modals, tabs and cards
 ===================================================== */
-
-// Filter product cards according to product tabs.
-   document.addEventListener("DOMContentLoaded", () => {
-   const productTabs = document.querySelector(".products-tabs");
-   const productTabBtns = productTabs.querySelectorAll(".tab-btn");
-   const cardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
-
-   productTabBtns.forEach((tabBtn) =>{
-      tabBtn.addEventListener("click", () => {
-         const filter = tabBtn.getAttribute("data-filter");
-
-         cardsWithModals.forEach((cardWithModal) => {
-            if(filter === "all" || cardWithModal.classList.contains(filter)){
-               cardWithModal.classList.remove("hidden");
-
-               setTimeout(() => {
-                  cardWithModal.style.opacity = "1";
-                  cardWithModal.style.transition = ".5s ease";
-               }, 1);
-            }
-            else {
-               cardWithModal.classList.add("hidden");
-
-               setTimeout(() => {
-                  cardWithModal.style.opacity = "0";
-                  cardWithModal.style.transition = ".5s ease";
-               }, 1);
-            }
-         });
-         // Add active class to the clicked tab button.
-         productTabBtns.forEach((tabBtn) => tabBtn.classList.remove("active"));
-         tabBtn.classList.add("active");
-      });
-   });
-});
-
-// Open/Close product modals.
-   const productCardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
-   productCardsWithModals.forEach((productCardWithModal) => {
-   const productCard = productCardWithModal.querySelector(".product-card");
-   const productBackdrop = productCardWithModal.querySelector(".product-modal-backdrop");
-   const modalCloseBtn = productCardWithModal.querySelector(".modal-close-btn");
-   const productModal = productCardWithModal.querySelector(".product-modal");
-
-   productCard.addEventListener("click", () => {
-      productBackdrop.style.display = "flex";
-
-      setTimeout(() => {
-         productBackdrop.classList.add("active");
-      }, 300);
-      
-      setTimeout(() => {
-         productModal.classList.add("active");
-      }, 300);
-   });
-
-   modalCloseBtn.addEventListener("click", () => {
-      setTimeout(() => {
-         productBackdrop.style.display = "none";
-      }, 500);
-      
-      setTimeout(() => {
-         productBackdrop.classList.remove("active");
-         productModal.classList.remove("active");
-      }, 100);
-   });
-});
-
 
 //Product Image Swiper
 var swiper = new Swiper(".product-img-swiper", {
@@ -106,9 +37,39 @@ var swiper = new Swiper(".product-img-swiper", {
    },
  });
 
-//Product Card Configurations
+//Filter product cards according to product tabs.
 document.addEventListener("DOMContentLoaded", () => {
-   const products = document.querySelectorAll(".card-with-modal");
+   const productTabs = document.querySelector(".products-tabs");
+   const productTabBtns = productTabs.querySelectorAll(".tab-btn");
+   const cardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
+
+   productTabBtns.forEach((tabBtn) =>{
+      tabBtn.addEventListener("click", () => {
+         const filter = tabBtn.getAttribute("data-filter");
+         cardsWithModals.forEach((cardWithModal) => {
+            if(filter === "all" || cardWithModal.classList.contains(filter)){
+               cardWithModal.classList.remove("hidden");
+               setTimeout(() => {
+                  cardWithModal.style.opacity = "1";
+                  cardWithModal.style.transition = ".5s ease";
+               }, 1);
+            }
+            else {
+               cardWithModal.classList.add("hidden");
+               setTimeout(() => {
+                  cardWithModal.style.opacity = "0";
+                  cardWithModal.style.transition = ".5s ease";
+               }, 1);
+            };
+         });
+         // Add active class to the clicked tab button.
+         productTabBtns.forEach((tabBtn) => tabBtn.classList.remove("active"));
+         tabBtn.classList.add("active");
+      });
+   });
+
+   //Product Card Configurations
+   const products = document.querySelectorAll(".products-container .card-with-modal");
    products.forEach(product => {
 
       //Comments Counter of the products
@@ -147,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             quantityDisplay.textContent = quantity;
       });
 
-      //Size button add active class
+      //Add active class to size buttom
       const productSize = product.querySelector(".product-size");
       const productSizeBtns = productSize.querySelectorAll(".size-btn");
       productSizeBtns.forEach((sizeBtn) =>{
@@ -155,7 +116,58 @@ document.addEventListener("DOMContentLoaded", () => {
             productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
             sizeBtn.classList.add("active");
          });
-      }); 
+      });
+      
+      //Open / Close product modals.
+      const productCard = product.querySelector(".product-card");
+      const productBackdrop = product.querySelector(".product-modal-backdrop");
+      const modalCloseBtn = product.querySelector(".modal-close-btn");
+      const productModal = product.querySelector(".product-modal");
+      productCard.addEventListener("click", () => {
+         productBackdrop.style.display = "flex";
+         setTimeout(() => {
+            productBackdrop.classList.add("active");
+         }, 300);
+         setTimeout(() => {
+            productModal.classList.add("active");
+         }, 300);
+      });
+      modalCloseBtn.addEventListener("click", () => {
+         setTimeout(() => {
+            productBackdrop.style.display = "none";
+         }, 500);
+         setTimeout(() => {
+            productBackdrop.classList.remove("active");
+            productModal.classList.remove("active");
+         }, 100);
+      });
+
+      //Gets Stars of comments and create the average in the card info.
+      const commentElements = product.querySelectorAll(".product-comments .comment");
+      let totalRating = 0;
+
+      commentElements.forEach(comment => {
+         const starIcons = comment.querySelectorAll(".comment-stars li i");
+         let ratingForComment = 0;
+         starIcons.forEach(star => {
+            if (star.classList.contains("ri-star-fill")) ratingForComment += 1;
+            else if (star.classList.contains("ri-star-half-line")) ratingForComment += 0.5;
+         });
+         totalRating += ratingForComment;
+         });
+
+      let averageRating = totalRating / commentElements.length;
+      averageRating = Math.round(averageRating * 2) / 2;
+      
+      const productStarsContainer = product.querySelector(".product-stars.info");
+      productStarsContainer.innerHTML = "";   
+      for (let i = 1; i <= 5; i++) {
+         const starIcon = document.createElement("i");
+         if (averageRating >= i) starIcon.className = "ri-star-fill";
+         else if (averageRating >= i - 0.5) starIcon.className = "ri-star-half-line";
+         else starIcon.className = "ri-star-line";
+         productStarsContainer.appendChild(starIcon);
+      };
    });
 });
 
