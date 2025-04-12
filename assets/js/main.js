@@ -3,7 +3,6 @@
 ===================================================== */
 const homeImages = ['assets/imgs/home-imgs/home-image-1.png', 'assets/imgs/home-imgs/home-image-2.png', 'assets/imgs/home-imgs/home-image-3.png'];
 let imageIndex = 0;
-
 //Arrow Fuction to swipe the images.
 const swipeImg = () => {
 
@@ -31,7 +30,7 @@ setInterval(swipeImg, 4500);
    const cardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
 
    productTabBtns.forEach((tabBtn) =>{
-      tabBtn.addEventListener("click", () =>{
+      tabBtn.addEventListener("click", () => {
          const filter = tabBtn.getAttribute("data-filter");
 
          cardsWithModals.forEach((cardWithModal) => {
@@ -91,7 +90,8 @@ setInterval(swipeImg, 4500);
    });
 });
 
-// Product Swiper
+
+//Product Image Swiper
 var swiper = new Swiper(".product-img-swiper", {
    slidesPerView: 1,
    spaceBetween: 30,
@@ -99,62 +99,82 @@ var swiper = new Swiper(".product-img-swiper", {
       el: ".swiper-pagination",
       clickable: true,
       renderBullet: function (index, className) {
-         // Select the atual slide with the Index.
          var slide = document.querySelectorAll('.swiper-slide')[index];
-         // Select the image under slide.
          var imgSrc = slide.querySelector('img').src;
-         // Return a HTML with the found image
-         return (
-           '<span class="' +
-           className +
-           '"><img src="' +
-           imgSrc +
-           '" alt="Slide ' +
-           (index + 1) +
-           '" /></span>'
-         );
+         return ('<span class="' + className + '"><img src="' + imgSrc + '" alt="Slide ' + (index + 1) + '" /></span>');
       },
    },
  });
 
-//Product Modal Size
+//Product Card Configurations
 document.addEventListener("DOMContentLoaded", () => {
-const productSize = document.querySelector(".product-size");
-const productSizeBtns = productSize.querySelectorAll(".size-btn");
+   const products = document.querySelectorAll(".card-with-modal");
+   products.forEach(product => {
 
-productSizeBtns.forEach((sizeBtn) =>{
-   sizeBtn.addEventListener("click", () =>{
-      productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
-      sizeBtn.classList.add("active");
+      //Comments Counter of the products
+      const comments = product.querySelectorAll(".comment");
+      const commentsDisplay = product.querySelector(".comments-display");
+      commentsDisplay.textContent = `${comments.length} ${comments.length === 1 ? 'Comentário' : 'Comentários'}`;
+
+      //Add Buttons Sizes according the info of the product
+      const sizesText = product.querySelector('.product-options.info .option.info p span').textContent;
+      const sizesCount = parseInt(sizesText, 10);
+      const initialSize = 36;
+      const productSizeContainer = product.querySelector('.product-size');
+      productSizeContainer.innerHTML = '';
+         
+         for (let i = 0; i < sizesCount; i++) {
+            const sizeValue = initialSize + i;
+            const sizeBtn = document.createElement('a');
+            sizeBtn.classList.add('size-btn'); 
+            sizeBtn.textContent = sizeValue;
+            productSizeContainer.appendChild(sizeBtn);
+         };
+
+      //Quantity Button of the product
+      const decreaseBtn = product.querySelector(".decrease-btn");
+      const increaseBtn = product.querySelector(".increase-btn");
+      const quantityDisplay = product.querySelector(".quantity");
+      let quantity = quantityDisplay.textContent;
+      decreaseBtn.addEventListener("click", () => {
+         if(quantity > 1) {
+            quantity--;
+            quantityDisplay.textContent = quantity;
+         };
+      });
+      increaseBtn.addEventListener("click", () => {
+            quantity++;
+            quantityDisplay.textContent = quantity;
+      });
+
+      //Size button add active class
+      const productSize = product.querySelector(".product-size");
+      const productSizeBtns = productSize.querySelectorAll(".size-btn");
+      productSizeBtns.forEach((sizeBtn) =>{
+         sizeBtn.addEventListener("click", () =>{
+            productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
+            sizeBtn.classList.add("active");
+         });
+      }); 
    });
 });
-});
 
-//Product Modal Quantity button
-const decreaseBtn = document.querySelector(".decrease-btn");
-const increaseBtn = document.querySelector(".increase-btn");
-const quantityDisplay = document.querySelector(".quantity");
 
-let quantity = quantityDisplay.textContent;
 
-decreaseBtn.addEventListener("click", () => {
-   if(quantity > 1) {
-      quantity--;
-      quantityDisplay.textContent = quantity;
-   };
-});
 
-increaseBtn.addEventListener("click", () => {
-      quantity++;
-      quantityDisplay.textContent = quantity;
-});
 
-//Product Modal Comments
-const comments = document.querySelectorAll(".comment");
-const commentsDisplay = document.querySelector(".comments-display");
-commentsDisplay.textContent = `${comments.length} ${comments.length === 1 ? 'Comentário' : 'Comentários'}`;
 
-//Product Modal Stars
+
+
+
+
+
+
+
+
+
+
+
 
 /* =====================================================
    Shrink the height of the header on scroll
