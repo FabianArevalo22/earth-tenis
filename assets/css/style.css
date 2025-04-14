@@ -835,6 +835,7 @@ letter-spacing: -1px;
    height: 100%;
    object-fit: contain;
    border-radius: 50%;
+   border: 2px solid var(--color-01);
 }
 .comment .comment-user-info{
    display: flex;

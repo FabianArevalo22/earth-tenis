@@ -91,7 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
             sizeBtn.textContent = sizeValue;
             productSizeContainer.appendChild(sizeBtn);
          };
-
+         
+      //Add Price according the info of the product
+      const priceText = product.querySelector('.product-info .normal-price.info').textContent;  
+      const priceDescountText = product.querySelector('.product-info .price-with-descount.info').textContent;
+      const priceDisplay = product.querySelector('.product-description .price-display');
+      const priceDescountDisplay = product.querySelector('.product-description .price-descount-display');
+      priceDisplay.textContent = priceText;
+      priceDescountDisplay.textContent = priceDescountText;   
+      
       //Quantity Button of the product
       const decreaseBtn = product.querySelector(".decrease-btn");
       const increaseBtn = product.querySelector(".increase-btn");
