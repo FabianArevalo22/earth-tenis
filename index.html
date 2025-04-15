@@ -34,7 +34,7 @@
                         <i class="ri-moon-fill moon-icon"></i>
                     </div>
                     <div class="shop-btn">
-                        <i class="ri-shopping-cart-2-fill"></i>
+                        <i class="ri-shopping-cart-2-fill"><div class="alert"></div></i>
                     </div>
                 </div>                
             </div>
@@ -121,6 +121,18 @@
                                 </div>
                             </div>
                             <div class="product-modal-backdrop">
+
+                                <div class="product-alert">
+                                    <div class="alert-content">
+                                      <i class="ri-checkbox-circle-fill check"></i>
+                                      <div class="alert-message">
+                                        <span class="text-1">Adicionado!</span>
+                                        <span class="text-2">Item adicionado ao carrinho com sucesso!</span>
+                                      </div>
+                                    </div>
+                                    <div class="progress"></div>
+                                </div>
+
                                 <div class="product-modal">
                                     <a class="modal-close-btn"><i class="ri-close-line"></i></a>
                                     <div class="modal-content">
@@ -200,25 +212,20 @@
 
     <!--========== Shop ==========-->
     <div class="shop-backdrop">
-
         <div class="shop">
             <a class="shop-close-btn"><i class="ri-close-line"></i></a>
             <h3>Carrinho</h3>
-            <div class="shop-item">
-                <a class="remove-item"><i class="ri-delete-bin-fill"></i></a>
-                <div class="item-img"><img src="assets/imgs/products-imgs/product-img-1.png" alt=""></div>
-                <div class="item-info">
-                    <h5>Nike SB x Air Jordan 4 Pine Green</h5>
-                    <p>Quantidade: <span>1</span><p>
-                    <p>Tamanho: <span>39</span><p>
-                    <p>Preço: <span>R$999,99</span><p>
+            <div class="shop-message"><i class="ri-shopping-bag-fill"></i><h4>Seu carrinho está vazio!</h4><p>Adicione itens para começar a comprar.</p></div>
+            <div class="shop-resume">
+                <div class="resume-info">
+                    <h4>Total:</h4>
+                    <h3>R$0,00</h3>
+                </div>
+                <div class="shop-buy-btn fill-btn">
+                <a href="#">Comprar!</a>
                 </div>
             </div>
-            <!-- <div class="shop-buy-btn fill-btn">
-                <a href="#">Comprar!</a>
-            </div> -->
         </div>
-        
     </div>
     
     

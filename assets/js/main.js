@@ -33,8 +33,10 @@ shopBtn.addEventListener("click", () => {
    }, 300);
    setTimeout(() => {
       shop.classList.add("active");
+      updateShopMessage();
    }, 300);
 });
+
 shopCloseBtn.addEventListener("click", () => {
    setTimeout(() => {
       shopBackdrop.style.display = "none";
@@ -44,6 +46,36 @@ shopCloseBtn.addEventListener("click", () => {
       shop.classList.remove("active");
    }, 100);
 });
+
+function updateShopMessage() {
+   const shopItems = document.querySelectorAll(".shop-item"); 
+   const shopMessage = document.querySelector(".shop-message"); 
+   shopMessage.classList.toggle("active", shopItems.length === 0);
+   shopBtn.classList.toggle("active", shopItems.length > 0);
+   const alert = shopBtn.querySelector(".alert");
+   alert.classList.toggle("active", shopItems.length > 0);
+};
+
+function updateCartTotal() {
+   const shopItems = document.querySelectorAll(".shop-item");
+   let total = 0;
+   shopItems.forEach(item => {
+       const priceText = item.querySelector(".item-info p:nth-of-type(3) span").textContent; // Captura o preço do item
+       const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); // Converte para número
+       const quantity = parseInt(item.querySelector(".item-info p:nth-of-type(1) span").textContent, 10) || 1; // Captura a quantidade
+       total += price * quantity; // Soma o total
+   });
+
+   const resumeInfo = document.querySelector(".resume-info h3");
+   resumeInfo.style.transition = "opacity 0.5s ease, transform 0.5s ease"; // Adiciona transição
+   resumeInfo.style.opacity = "0";
+   resumeInfo.style.transform = "translateY(-10px)";
+   setTimeout(() => {
+       resumeInfo.textContent = `R$ ${total.toFixed(2)}`; // Atualiza o total no carrinho
+       resumeInfo.style.opacity = "1";
+       resumeInfo.style.transform = "translateY(0)";
+   }, 500);
+};
 
 /* =====================================================
    Product modals, tabs and cards
@@ -89,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
                }, 1);
             };
          });
-         // Add active class to the clicked tab button.
          productTabBtns.forEach((tabBtn) => tabBtn.classList.remove("active"));
          tabBtn.classList.add("active");
       });
@@ -202,18 +233,90 @@ document.addEventListener("DOMContentLoaded", () => {
          productStarsContainer.appendChild(starIcon);
       };
 
+      //Add Product to Shop Cart
       const addToCartBtn = product.querySelector(".add-to-cart-btn.border-btn");
       addToCartBtn.addEventListener("click", () => {
+
+         const alert = product.querySelector(".product-alert");
+         const progress = product.querySelector(".check");
+         let timer1, timer2;
          
+         alert.classList.add("active");
+         progress.classList.add("active");
+
+         timer1 = setTimeout(() => {
+           alert.classList.remove("active");
+         }, 5000);
+         timer2 = setTimeout(() => {
+           progress.classList.remove("active");
+         }, 5300);
+
+         const productImage = product.querySelector(".product-img img").src;
+         const productName = product.querySelector(".product-description h3").textContent;
+         const productPrice = product.querySelector(".price-with-descount.info").textContent;
+         const productSize = product.querySelector(".product-size .active") ? product.querySelector(".product-size .active").textContent : "N/A";
+         const productQuantity = product.querySelector(".quantity") ? product.querySelector(".quantity").textContent : "1";
+
+         const shop = document.querySelector(".shop");
+         const shopItem = document.createElement("div");
+         shopItem.classList.add("shop-item");
+         shopItem.innerHTML = `
+         <a class="remove-item"><i class="ri-delete-bin-fill"></i></a>
+         <div class="item-img"><img src="${productImage}" alt=""></div>
+         <div class="item-info">
+            <h5>${productName}</h5>
+            <p>Quantidade: <span>${productQuantity}</span></p>
+            <p>Tamanho: ${productSize}</p>
+            <p>Preço: <span>${productPrice}</span></p>
+         </div>
+         `;
+         shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
+         updateShopMessage();
+         updateCartTotal();
+
+         const removeBtn = shopItem.querySelector(".remove-item");
+         removeBtn.addEventListener("click", () => {
+            shopItem.style.position = "relative";
+            shopItem.style.transition = "all 0.5s ease";
+            shopItem.style.opacity = "0";
+            shopItem.style.transform = "translateX(-20px)";
+            setTimeout(() => {
+               shopItem.remove();
+               updateShopMessage();
+               updateCartTotal();
+            }, 500);
+         });
       });
    });
 });
 
+/* =====================================================
+   Another Features
+===================================================== */
 
 
 
 
 
+// const button = document.querySelector("button"),
+//   toast = document.querySelector(".toast");
+// (closeIcon = document.querySelector(".close")),
+//   (progress = document.querySelector(".progress"));
+
+// let timer1, timer2;
+
+// button.addEventListener("click", () => {
+//   toast.classList.add("active");
+//   progress.classList.add("active");
+
+//   timer1 = setTimeout(() => {
+//     toast.classList.remove("active");
+//   }, 5000); //1s = 1000 milliseconds
+
+//   timer2 = setTimeout(() => {
+//     progress.classList.remove("active");
+//   }, 5300);
+// });
 
 
 

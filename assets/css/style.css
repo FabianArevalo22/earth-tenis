@@ -347,6 +347,50 @@ letter-spacing: -1px;
    width: 27px;
    cursor: pointer;
 }
+.shop-btn .alert{
+   position: absolute;
+   top: 0;
+   right: -2px;
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background: var(--primary-color);
+   box-shadow: 0 2px 8px hsl(0, 0%, 1%, .15);
+   opacity: 0;
+}
+.shop-btn.active{
+   animation: wiggle 2s linear infinite;
+   
+}
+.alert.active{
+   opacity: 1;  
+}
+@keyframes wiggle {
+   0%,
+   5%{
+      transform: rotateZ(0);
+   }
+   15%{
+      transform: rotateZ(15deg);
+   }
+   20%{
+      transform: rotateZ(10deg);
+   }
+   25%{
+      transform: rotateZ(-10deg);
+   }
+   30%{
+      transform: rotateZ(6deg);
+   }
+   35%{
+      transform: rotateZ(-4deg);
+   }
+   40%,
+   100%{
+      transform: rotateZ(0);
+   }
+
+}
 .shop-btn i{
    position: absolute;
    color: var(--color-01);
@@ -799,8 +843,73 @@ letter-spacing: -1px;
    background: var(--hover-color);
    border: 2px solid var(--hover-color);
 }
-
-
+.product-alert{
+   position: absolute;
+   top: 25px;
+   right: 30px;
+   border-radius: 12px;
+   background: var(--card-bg);
+   padding: 20px 35px 20px 25px;
+   box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+   overflow: hidden;
+   transform: translateX(calc(100% + 30px));
+   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+.product-alert.active{
+   transform: translateX(0%);
+}
+.product-alert .alert-content{
+   display: flex;
+   align-items: center;
+}
+.alert-content .check{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 35px;
+   min-width: 35px;
+   color: var(--primary-color);
+   font-size: 2.3rem;
+}
+.product-alert .alert-message {
+   display: flex;
+   flex-direction: column;
+   margin: 0 20px;
+}
+.alert-message .text-1{
+   color: var(--color-01);
+   font-size: var(--medium-font-size);
+   font-weight: var(--font-semi-bold);
+}
+.alert-message .text-2{
+   color: var(--color-04);
+   font-size: var(--tiny-font-size);
+   font-weight: var(--font-regular);
+}
+.product-alert .progress{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   height: 3px;
+   width: 100%;
+}
+.product-alert .progress:before {
+   content: "";
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   height: 100%;
+   width: 100%;
+   background-color: var(--primary-color);
+}
+.progress.active:before {
+   animation: progress 5s linear forwards;
+}
+@keyframes progress {
+   100% {
+     right: 100%;
+   }
+}
 .modal-content .product-comments{
    position: relative;
    width: 100%;
@@ -887,11 +996,14 @@ letter-spacing: -1px;
    display: flex;
    flex-direction: column;
    background: var(--color-03);
-   padding: 10px 40px;
+   padding: 10px 40px 20px 40px;
    border-radius: 10px;
    row-gap: 20px;
    opacity: 0;
    overflow-y: auto;
+}
+.shop::-webkit-scrollbar{
+   width: 5px;
 }
 .shop.active{
    opacity: 1;
@@ -915,6 +1027,7 @@ letter-spacing: -1px;
    background: var(--card-bg);
    border-radius: 10px;
    padding: 15px;
+   transition: .3 ease;
 }
 .shop .shop-item .item-info{
    display: flex;
@@ -951,16 +1064,6 @@ letter-spacing: -1px;
    justify-content: center;
    align-items: center;
 }
-.shop .shop-close-btn{
-   position: absolute;
-   color: var(--color-01);
-   font-size: 1.35rem;
-   top: 0;
-   right: 0;
-   margin: 15px;
-   cursor: pointer;
-   transition: .3s;
-}
 .shop .shop-item .remove-item{
    position: absolute;
    color: var(--color-01);
@@ -972,16 +1075,60 @@ letter-spacing: -1px;
    transition: .3s;
    transform: scale(0);
 }
+.shop .shop-resume{
+   position: relative;
+   margin-top: auto;
+   bottom: 0;
+   display: flex;
+   width: 100%;
+   justify-content: space-between;
+   align-items: end;
+}
+.shop .shop-message{
+   position: absolute;
+   width: 350px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   opacity: 0;
+}
+.shop .shop-message.active{
+   opacity: 1;
+   transition: opacity .5s;
+}
+.shop .shop-message i{
+   color: var(--color-01);
+   font-size: 2.8rem;
+}
+.shop .shop-message h4{
+   color: var(--color-01);
+   font-size: var(--h4-font-size);
+   font-weight: var(--font-bold);
+}
+.shop .shop-close-btn{
+   position: absolute;
+   color: var(--color-01);
+   font-size: 1.35rem;
+   top: 0;
+   right: 0;
+   margin: 15px;
+   cursor: pointer;
+   transition: .3s;
+}
 .shop .shop-item:hover .remove-item{
    color: var(--hover-color);
    transform: scale(1);
 }
-/* .shop-buy-btn{
+.shop-buy-btn{
    position: relative;
    bottom: 0;
    left: 0;
    width: fit-content;
-   padding: 15px 30px;
+   padding: 10px 30px;
    border-radius: 10px;
    cursor: pointer;
    transition: .3s;
@@ -998,4 +1145,4 @@ letter-spacing: -1px;
 }
 .shop-buy-btn:hover a{
    color: var(--dark-color);
-} */
+}
