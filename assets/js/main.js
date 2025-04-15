@@ -30,24 +30,20 @@ shopBtn.addEventListener("click", () => {
    shopBackdrop.style.display = "flex";
    setTimeout(() => {
       shopBackdrop.classList.add("active");
-   }, 300);
-   setTimeout(() => {
       shop.classList.add("active");
       updateShopMessage();
-   }, 300);
-});
-
-shopCloseBtn.addEventListener("click", () => {
-   setTimeout(() => {
-      shopBackdrop.style.display = "none";
-   }, 500);
-   setTimeout(() => {
-      shopBackdrop.classList.remove("active");
-      shop.classList.remove("active");
    }, 100);
 });
 
-function updateShopMessage() {
+shopCloseBtn.addEventListener("click", () => {
+   shopBackdrop.classList.remove("active");
+   shop.classList.remove("active");
+   setTimeout(() => {
+      shopBackdrop.style.display = "none";      
+   }, 100);
+});
+
+const updateShopMessage = () => {
    const shopItems = document.querySelectorAll(".shop-item"); 
    const shopMessage = document.querySelector(".shop-message"); 
    shopMessage.classList.toggle("active", shopItems.length === 0);
@@ -56,22 +52,22 @@ function updateShopMessage() {
    alert.classList.toggle("active", shopItems.length > 0);
 };
 
-function updateCartTotal() {
+const updateCartTotal = () => {
    const shopItems = document.querySelectorAll(".shop-item");
    let total = 0;
    shopItems.forEach(item => {
-       const priceText = item.querySelector(".item-info p:nth-of-type(3) span").textContent; // Captura o preço do item
-       const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); // Converte para número
-       const quantity = parseInt(item.querySelector(".item-info p:nth-of-type(1) span").textContent, 10) || 1; // Captura a quantidade
-       total += price * quantity; // Soma o total
+       const priceText = item.querySelector(".item-info p:nth-of-type(3) span").textContent; 
+       const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); 
+       const quantity = parseInt(item.querySelector(".item-info p:nth-of-type(1) span").textContent, 10) || 1; 
+       total += price * quantity;
    });
 
    const resumeInfo = document.querySelector(".resume-info h3");
-   resumeInfo.style.transition = "opacity 0.5s ease, transform 0.5s ease"; // Adiciona transição
+   resumeInfo.style.transition = "opacity 0.5s ease, transform 0.5s ease"; 
    resumeInfo.style.opacity = "0";
    resumeInfo.style.transform = "translateY(-10px)";
    setTimeout(() => {
-       resumeInfo.textContent = `R$ ${total.toFixed(2)}`; // Atualiza o total no carrinho
+       resumeInfo.textContent = `R$ ${total.toFixed(2)}`;
        resumeInfo.style.opacity = "1";
        resumeInfo.style.transform = "translateY(0)";
    }, 500);
@@ -153,8 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
       //Add Price according the info of the product
       const priceText = product.querySelector('.product-info .normal-price.info').textContent;  
       const priceDescountText = product.querySelector('.product-info .price-with-descount.info').textContent;
-      const priceDisplay = product.querySelector('.product-description .price-display').textContent = priceText;
-      const priceDescountDisplay = product.querySelector('.product-description .price-descount-display').textContent = priceDescountText; 
+      product.querySelector('.product-description .price-display').textContent = priceText;
+      product.querySelector('.product-description .price-descount-display').textContent = priceDescountText; 
       
       //Quantity Button of the product
       const decreaseBtn = product.querySelector(".decrease-btn");
@@ -191,19 +187,17 @@ document.addEventListener("DOMContentLoaded", () => {
          productBackdrop.style.display = "flex";
          setTimeout(() => {
             productBackdrop.classList.add("active");
-         }, 300);
-         setTimeout(() => {
             productModal.classList.add("active");
          }, 300);
       });
       modalCloseBtn.addEventListener("click", () => {
          setTimeout(() => {
-            productBackdrop.style.display = "none";
-         }, 500);
-         setTimeout(() => {
             productBackdrop.classList.remove("active");
             productModal.classList.remove("active");
          }, 100);
+         setTimeout(() => {
+            productBackdrop.style.display = "none";
+         }, 200);
       });
 
       //Gets Stars of comments and create the average in the card info.
@@ -238,19 +232,25 @@ document.addEventListener("DOMContentLoaded", () => {
       addToCartBtn.addEventListener("click", () => {
 
          const alert = product.querySelector(".product-alert");
-         const progress = product.querySelector(".check");
-         let timer1, timer2;
-         
-         alert.classList.add("active");
-         progress.classList.add("active");
+         const progress = product.querySelector(".progress");
+         alert.style.display = "flex";
+         addToCartBtn.style.pointerEvents = "none";
+          
+         setTimeout(() => {
+            alert.classList.add("active");
+            progress.classList.add("active");
+          }, 100);
 
-         timer1 = setTimeout(() => {
-           alert.classList.remove("active");
-         }, 5000);
-         timer2 = setTimeout(() => {
-           progress.classList.remove("active");
-         }, 5300);
+         setTimeout(() => {
+            alert.classList.remove("active");
+          }, 2500);
 
+         setTimeout(() => {
+            progress.classList.remove("active");
+            alert.style.display = "none";
+            addToCartBtn.style.pointerEvents = "auto";
+          }, 2650);
+        
          const productImage = product.querySelector(".product-img img").src;
          const productName = product.querySelector(".product-description h3").textContent;
          const productPrice = product.querySelector(".price-with-descount.info").textContent;
@@ -289,34 +289,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
    });
 });
-
 /* =====================================================
    Another Features
 ===================================================== */
 
 
-
-
-
-// const button = document.querySelector("button"),
-//   toast = document.querySelector(".toast");
-// (closeIcon = document.querySelector(".close")),
-//   (progress = document.querySelector(".progress"));
-
-// let timer1, timer2;
-
-// button.addEventListener("click", () => {
-//   toast.classList.add("active");
-//   progress.classList.add("active");
-
-//   timer1 = setTimeout(() => {
-//     toast.classList.remove("active");
-//   }, 5000); //1s = 1000 milliseconds
-
-//   timer2 = setTimeout(() => {
-//     progress.classList.remove("active");
-//   }, 5300);
-// });
 
 
 
@@ -334,10 +311,8 @@ document.addEventListener("DOMContentLoaded", () => {
 ===================================================== */
 window.addEventListener("scroll", () => {
     const earthTenisHeader = document.querySelector(".earth-tenis-header");
- 
     earthTenisHeader.classList.toggle("shrink", window.scrollY > 0);
  });
-
 
 /* =====================================================
    Website dark/light theme
