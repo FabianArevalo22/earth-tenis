@@ -19,6 +19,33 @@ const swipeImg = () => {
 setInterval(swipeImg, 4500);
 
 /* =====================================================
+   Shop
+===================================================== */
+const shopBtn = document.querySelector(".shop-btn");
+const shopBackdrop = document.querySelector(".shop-backdrop");
+const shop = document.querySelector(".shop");
+const shopCloseBtn = document.querySelector(".shop-close-btn");
+
+shopBtn.addEventListener("click", () => {
+   shopBackdrop.style.display = "flex";
+   setTimeout(() => {
+      shopBackdrop.classList.add("active");
+   }, 300);
+   setTimeout(() => {
+      shop.classList.add("active");
+   }, 300);
+});
+shopCloseBtn.addEventListener("click", () => {
+   setTimeout(() => {
+      shopBackdrop.style.display = "none";
+   }, 500);
+   setTimeout(() => {
+      shopBackdrop.classList.remove("active");
+      shop.classList.remove("active");
+   }, 100);
+});
+
+/* =====================================================
    Product modals, tabs and cards
 ===================================================== */
 
@@ -95,10 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
       //Add Price according the info of the product
       const priceText = product.querySelector('.product-info .normal-price.info').textContent;  
       const priceDescountText = product.querySelector('.product-info .price-with-descount.info').textContent;
-      const priceDisplay = product.querySelector('.product-description .price-display');
-      const priceDescountDisplay = product.querySelector('.product-description .price-descount-display');
-      priceDisplay.textContent = priceText;
-      priceDescountDisplay.textContent = priceDescountText;   
+      const priceDisplay = product.querySelector('.product-description .price-display').textContent = priceText;
+      const priceDescountDisplay = product.querySelector('.product-description .price-descount-display').textContent = priceDescountText; 
       
       //Quantity Button of the product
       const decreaseBtn = product.querySelector(".decrease-btn");
@@ -126,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
          });
       });
       
-      //Open / Close product modals.
+      //Open/Close product modals.
       const productCard = product.querySelector(".product-card");
       const productBackdrop = product.querySelector(".product-modal-backdrop");
       const modalCloseBtn = product.querySelector(".modal-close-btn");
@@ -176,6 +201,11 @@ document.addEventListener("DOMContentLoaded", () => {
          else starIcon.className = "ri-star-line";
          productStarsContainer.appendChild(starIcon);
       };
+
+      const addToCartBtn = product.querySelector(".add-to-cart-btn.border-btn");
+      addToCartBtn.addEventListener("click", () => {
+         
+      });
    });
 });
 
