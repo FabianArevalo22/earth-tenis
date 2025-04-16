@@ -852,7 +852,6 @@ letter-spacing: -1px;
    padding: 20px 35px 20px 25px;
    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.3);
    overflow: hidden;
-   opacity: 0;
    z-index: var(--z-max);
    transform: translateX(30px);
    display: none;
@@ -993,6 +992,62 @@ letter-spacing: -1px;
 .shop-backdrop.active{
    opacity: 1;
    transition: opacity .5s ease;
+}
+.shop-alert{
+   position: absolute;
+   top: 25px;
+   border-radius: 12px;
+   background: var(--color-03);
+   padding: 20px 35px 20px 25px;
+   box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.3);
+   overflow: hidden;
+   z-index: var(--z-max);
+   transform: translateY(-30px);
+   display: none;
+   opacity: 0;
+   transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.shop-alert.active{
+   display: flex;
+   transform: translateY(0px);
+   opacity: 1;
+}
+.shop-alert .alert-content{
+   display: flex;
+   align-items: center;
+}
+.shop-alert .alert-content .error{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 35px;
+   min-width: 35px;
+   color: var(--primary-color);
+   font-size: 2.3rem;
+}
+.shop-alert .alert-message{
+   display: flex;
+   flex-direction: column;
+   margin: 0 20px;
+}
+.shop-alert .progress{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   height: 3px;
+   width: 100%;
+}
+.shop-alert .progress:before {
+   content: "";
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   height: 100%;
+   width: 100%;
+   background-color: var(--primary-color);
+}
+.progress.active:before {
+   animation: progress 2.5s linear forwards;
 }
 .shop{
    position: fixed;

@@ -25,6 +25,7 @@ const shopBtn = document.querySelector(".shop-btn");
 const shopBackdrop = document.querySelector(".shop-backdrop");
 const shop = document.querySelector(".shop");
 const shopCloseBtn = document.querySelector(".shop-close-btn");
+const shopBuyBtn = document.querySelector(".shop-buy-btn.fill-btn")
 
 shopBtn.addEventListener("click", () => {
    shopBackdrop.style.display = "flex";
@@ -41,6 +42,29 @@ shopCloseBtn.addEventListener("click", () => {
    setTimeout(() => {
       shopBackdrop.style.display = "none";      
    }, 100);
+});
+
+shopBuyBtn.addEventListener("click", () => {
+   const alert = document.querySelector(".shop-alert");
+   const progress = alert.querySelector(".progress");
+   alert.style.display = "flex";
+   shopBuyBtn.style.pointerEvents = "none";
+
+   setTimeout(() => {
+      alert.classList.add("active");
+      progress.classList.add("active");
+   }, 100);
+
+    setTimeout(() => {
+      alert.classList.remove("active");
+   }, 2500);
+   
+   setTimeout(() => {
+      progress.classList.remove("active");
+      alert.style.display = "none";
+      shopBuyBtn.style.pointerEvents = "auto";
+   }, 2650);
+
 });
 
 const updateShopMessage = () => {
@@ -289,22 +313,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
    });
 });
-/* =====================================================
-   Another Features
-===================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* =====================================================
    Shrink the height of the header on scroll
