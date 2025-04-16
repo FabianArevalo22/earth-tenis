@@ -102,19 +102,21 @@ const updateCartTotal = () => {
 ===================================================== */
 
 //Product Image Swiper
-var swiper = new Swiper(".product-img-swiper", {
-   slidesPerView: 1,
-   spaceBetween: 30,
-   pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-      renderBullet: function (index, className) {
-         var slide = document.querySelectorAll('.swiper-slide')[index];
-         var imgSrc = slide.querySelector('img').src;
-         return ('<span class="' + className + '"><img src="' + imgSrc + '" alt="Slide ' + (index + 1) + '" /></span>');
+document.querySelectorAll(".product-img-swiper").forEach((swiperContainer) => {
+   new Swiper(swiperContainer, {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      pagination: {
+         el: swiperContainer.querySelector(".swiper-pagination"), // Captura a paginação específica do produto
+         clickable: true,
+         renderBullet: function (bulletIndex, className) {
+            var slide = swiperContainer.querySelectorAll(".swiper-slide")[bulletIndex];
+            var imgSrc = slide.querySelector("img").src;
+            return `<span class="${className}"><img src="${imgSrc}" alt="Slide ${bulletIndex + 1}" /></span>`;
+         },
       },
-   },
- });
+   });
+});
 
 //Filter product cards according to product tabs.
 document.addEventListener("DOMContentLoaded", () => {
