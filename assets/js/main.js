@@ -279,6 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
          const productImage = product.querySelector(".product-img img").src;
          const productName = product.querySelector(".product-description h3").textContent;
+         const productNormalPrice = product.querySelector(".normal-price.info").textContent;
          const productPrice = product.querySelector(".price-with-descount.info").textContent;
          const productSize = product.querySelector(".product-size .active") ? product.querySelector(".product-size .active").textContent : "N/A";
          const productQuantity = product.querySelector(".quantity") ? product.querySelector(".quantity").textContent : "1";
@@ -293,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <h5>${productName}</h5>
             <p>Quantidade: <span>${productQuantity}</span></p>
             <p>Tamanho: ${productSize}</p>
-            <p>Preço: <span>${productPrice}</span></p>
+            <p>Preço: <span>${productPrice}</span><span>  <s class="normal-price">${productNormalPrice}</s></span></p>
          </div>
          `;
          shop.insertBefore(shopItem, document.querySelector(".shop-resume"));

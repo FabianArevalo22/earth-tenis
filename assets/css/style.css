@@ -278,7 +278,14 @@ html{
     letter-spacing: -2px;
     transition: .3s;
 }
-.earth-tenis-logo:hover a{
+.earth-tenis-logo a i{
+   color: var(--color-01);
+   font-size: 2.6rem;
+   font-weight: var(--font-regular);
+   letter-spacing: -2px;
+   transition: .3s;
+}
+.earth-tenis-logo:hover a, .earth-tenis-logo:hover i{
     color: var(--hover-color);
 }
 .header-btns{
@@ -1106,6 +1113,11 @@ letter-spacing: -1px;
 .shop .shop-item .item-info p{
    color: var(--color-02);
    font-weight: var(--font-medium);
+   font-size: var(--tiny-font-size);
+}
+.shop .shop-item .item-info .normal-price{
+   color: var(--color-04);
+   font-weight: var(--font-regular);
    font-size: var(--tiny-font-size);
 }
 .shop .shop-item .item-info h5{
