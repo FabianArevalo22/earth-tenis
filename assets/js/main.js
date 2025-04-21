@@ -96,7 +96,36 @@ const updateCartTotal = () => {
        resumeInfo.style.transform = "translateY(0)";
    }, 500);
 };
+/* =====================================================
+   Popular  
+===================================================== */
+var swiper = new Swiper(".popular-swiper", {
+   slidesPerView: 1,
+   spaceBetween: 30,
+   autoplay: {
+      delay: 5000,
+      disableOnInteraction: false, 
+   },
+   speed: 1000,
+   loop: true,
+   pagination: {
+     el: ".swiper-pagination",
+     clickable: true,
+   },
+   navigation: {
+     nextEl: ".swiper-button-next",
+     prevEl: ".swiper-button-prev",
+   },
+ });
 
+var swiper = new Swiper(".brandsSwiper", {
+   slidesPerView: 5,
+   spaceBetween: 15,
+   navigation: {
+     nextEl: ".swiper-button-next",
+     prevEl: ".swiper-button-prev",
+   },
+ });
 /* =====================================================
    Product modals, tabs and cards
 ===================================================== */
@@ -118,35 +147,54 @@ document.querySelectorAll(".product-img-swiper").forEach((swiperContainer) => {
    });
 });
 
-//Filter product cards according to product tabs.
+//Filter product cards according to product tabs and slides swiper.
 document.addEventListener("DOMContentLoaded", () => {
    const productTabs = document.querySelector(".products-tabs");
    const productTabBtns = productTabs.querySelectorAll(".tab-btn");
    const cardsWithModals = document.querySelectorAll(".products-container .card-with-modal");
+   const brandSlides = document.querySelectorAll(".brandsSwiper .swiper-slide.avaliable");
 
-   productTabBtns.forEach((tabBtn) =>{
+   productTabBtns.forEach((tabBtn) => {
       tabBtn.addEventListener("click", () => {
          const filter = tabBtn.getAttribute("data-filter");
-         cardsWithModals.forEach((cardWithModal) => {
-            if(filter === "all" || cardWithModal.classList.contains(filter)){
-               cardWithModal.classList.remove("hidden");
-               setTimeout(() => {
-                  cardWithModal.style.opacity = "1";
-                  cardWithModal.style.transition = ".5s ease";
-               }, 1);
-            }
-            else {
-               cardWithModal.classList.add("hidden");
-               setTimeout(() => {
-                  cardWithModal.style.opacity = "0";
-                  cardWithModal.style.transition = ".5s ease";
-               }, 1);
-            };
-         });
-         productTabBtns.forEach((tabBtn) => tabBtn.classList.remove("active"));
+         filterProducts(filter);
+         productTabBtns.forEach((btn) => btn.classList.remove("active"));
          tabBtn.classList.add("active");
       });
    });
+
+   brandSlides.forEach((slide) => {
+      slide.addEventListener("click", () => {
+         const filter = slide.getAttribute("data-filter");
+         filterProducts(filter);
+         productTabs.scrollIntoView({ behavior: "smooth" });
+         productTabBtns.forEach((tabBtn) => {
+            if (tabBtn.getAttribute("data-filter") === filter) {
+               tabBtn.classList.add("active");
+            } else {
+               tabBtn.classList.remove("active");
+            }
+         });
+      });
+   });
+
+   const filterProducts = (filter) => {
+      cardsWithModals.forEach((card) => {
+         if (filter === "all" || card.classList.contains(filter)) {
+            card.classList.remove("hidden");
+            setTimeout(() => {
+               card.style.opacity = "1";
+               card.style.transition = ".5s ease";
+            }, 1);
+         } else {
+            card.classList.add("hidden");
+            setTimeout(() => {
+               card.style.opacity = "0";
+               card.style.transition = ".5s ease";
+            }, 1);
+         }
+      });
+   }
 
    //Product Card Configurations
    const products = document.querySelectorAll(".products-container .card-with-modal");
@@ -209,6 +257,36 @@ document.addEventListener("DOMContentLoaded", () => {
       const productBackdrop = product.querySelector(".product-modal-backdrop");
       const modalCloseBtn = product.querySelector(".modal-close-btn");
       const productModal = product.querySelector(".product-modal");
+
+      const popularBtns = document.querySelectorAll(".popular-swiper .swiper-slide .slide-info a");
+      popularBtns.forEach((btn) => {
+         btn.addEventListener("click", () => {
+            const filter = btn.getAttribute("data-filter");
+            if(productCard.getAttribute("data-filter") === filter) {
+               product.classList.remove("hidden");
+               product.style.opacity = "1";
+               product.style.transition = ".5s ease";
+               productBackdrop.style.display = "flex";
+               setTimeout(() => {
+                  productBackdrop.classList.add("active");
+                  productModal.classList.add("active");
+               }, 300);
+
+               modalCloseBtn.addEventListener("click", () => {
+                  setTimeout(() => {
+                     productBackdrop.classList.remove("active");
+                     productModal.classList.remove("active");
+                  }, 100);
+                  setTimeout(() => {
+                     productBackdrop.style.display = "none";
+                     product.classList.add("hidden");
+                     product.style.opacity = "0";
+                  }, 200);
+               });
+            }
+         });
+      });
+      
       productCard.addEventListener("click", () => {
          productBackdrop.style.display = "flex";
          setTimeout(() => {
