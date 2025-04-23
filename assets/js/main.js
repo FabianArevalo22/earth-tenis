@@ -127,16 +127,6 @@ var swiper = new Swiper(".brandsSwiper", {
    },
 });
 
-const notices = document.querySelectorAll('.notice');
-notices.forEach(notice => {
-   notice.addEventListener('click', () => {
-       notice.classList.add('active');
-       setTimeout(() => {
-           notice.classList.remove('active');
-       }, 1000);
-   });
-});
-
 /* =====================================================
    Product modals, tabs and cards
 ===================================================== */

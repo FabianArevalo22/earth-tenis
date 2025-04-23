@@ -626,18 +626,18 @@ letter-spacing: -1px;
 .popular-swiper .swiper-pagination-bullet, .popular-swiper .swiper-pagination-bullet-active{
    background: var(--primary-color);
 }
-.brands, .notices{
+.brands{
    position: relative;
    width: 100%;
    margin-top: 3em;
 }
-.brands h3, .notices h3{
+.brands h3{
    color: var(--color-01);
    font-size: var(--h3-font-size);
    font-weight: var(--font-bold);
    margin-bottom: 5px;
 }
-.brands p, .notices p{
+.brands p{
    color: var(--color-04);
    font-size: var(--base-font-size);
    font-weight: var(--font-regular);
@@ -703,15 +703,17 @@ letter-spacing: -1px;
 
 .notices-container {
    position: relative;
-   width: 100%;
+   margin-top: 3em;
+   width: 100vw; 
    display: grid;
-   grid-template-columns: repeat(2, 1fr);
+   grid-template-columns: auto 550px 500px;
    grid-template-rows: repeat(2, 1fr);
-   grid-column-gap: 20px;
-   grid-row-gap: 20px;
+   grid-column-gap: 5px;
+   grid-row-gap: 5px;
    background: var(--primary-color);
-   padding: 20px;
-   border-radius: 10px;
+   padding: 20px calc((100vw - 1170px) / 2); 
+   margin-left: calc(-50vw + 50%); 
+   margin-right: calc(-50vw + 50%);
 }
 .notices-container .notice{
    position: relative;
@@ -721,10 +723,8 @@ letter-spacing: -1px;
    padding: 15px 30px;
    background-size: cover;
    background-position: center;
-   border-radius: 10px;
-   cursor: pointer;
    transition: all .3s;
-   
+   border-radius: 5px; 
 }
 .notice .overlay{
    position: absolute;
@@ -732,8 +732,8 @@ letter-spacing: -1px;
    left: 0;
    width: 100%;
    height: 100%;
+   border-radius: 5px;
    background: rgba(0,0,0,0.6);
-   border-radius: 10px;
    transition: all .3s;
 }	
 .notice .notice-info {
@@ -741,6 +741,22 @@ letter-spacing: -1px;
    display: flex;
    gap: 10px;
    align-items: center;
+}
+.title .right{
+   text-align: start;
+}
+.title .left{
+   text-align: end;
+}
+.title h2 {
+   font-size: 3rem;
+   font-weight: var(--font-bold);
+   color: var(--white-color);
+   transition: all .3s;
+   text-transform: uppercase;
+   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+   writing-mode: vertical-rl; 
+   transform: rotate(180deg);
 }
 .notice .notice-info h3 {
    font-size: var(--h3-font-size);
@@ -767,6 +783,7 @@ letter-spacing: -1px;
    font-weight: var(--font-regular);
    color: var(--white-color);
    z-index: var(--z-high);
+   text-align: justify;
 }
 .notice a{
    position: relative;
@@ -786,15 +803,26 @@ letter-spacing: -1px;
    border-bottom: 2px solid var(--hover-color);
    letter-spacing: 1px; 
 }
-.notices-container .descount{
-   height: 500px;
+.notices-container .title{
+   position: relative;
+   display: flex;
+   width: fit-content;
+   height: 380px;
    grid-area: 1 / 1 / 3 / 2;
+   border-radius: 5px; 
+   align-self: center;
+}
+.notices-container .descount{
+   height: 460px;
+   grid-area: 1 / 2 / 3 / 3;
    background-image: url("../imgs/popular-imgs/notice-img-1.jpg");
 }
 .notices-container .shipment{
+   grid-area: 1 / 3 / 2 / 4; 
    background-image: url("../imgs/popular-imgs/notice-img-2.jpg");
 }
 .notices-container .social{
+   grid-area: 2 / 3 / 3 / 4;
    background-image: url("../imgs/popular-imgs/notice-img-3.jpg");
 }
 .notice.active{
@@ -802,33 +830,33 @@ letter-spacing: -1px;
    box-shadow: 0 15px 30px hsl(0, 0%, 1%, .3);
 }
 .tag{
-   animation: pulseTag 5s infinite; 
+   animation: pulseTag 4s infinite; 
 }
 
 .phone{
-   animation: vibratePhone 5s infinite; 
+   animation: vibratePhone 4s infinite; 
 }
 
 .truck{
    position: relative;
-   animation: moveTruck 5s infinite; 
+   animation: moveTruck 4s infinite; 
 }
 @keyframes pulseTag{
    0% { transform: scale(1); }
-   40% { transform: scale(1.2); }
+   40% { transform: scale(1.4); }
    50% { transform: scale(1); }
    100% { transform: scale(1); }
 }
 @keyframes vibratePhone{
    0%, 100% { transform: rotate(0deg); }
-   20% { transform: rotate(10deg); }
-   40% { transform: rotate(-10deg); }
+   20% { transform: rotate(15deg); }
+   40% { transform: rotate(-15deg); }
    50% { transform: rotate(0deg); }
    100% { transform: rotate(0deg); }
 }
 @keyframes moveTruck{
    0% { left: 0; }
-   20% { left: 20px; }
+   20% { left: 40px; }
    40% { left: 0px; }
    50% { left: 0px; }
    100% { left: 0px; }
@@ -870,8 +898,8 @@ letter-spacing: -1px;
    display: grid;
    place-items: center;
    grid-template-columns: repeat(4, 1fr);
-   column-gap: 35px;
-   row-gap: 55px;
+   column-gap: 15px;
+   row-gap: 15px;
 }
 .products-container .card-with-modal{
    display: block;
@@ -1018,7 +1046,7 @@ letter-spacing: -1px;
    background: var(--color-03);
    max-width: 1100px; 
    height: fit-content;
-   margin: 40px 15px;
+   margin: auto;
    padding: 50px 45px;
    border-radius: 15px;
    transform: scale(0);
@@ -1032,7 +1060,7 @@ letter-spacing: -1px;
 .product-modal .modal-content{
    display: flex;
    flex-wrap: wrap;
-   /* justify-content: center; */
+   justify-content: center;
    /* flex-direction: column; */
    gap: 25px;
    max-height: 450px;
