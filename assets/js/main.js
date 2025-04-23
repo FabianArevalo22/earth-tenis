@@ -116,7 +116,7 @@ var swiper = new Swiper(".popular-swiper", {
      nextEl: ".swiper-button-next",
      prevEl: ".swiper-button-prev",
    },
- });
+});
 
 var swiper = new Swiper(".brandsSwiper", {
    slidesPerView: 5,
@@ -125,7 +125,18 @@ var swiper = new Swiper(".brandsSwiper", {
      nextEl: ".swiper-button-next",
      prevEl: ".swiper-button-prev",
    },
- });
+});
+
+const notices = document.querySelectorAll('.notice');
+notices.forEach(notice => {
+   notice.addEventListener('click', () => {
+       notice.classList.add('active');
+       setTimeout(() => {
+           notice.classList.remove('active');
+       }, 1000);
+   });
+});
+
 /* =====================================================
    Product modals, tabs and cards
 ===================================================== */
@@ -221,10 +232,13 @@ document.addEventListener("DOMContentLoaded", () => {
          };
          
       //Add Price according the info of the product
-      const priceText = product.querySelector('.product-info .normal-price.info').textContent;  
-      const priceDescountText = product.querySelector('.product-info .price-with-descount.info').textContent;
-      product.querySelector('.product-description .price-display').textContent = priceText;
-      product.querySelector('.product-description .price-descount-display').textContent = priceDescountText; 
+      const priceContent = product.querySelector('.product-info .normal-price.info').textContent;
+      const priceValue = parseFloat(priceContent.replace("R$", "").replace(",", "."));
+      const priceDiscount = `R$ ${(priceValue * 0.8).toFixed(2).replace(".", ",")}`;
+          
+      product.querySelector(".product-info .price-with-descount.info").textContent = priceDiscount;
+      product.querySelector(".product-description .price-descount-display").textContent = priceDiscount;
+      product.querySelector('.product-description .price-display').textContent = priceContent;
       
       //Quantity Button of the product
       const decreaseBtn = product.querySelector(".decrease-btn");
