@@ -1358,7 +1358,7 @@ letter-spacing: -1px;
    position: fixed;
    top: 0;  
    right: 0;
-   width: 530px;
+   width: 600px;
    height: 100vh;
    max-height: 100vh;
    display: flex;
@@ -1389,19 +1389,45 @@ letter-spacing: -1px;
 .shop .shop-item{
    position: relative;
    width: 100%;
-   height: fit-content;
+   height: 130px;
    display: flex;
-   gap: 20px;
+   gap: 10px;
    background: var(--card-bg);
    border-radius: 10px;
    padding: 15px;
-   transition: .3 ease;
 }
 .shop .shop-item .item-info{
+   position: relative;
    display: flex;
    flex-direction: column;
+   justify-content: space-evenly;
+   width: fit-content;
+}
+.shop .shop-item .item-options{
+   position: relative;
+   display: flex;
    justify-content: space-between;
-   width: 75%;
+   align-items: center;
+   gap: 10px;
+}
+.shop-item .item-options .item-quantity{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+.shop-item .item-options .item-quantity button{
+   padding: 3px 10px;
+   background: var(--primary-color);
+   border: none;
+   border-radius: 5px;
+   color: var(--dark-color);
+   font-size: var(--medium-font-size);
+   font-weight: var(--font-medium);
+   cursor: pointer;
+   transition: .3s ease;
+}
+.shop-item .item-options .item-quantity button:hover{
+   background: var(--hover-color);
 }
 .shop .shop-item .item-info p{
    color: var(--color-02);
@@ -1415,7 +1441,7 @@ letter-spacing: -1px;
 }
 .shop .shop-item .item-info h5{
    color: var(--color-01);
-   font-size: var(--h5-font-size);
+   font-size: var(--small-font-size);
    font-weight: var(--font-bold);
    letter-spacing: -1px;
 }
@@ -1424,7 +1450,7 @@ letter-spacing: -1px;
    top: 0;
    left: 0;
    width: 100px;
-   height: 100px;
+   height: 100%;
    border-radius: 5px;
    background: rgba(0,0,0,0.1);
    box-shadow: 0 2px 4px hsl(0, 0%, 1%, .25);
@@ -1437,15 +1463,10 @@ letter-spacing: -1px;
    align-items: center;
 }
 .shop .shop-item .remove-item{
-   position: absolute;
    color: var(--color-01);
-   font-size: 1.35rem;
-   bottom: 0;
-   right: 0;
-   margin: 15px;
+   font-size: 1.75rem;
+   transition: all .3s;
    cursor: pointer;
-   transition: .3s;
-   transform: scale(0);
 }
 .shop .shop-resume{
    position: relative;
@@ -1491,9 +1512,9 @@ letter-spacing: -1px;
    cursor: pointer;
    transition: .3s;
 }
-.shop .shop-item:hover .remove-item{
+.shop .shop-item .remove-item:hover{
    color: var(--hover-color);
-   transform: scale(1);
+   transform: scale(1.1);
 }
 .shop-buy-btn{
    position: relative;

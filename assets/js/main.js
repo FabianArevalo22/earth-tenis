@@ -80,10 +80,11 @@ const updateCartTotal = () => {
    const shopItems = document.querySelectorAll(".shop-item");
    let total = 0;
    shopItems.forEach(item => {
-       const priceText = item.querySelector(".item-info p:nth-of-type(3) span").textContent; 
-       const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); 
-       const quantity = parseInt(item.querySelector(".item-info p:nth-of-type(1) span").textContent, 10) || 1; 
-       total += price * quantity;
+
+      const priceText = item.querySelector(".item-info .item-price .price").textContent; 
+      const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); 
+      let quantity = parseInt(item.querySelector(".item-options .item-quantity .quantity").textContent, 10) || 1; 
+      total += price * quantity;
    });
 
    const resumeInfo = document.querySelector(".resume-info h3");
@@ -91,9 +92,9 @@ const updateCartTotal = () => {
    resumeInfo.style.opacity = "0";
    resumeInfo.style.transform = "translateY(-10px)";
    setTimeout(() => {
-       resumeInfo.textContent = `R$ ${total.toFixed(2)}`;
-       resumeInfo.style.opacity = "1";
-       resumeInfo.style.transform = "translateY(0)";
+      resumeInfo.textContent = `R$ ${total.toFixed(2)}`;
+      resumeInfo.style.opacity = "1";
+      resumeInfo.style.transform = "translateY(0)";
    }, 500);
 };
 /* =====================================================
@@ -112,11 +113,9 @@ let showingAll = false;
 
 toggleBtn.addEventListener("click", () => {
    showingAll = !showingAll;
-
    notices.forEach((notice, index) => {
       notice.classList.toggle("hidden", !showingAll && index > 2);
    });
-
    toggleBtn.textContent = showingAll ? "Ver menos" : "Ver mais";
 });
 
@@ -400,20 +399,22 @@ document.addEventListener("DOMContentLoaded", () => {
          const shopItem = document.createElement("div");
          shopItem.classList.add("shop-item");
          shopItem.innerHTML = `
-         <a class="remove-item"><i class="ri-delete-bin-fill"></i></a>
-         <div class="item-img"><img src="${productImage}" alt=""></div>
+         <div class="item-img"><img src="${productImage}"></div>
          <div class="item-info">
             <h5>${productName}</h5>
-            <p>Quantidade: <span>${productQuantity}</span></p>
             <p>Tamanho: ${productSize}</p>
-            <p>Preço: <span>${productPrice}</span><span>  <s class="normal-price">${productNormalPrice}</s></span></p>
+            <p class="item-price">Preço: <span class="price">${productPrice}</span><span>  <s class="normal-price">${productNormalPrice}</s></span></p>
+         </div>
+         <div class="item-options">
+            <div class="item-quantity"><button class="decrease-btn">-</button><span class="quantity">${productQuantity}</span><button class="increase-btn">+</button></div>
+            <i class="ri-delete-bin-fill remove-item"></i>
          </div>
          `;
          shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
          updateShopMessage();
          updateCartTotal();
 
-         const removeBtn = shopItem.querySelector(".remove-item");
+         const removeBtn = shopItem.querySelector(".item-options .remove-item");
          removeBtn.addEventListener("click", () => {
             shopItem.style.position = "relative";
             shopItem.style.transition = "all 0.5s ease";
