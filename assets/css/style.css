@@ -701,15 +701,13 @@ letter-spacing: -1px;
    color: var(--hover-color);
 }
 
-.notices-container {
+.notices-container{
    position: relative;
-   margin-top: 3em;
    width: 100vw; 
    display: grid;
-   grid-template-columns: auto 550px 500px;
-   grid-template-rows: repeat(2, 1fr);
-   grid-column-gap: 5px;
-   grid-row-gap: 5px;
+   grid-template-columns: repeat(4, 1fr);
+   grid-auto-rows: 150px;
+   gap: 10px;
    background: var(--primary-color);
    padding: 20px calc((100vw - 1170px) / 2); 
    margin-left: calc(-50vw + 50%); 
@@ -720,146 +718,87 @@ letter-spacing: -1px;
    display: flex;
    flex-direction: column;
    justify-content: flex-end;
-   padding: 15px 30px;
    background-size: cover;
    background-position: center;
-   transition: all .3s;
-   border-radius: 5px; 
+   border-radius: 10px;
+   padding: 18px;
 }
-.notice .overlay{
+.notice.hidden{
+   display: none;
+}
+.notices-container .notice::before{
+   content: "";
    position: absolute;
    top: 0;
    left: 0;
    width: 100%;
    height: 100%;
-   border-radius: 5px;
-   background: rgba(0,0,0,0.6);
-   transition: all .3s;
-}	
-.notice .notice-info {
-   position: relative;
-   display: flex;
-   gap: 10px;
-   align-items: center;
+   background: rgba(0, 0, 0, 0.5); 
+   z-index: var(--z-low); 
+   border-radius: 10px;
 }
-.title .right{
-   text-align: start;
+.notices-container .notice h3 i, .notices-container .notice h4 i{
+   color: var(--primary-color);
 }
-.title .left{
-   text-align: end;
-}
-.title h2 {
-   font-size: 3rem;
-   font-weight: var(--font-bold);
-   color: var(--white-color);
-   transition: all .3s;
-   text-transform: uppercase;
-   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
-   writing-mode: vertical-rl; 
-   transform: rotate(180deg);
-}
-.notice .notice-info h3 {
+.notices-container .notice h3{
    font-size: var(--h3-font-size);
    font-weight: var(--font-semi-bold);
    color: var(--white-color);
-   transition: all .3s;
-   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
-.notice .notice-info h4 {
+.notices-container .notice h4{
    font-size: var(--h4-font-size);
    font-weight: var(--font-semi-bold);
    color: var(--white-color);
-   transition: all .3s;
-   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
-.notice .notice-info i {
-   font-size: var(--h3-font-size);
-   font-weight: var(--font-medium);
-   color: var(--primary-color);
-   transition: all .3s;
-}
-.notice p{
-   font-size: var(--tiny-font-size);
+.notices-container .notice p{
+   font-size: var(--base-font-size);
    font-weight: var(--font-regular);
    color: var(--white-color);
-   z-index: var(--z-high);
-   text-align: justify;
 }
-.notice a{
-   position: relative;
-   width: fit-content;
-   font-size: var(--tiny-font-size);
+.notices-container .notice a{
+   font-size: var(--base-font-size);
    font-weight: var(--font-medium);
    color: var(--white-color);
-   z-index: var(--z-high);
    text-transform: uppercase;
+   margin-top: 5px;
    letter-spacing: -1px;
-   border-bottom: 2px solid var(--primary-color); 
-   padding-bottom: 2px;
    transition: all .3s;
 }
-.notice a:hover{
-   color: var(--hover-color);
-   border-bottom: 2px solid var(--hover-color);
-   letter-spacing: 1px; 
+.notices-container .notice a:hover{
+   letter-spacing: 2px;
+   color: var(--primary-color);
 }
-.notices-container .title{
+.notices-container .notice h3, .notices-container .notice h4, .notices-container .notice p, .notices-container .notice a{
+   z-index: var(--z-high);
+}
+.big{
+   grid-column: span 2; 
+   grid-row: span 3; 
+}
+.medium{
+   grid-column: span 2;
+   grid-row: span 2; 
+}
+ 
+.small{
+   grid-column: span 2; 
+   grid-row: span 1; 
+}
+.toggleNoticesBtn{
    position: relative;
    display: flex;
-   width: fit-content;
-   height: 380px;
-   grid-area: 1 / 1 / 3 / 2;
-   border-radius: 5px; 
-   align-self: center;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20px;
+   font-size: var(--h3-font-size);
+   font-weight: var(--font-semi-bold);
+   color: var(--color-01);
+   transition: all .3s;
+   cursor: pointer;
 }
-.notices-container .descount{
-   height: 460px;
-   grid-area: 1 / 2 / 3 / 3;
-   background-image: url("../imgs/popular-imgs/notice-img-1.jpg");
-}
-.notices-container .shipment{
-   grid-area: 1 / 3 / 2 / 4; 
-   background-image: url("../imgs/popular-imgs/notice-img-2.jpg");
-}
-.notices-container .social{
-   grid-area: 2 / 3 / 3 / 4;
-   background-image: url("../imgs/popular-imgs/notice-img-3.jpg");
-}
-.notice.active{
-   transform: translateY(-10px);
-   box-shadow: 0 15px 30px hsl(0, 0%, 1%, .3);
-}
-.tag{
-   animation: pulseTag 4s infinite; 
-}
-
-.phone{
-   animation: vibratePhone 4s infinite; 
-}
-
-.truck{
-   position: relative;
-   animation: moveTruck 4s infinite; 
-}
-@keyframes pulseTag{
-   0% { transform: scale(1); }
-   40% { transform: scale(1.4); }
-   50% { transform: scale(1); }
-   100% { transform: scale(1); }
-}
-@keyframes vibratePhone{
-   0%, 100% { transform: rotate(0deg); }
-   20% { transform: rotate(15deg); }
-   40% { transform: rotate(-15deg); }
-   50% { transform: rotate(0deg); }
-   100% { transform: rotate(0deg); }
-}
-@keyframes moveTruck{
-   0% { left: 0; }
-   20% { left: 40px; }
-   40% { left: 0px; }
-   50% { left: 0px; }
-   100% { left: 0px; }
+.toggleNoticesBtn:hover{
+   color: var(--hover-color);
+   letter-spacing: 1px;
 }
 /* =========================================
    Products

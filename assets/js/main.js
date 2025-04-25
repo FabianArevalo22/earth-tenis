@@ -97,6 +97,31 @@ const updateCartTotal = () => {
    }, 500);
 };
 /* =====================================================
+   Notices
+===================================================== */
+const notices = document.querySelectorAll(".notices-container .notice");
+const toggleBtn = document.querySelector(".toggleNoticesBtn");
+
+notices.forEach((notice, index) => {
+   if (index > 2) {
+      notice.classList.add("hidden");
+   }
+});
+
+let showingAll = false;
+
+toggleBtn.addEventListener("click", () => {
+   showingAll = !showingAll;
+
+   notices.forEach((notice, index) => {
+      notice.classList.toggle("hidden", !showingAll && index > 2);
+   });
+
+   toggleBtn.textContent = showingAll ? "Ver menos" : "Ver mais";
+});
+
+
+/* =====================================================
    Popular  
 ===================================================== */
 var swiper = new Swiper(".popular-swiper", {
@@ -262,34 +287,39 @@ document.addEventListener("DOMContentLoaded", () => {
       const modalCloseBtn = product.querySelector(".modal-close-btn");
       const productModal = product.querySelector(".product-modal");
 
-      const popularBtns = document.querySelectorAll(".popular-swiper .swiper-slide .slide-info a");
-      popularBtns.forEach((btn) => {
-         btn.addEventListener("click", () => {
-            const filter = btn.getAttribute("data-filter");
-            if(productCard.getAttribute("data-filter") === filter) {
-               product.classList.remove("hidden");
-               product.style.opacity = "1";
-               product.style.transition = ".5s ease";
-               productBackdrop.style.display = "flex";
-               setTimeout(() => {
-                  productBackdrop.classList.add("active");
-                  productModal.classList.add("active");
-               }, 300);
-
-               modalCloseBtn.addEventListener("click", () => {
+      const setupModalTrigger = (selector) => {
+         const buttons = document.querySelectorAll(selector);
+         buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+               const filter = btn.getAttribute("data-filter");
+               if (productCard.getAttribute("data-filter") === filter) {
+                  product.classList.remove("hidden");
+                  product.style.opacity = "1";
+                  product.style.transition = ".5s ease";
+                  productBackdrop.style.display = "flex";
+      
                   setTimeout(() => {
-                     productBackdrop.classList.remove("active");
-                     productModal.classList.remove("active");
-                  }, 100);
-                  setTimeout(() => {
-                     productBackdrop.style.display = "none";
-                     product.classList.add("hidden");
-                     product.style.opacity = "0";
-                  }, 200);
-               });
-            }
+                     productBackdrop.classList.add("active");
+                     productModal.classList.add("active");
+                  }, 300);
+      
+                  modalCloseBtn.addEventListener("click", () => {
+                     setTimeout(() => {
+                        productBackdrop.classList.remove("active");
+                        productModal.classList.remove("active");
+                     }, 100);
+                     setTimeout(() => {
+                        productBackdrop.style.display = "none";
+                        product.classList.add("hidden");
+                        product.style.opacity = "0";
+                     }, 200);
+                  });
+               }
+            });
          });
-      });
+      }
+      setupModalTrigger(".popular-swiper .swiper-slide .slide-info a");
+      setupModalTrigger(".notices-container .notice .notice-btn");
       
       productCard.addEventListener("click", () => {
          productBackdrop.style.display = "flex";
