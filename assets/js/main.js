@@ -1,9 +1,78 @@
 /* =====================================================
+   Functionalities of the website
+===================================================== */
+
+//Alert message function
+//This function creates an alert message with a specific type (success, error, warning) and message content.
+const showAlert = (message = "Alerta!", type = "error") => {
+   const alertTypes = {
+      success: {
+         icon: "ri-checkbox-circle-fill",
+         title: "Adicionado!"
+      },
+      error: {
+         icon: "ri-close-circle-fill",
+         title: "Erro!"
+      },
+      warning: {
+         icon: "ri-error-warning-fill",
+         title: "Atenção!"
+      }
+   };
+   const { icon, title } = alertTypes[type] || alertTypes.error;
+
+   const alert = document.createElement("div");
+   alert.className = "alert-message";
+   alert.innerHTML = `
+      <div class="alert-content">
+         <i class="${icon} ${type}"></i>
+         <div class="alert-text">
+            <span class="text-1">${title}</span>
+            <span class="text-2">${message}</span>
+         </div>
+      </div>
+      <div class="progress"></div>
+   `;
+   const alertContainer = document.getElementById("alert-container") || document.body;
+   alertContainer.appendChild(alert);
+   alert.style.display = "flex";
+   setTimeout(() => {
+      alert.classList.add("active");
+      alert.querySelector(".progress")?.classList.add("active");
+   }, 100);
+   setTimeout(() => {
+      alert.classList.remove("active");
+   }, 2500);
+   setTimeout(() => {
+      alert.querySelector(".progress")?.classList.remove("active");
+      alert.remove();
+   }, 2650);
+}
+
+//Disable button temporarily function
+//This function disables a button for a specified duration (default is 2650ms) and then re-enables it.
+const disableButtonTemporarily = (button, duration = 2650) => {
+   button.style.pointerEvents = "none";
+   button.style.opacity = "0.6";
+   button.style.cursor = "not-allowed";
+   setTimeout(() => {
+      button.style.pointerEvents = "";
+      button.style.opacity = "";
+      button.style.cursor = "";
+   }, duration);
+}
+
+//Add Active class to the buttons
+//This function adds the active class of a button in a especific Event Listener of click
+const setActiveButton = (buttons, activeButton) => {
+   buttons.forEach((btn) => btn.classList.toggle("active", btn === activeButton));
+};
+/* =====================================================
    Home Slider
 ===================================================== */
 const homeImages = ['assets/imgs/home-imgs/home-image-1.png', 'assets/imgs/home-imgs/home-image-2.png', 'assets/imgs/home-imgs/home-image-3.png'];
 let imageIndex = 0;
-//Arrow Fuction to swipe the images.
+//This function swipers the images of the home section (5s).
 const swipeImg = () => {
 
    const slider = document.querySelector(".shoe-img img");
@@ -25,7 +94,7 @@ const shopBtn = document.querySelector(".shop-btn");
 const shopBackdrop = document.querySelector(".shop-backdrop");
 const shop = document.querySelector(".shop");
 const shopCloseBtn = document.querySelector(".shop-close-btn");
-const shopBuyBtn = document.querySelector(".shop-buy-btn.fill-btn")
+const shopBuyBtn = document.querySelector(".shop-buy-btn");
 
 shopBtn.addEventListener("click", () => {
    shopBackdrop.style.display = "flex";
@@ -45,27 +114,152 @@ shopCloseBtn.addEventListener("click", () => {
 });
 
 shopBuyBtn.addEventListener("click", () => {
-   const alert = document.querySelector(".shop-alert");
-   const progress = alert.querySelector(".progress");
-   alert.style.display = "flex";
-   shopBuyBtn.style.pointerEvents = "none";
-
-   setTimeout(() => {
-      alert.classList.add("active");
-      progress.classList.add("active");
-   }, 100);
-
-    setTimeout(() => {
-      alert.classList.remove("active");
-   }, 2500);
-   
-   setTimeout(() => {
-      progress.classList.remove("active");
-      alert.style.display = "none";
-      shopBuyBtn.style.pointerEvents = "auto";
-   }, 2650);
-
+   disableButtonTemporarily(shopBuyBtn);
+   const shopItems = document.querySelectorAll(".shop-item");
+   if (shopItems.length === 0) {
+      showAlert("Você precisa adicionar itens ao carrinho primeiro!", "warning");
+      return;
+   }
+   showAlert("Funcionalidade indisponível no momento!", "warning");
 });
+
+
+//Functions to apply Coupons
+//This Functions Calculates the conditions of a coupon and apply the discount to the total value of the cart.
+const applyCouponBtn = document.querySelector(".apply-coupon-btn");
+const couponInput = document.querySelector(".coupon-input");
+const totalDisplay = document.querySelector(".total");
+const subtotalDisplay = document.querySelector(".subtotal");
+
+//Coupons List
+const couponList = {
+   "COMBOEARTH": {
+      type: "percentage",
+      discount: 0.1, 
+      description: "COMBOEARTH", /*Leve 2 pares e ganhe 10% de desconto no total!*/
+      condition: (shopItems) => shopItems.length >= 2 
+   },
+   "EARTHDAY": {
+      type: "percentage",
+      discount: 0.2,
+      description: "EARTHDAY", /*No Dia Internacional da Terra, ganhe 20% de desconto no total!*/
+      condition: (shopItems) => true 
+   },
+   "STYLE200": {
+      type: "fixed",
+      discount: 200, 
+      description: "STYLE200", /*Em compras acima de R$1000,00 ganhe R$200,00 de desconto!*/
+      condition: (shopItems) => getTotalValue(shopItems) >= 1000 
+   },
+   "BIG350": {
+      type: "fixed",
+      discount: 350, 
+      description: "BIG350", /*Em compras acima de R$2000,00 ganhe R$350,00 de desconto!*/
+      condition: (shopItems) => getTotalValue(shopItems) >= 2000
+   },
+   "BLACKEARTH25": {
+      type: "percentage",
+      discount: 0.25, 
+      description: "BLACKEARTH25", /*Na Semana da Black Friday, ganhe 25% de desconto no total!*/
+      condition: (shopItems) => true 
+   },
+   "NAMORO10": {
+      type: "percentage",
+      discount: 0.1, 
+      description: "NAMORO10", /*No Dia dos Namorados, ganhe 10% de desconto no total!*/
+      condition: (shopItems) => true 
+   },
+   "DEMAIS600": {
+      type: "fixed",
+      discount: 600,
+      description: "DEMAIS600", /*Em compras acima de R$5000,00 ganhe R$6000 de desconto no total!*/
+      condition: (shopItems) => getTotalValue(shopItems) >= 5000
+   }
+};
+
+const getTotalValue = (shopItems) => {
+   let total = 0;
+   shopItems.forEach(item => {
+      const priceText = item.querySelector(".item-info .item-price .price").textContent;
+      const price = parseFloat(priceText.replace("R$", "").replace(",", "."));
+      let quantity = parseInt(item.querySelector(".item-options .item-quantity .quantity").textContent, 10) || 1;
+      total += price * quantity;
+   });
+   return total;
+};
+
+let activeCoupon = null;
+const applyCoupon = () => {
+   const couponCode = couponInput.value.trim().toUpperCase(); 
+   const coupon = couponList[couponCode]; 
+   const shopItems = document.querySelectorAll(".shop-item");
+   
+   disableButtonTemporarily(applyCouponBtn); 
+
+   if (shopItems.length === 0) {
+      showAlert("Você precisa adicionar itens ao carrinho primeiro!", "warning");
+      return;
+   }
+   if (activeCoupon) {
+      showAlert("Você pode aplicar apenas um cupom por compra!", "warning");
+      couponInput.value = ""; 
+      return;
+   }
+
+   if (coupon) {
+      if (coupon.condition(shopItems)) {
+         showAlert(`Cupom ${coupon.description} aplicado!`, "success");
+         couponInput.value = ""; 
+         activeCoupon = coupon;
+         updateCartTotal(); 
+      } else {
+         showAlert(`O cupom ${coupon.description} não pode ser aplicado. Verifique as condições.`, "warning");
+         couponInput.value = "";
+         activeCoupon = null; 
+      }
+   } else {
+      showAlert("Cupom inválido ou expirado.", "warning");
+      couponInput.value = ""; 
+      activeCoupon = null;
+   }
+};
+applyCouponBtn.addEventListener("click", applyCoupon);
+
+//Function to calculate Cart total Value
+//This Function calculates the total and subtotal of the products in the cart
+const updateCartTotal = () => {
+   const shopItems = document.querySelectorAll(".shop-item");
+   let subtotal = getTotalValue(shopItems);
+   let total = subtotal;
+   
+   if (activeCoupon) {
+      if (activeCoupon.type === "percentage") {
+         total = subtotal * (1 - activeCoupon.discount);
+      } else if (activeCoupon.type === "fixed") {
+         total = subtotal - activeCoupon.discount;
+      }
+      if (total < 0) total = 0; 
+   }
+
+   const subtotalDisplay = document.querySelector(".subtotal");
+   const totalDisplay = document.querySelector(".total");
+
+   [subtotalDisplay, totalDisplay].forEach(display => {
+      display.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+      display.style.opacity = "0";
+      display.style.transform = "translateY(-10px)";
+   });
+
+   setTimeout(() => {
+      subtotalDisplay.textContent = `R$ ${subtotal.toFixed(2)}`;
+      totalDisplay.textContent = `R$ ${total.toFixed(2)}`;
+      [subtotalDisplay, totalDisplay].forEach(display => {
+         display.style.opacity = "1";
+         display.style.transform = "translateY(0)";
+      });
+   }, 500);
+};
+
 
 const updateShopMessage = () => {
    const shopItems = document.querySelectorAll(".shop-item"); 
@@ -74,29 +268,33 @@ const updateShopMessage = () => {
    shopBtn.classList.toggle("active", shopItems.length > 0);
    const alert = shopBtn.querySelector(".alert");
    alert.classList.toggle("active", shopItems.length > 0);
+   updateCartTotal();
 };
 
-const updateCartTotal = () => {
-   const shopItems = document.querySelectorAll(".shop-item");
-   let total = 0;
-   shopItems.forEach(item => {
+const setupQuantityControls = (container, onQuantityChange = null) => {
+   const decreaseBtn = container.querySelector(".decrease-btn");
+   const increaseBtn = container.querySelector(".increase-btn");
+   const quantityDisplay = container.querySelector(".quantity");
 
-      const priceText = item.querySelector(".item-info .item-price .price").textContent; 
-      const price = parseFloat(priceText.replace("R$", "").replace(",", ".")); 
-      let quantity = parseInt(item.querySelector(".item-options .item-quantity .quantity").textContent, 10) || 1; 
-      total += price * quantity;
+   let quantity = parseInt(quantityDisplay.textContent, 10) || 1;
+
+   const updateDisplay = () => {
+      quantityDisplay.textContent = quantity;
+      if (onQuantityChange) onQuantityChange(quantity);
+   };
+
+   decreaseBtn.addEventListener("click", () => {
+      if (quantity > 1) {
+         quantity--;
+         updateDisplay();
+      }
    });
-
-   const resumeInfo = document.querySelector(".resume-info h3");
-   resumeInfo.style.transition = "opacity 0.5s ease, transform 0.5s ease"; 
-   resumeInfo.style.opacity = "0";
-   resumeInfo.style.transform = "translateY(-10px)";
-   setTimeout(() => {
-      resumeInfo.textContent = `R$ ${total.toFixed(2)}`;
-      resumeInfo.style.opacity = "1";
-      resumeInfo.style.transform = "translateY(0)";
-   }, 500);
+   increaseBtn.addEventListener("click", () => {
+      quantity++;
+      updateDisplay();
+   });
 };
+
 /* =====================================================
    Notices
 ===================================================== */
@@ -183,8 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tabBtn.addEventListener("click", () => {
          const filter = tabBtn.getAttribute("data-filter");
          filterProducts(filter);
-         productTabBtns.forEach((btn) => btn.classList.remove("active"));
-         tabBtn.classList.add("active");
+         setActiveButton(productTabBtns, tabBtn);
       });
    });
 
@@ -193,13 +390,14 @@ document.addEventListener("DOMContentLoaded", () => {
          const filter = slide.getAttribute("data-filter");
          filterProducts(filter);
          productTabs.scrollIntoView({ behavior: "smooth" });
-         productTabBtns.forEach((tabBtn) => {
-            if (tabBtn.getAttribute("data-filter") === filter) {
-               tabBtn.classList.add("active");
-            } else {
-               tabBtn.classList.remove("active");
-            }
-         });
+
+         const matchingTab = Array.from(productTabBtns).find(tabBtn => 
+            tabBtn.getAttribute("data-filter") === filter
+         );
+         if (matchingTab) {
+            setActiveButton(productTabBtns, matchingTab);
+         }
+
       });
    });
 
@@ -236,7 +434,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const initialSize = 36;
       const productSizeContainer = product.querySelector('.product-size');
       productSizeContainer.innerHTML = '';
-         
          for (let i = 0; i < sizesCount; i++) {
             const sizeValue = initialSize + i;
             const sizeBtn = document.createElement('a');
@@ -249,34 +446,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const priceContent = product.querySelector('.product-info .normal-price.info').textContent;
       const priceValue = parseFloat(priceContent.replace("R$", "").replace(",", "."));
       const priceDiscount = `R$ ${(priceValue * 0.8).toFixed(2).replace(".", ",")}`;
-          
       product.querySelector(".product-info .price-with-descount.info").textContent = priceDiscount;
       product.querySelector(".product-description .price-descount-display").textContent = priceDiscount;
       product.querySelector('.product-description .price-display').textContent = priceContent;
       
       //Quantity Button of the product
-      const decreaseBtn = product.querySelector(".decrease-btn");
-      const increaseBtn = product.querySelector(".increase-btn");
-      const quantityDisplay = product.querySelector(".quantity");
-      let quantity = quantityDisplay.textContent;
-      decreaseBtn.addEventListener("click", () => {
-         if(quantity > 1) {
-            quantity--;
-            quantityDisplay.textContent = quantity;
-         };
-      });
-      increaseBtn.addEventListener("click", () => {
-            quantity++;
-            quantityDisplay.textContent = quantity;
-      });
+      setupQuantityControls(product);
 
-      //Add active class to size buttom
+      //Add active class to size button
       const productSize = product.querySelector(".product-size");
       const productSizeBtns = productSize.querySelectorAll(".size-btn");
-      productSizeBtns.forEach((sizeBtn) =>{
+      productSizeBtns.forEach((sizeBtn) => {
          sizeBtn.addEventListener("click", () =>{
-            productSizeBtns.forEach((sizeBtn) => sizeBtn.classList.remove("active"));
-            sizeBtn.classList.add("active");
+            setActiveButton(productSizeBtns, sizeBtn);
          });
       });
       
@@ -337,7 +519,7 @@ document.addEventListener("DOMContentLoaded", () => {
          }, 200);
       });
 
-      //Gets Stars of comments and create the average in the card info.
+      //Gets Stars of comments and create the average in the product card.
       const commentElements = product.querySelectorAll(".product-comments .comment");
       let totalRating = 0;
 
@@ -353,7 +535,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let averageRating = totalRating / commentElements.length;
       averageRating = Math.round(averageRating * 2) / 2;
-      
       const productStarsContainer = product.querySelector(".product-stars.info");
       productStarsContainer.innerHTML = "";   
       for (let i = 1; i <= 5; i++) {
@@ -368,34 +549,35 @@ document.addEventListener("DOMContentLoaded", () => {
       const addToCartBtn = product.querySelector(".add-to-cart-btn.border-btn");
       addToCartBtn.addEventListener("click", () => {
 
-         const alert = product.querySelector(".product-alert");
-         const progress = product.querySelector(".progress");
-         alert.style.display = "flex";
-         addToCartBtn.style.pointerEvents = "none";
-          
-         setTimeout(() => {
-            alert.classList.add("active");
-            progress.classList.add("active");
-          }, 100);
+         disableButtonTemporarily(addToCartBtn);
+         if(product.querySelector(".product-size .active") === null) {
+            showAlert("Selecione um tamanho!", "warning");
+            return;
+         }
+         showAlert("Produto adicionado ao carrinho com sucesso!", "success");
 
-         setTimeout(() => {
-            alert.classList.remove("active");
-          }, 2500);
-
-         setTimeout(() => {
-            progress.classList.remove("active");
-            alert.style.display = "none";
-            addToCartBtn.style.pointerEvents = "auto";
-          }, 2650);
-        
          const productImage = product.querySelector(".product-img img").src;
          const productName = product.querySelector(".product-description h3").textContent;
          const productNormalPrice = product.querySelector(".normal-price.info").textContent;
          const productPrice = product.querySelector(".price-with-descount.info").textContent;
-         const productSize = product.querySelector(".product-size .active") ? product.querySelector(".product-size .active").textContent : "N/A";
-         const productQuantity = product.querySelector(".quantity") ? product.querySelector(".quantity").textContent : "1";
-
+         const productSize = product.querySelector(".product-size .active").textContent;
+         const productQuantity = parseInt(product.querySelector(".quantity").textContent, 10);
          const shop = document.querySelector(".shop");
+
+         const existingItem = Array.from(document.querySelectorAll(".shop-item")).find(item => {
+         const name = item.querySelector("h5").textContent;
+         const sizeText = item.querySelector(".item-info p").textContent;
+         return name === productName && sizeText.includes(productSize);
+         });
+
+         if (existingItem) {
+            const quantitySpan = existingItem.querySelector(".item-options .quantity");
+            const currentQuantity = parseInt(quantitySpan.textContent, 10);
+            quantitySpan.textContent = currentQuantity + productQuantity;
+            updateCartTotal();
+            return;
+         }
+
          const shopItem = document.createElement("div");
          shopItem.classList.add("shop-item");
          shopItem.innerHTML = `
@@ -411,12 +593,13 @@ document.addEventListener("DOMContentLoaded", () => {
          </div>
          `;
          shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
+         setupQuantityControls(shopItem, updateCartTotal);
          updateShopMessage();
          updateCartTotal();
+         shopItem.classList.add("listeners-attached");
 
          const removeBtn = shopItem.querySelector(".item-options .remove-item");
          removeBtn.addEventListener("click", () => {
-            shopItem.style.position = "relative";
             shopItem.style.transition = "all 0.5s ease";
             shopItem.style.opacity = "0";
             shopItem.style.transform = "translateX(-20px)";
@@ -427,6 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 500);
          });
       });
+
    });
 });
 
