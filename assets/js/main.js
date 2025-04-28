@@ -115,7 +115,7 @@ shopCloseBtn.addEventListener("click", () => {
 
 shopBuyBtn.addEventListener("click", () => {
    disableButtonTemporarily(shopBuyBtn);
-   const shopItems = document.querySelectorAll(".shop-item");
+   const shopItems = shopItemsSelector();
    if (shopItems.length === 0) {
       showAlert("Você precisa adicionar itens ao carrinho primeiro!", "warning");
       return;
@@ -128,147 +128,168 @@ shopBuyBtn.addEventListener("click", () => {
 //This Functions Calculates the conditions of a coupon and apply the discount to the total value of the cart.
 const applyCouponBtn = document.querySelector(".apply-coupon-btn");
 const couponInput = document.querySelector(".coupon-input");
-const totalDisplay = document.querySelector(".total");
 const subtotalDisplay = document.querySelector(".subtotal");
+const totalDisplay = document.querySelector(".total");
+const shopItemsSelector = () => document.querySelectorAll(".shop-item");
 
-//Coupons List
+const isToday = (day, month) => {
+   const today = new Date();
+   return today.getDate() === day && today.getMonth() === month - 1;
+}
+
+const isBetweenDates = (startDate, endDate) => {
+   const now = new Date();
+   return now >= startDate && now <= endDate;
+}
+
+
 const couponList = {
    "COMBOEARTH": {
       type: "percentage",
-      discount: 0.1, 
-      description: "COMBOEARTH", /*Leve 2 pares e ganhe 10% de desconto no total!*/
-      condition: (shopItems) => shopItems.length >= 2 
+      discount: 0.1,
+      condition: (items, total) => items.length >= 2
    },
    "EARTHDAY": {
       type: "percentage",
       discount: 0.2,
-      description: "EARTHDAY", /*No Dia Internacional da Terra, ganhe 20% de desconto no total!*/
-      condition: (shopItems) => true 
+      condition: () => isToday(22, 4)
    },
    "STYLE200": {
       type: "fixed",
-      discount: 200, 
-      description: "STYLE200", /*Em compras acima de R$1000,00 ganhe R$200,00 de desconto!*/
-      condition: (shopItems) => getTotalValue(shopItems) >= 1000 
+      discount: 200,
+      condition: (items, total) => total >= 1000
    },
    "BIG350": {
       type: "fixed",
-      discount: 350, 
-      description: "BIG350", /*Em compras acima de R$2000,00 ganhe R$350,00 de desconto!*/
-      condition: (shopItems) => getTotalValue(shopItems) >= 2000
+      discount: 350,
+      condition: (items, total) => total >= 2000
    },
    "BLACKEARTH25": {
       type: "percentage",
-      discount: 0.25, 
-      description: "BLACKEARTH25", /*Na Semana da Black Friday, ganhe 25% de desconto no total!*/
-      condition: (shopItems) => true 
+      discount: 0.25,
+      condition: () => {
+         const year = new Date().getFullYear();
+         const blackFriday = new Date(year, 10, 1); 
+         while (blackFriday.getDay() !== 5) blackFriday.setDate(blackFriday.getDate() + 1);
+         blackFriday.setDate(blackFriday.getDate() + 21); 
+         const start = new Date(blackFriday);
+         start.setDate(start.getDate() - 3);
+         const end = new Date(blackFriday);
+         end.setDate(end.getDate() + 3); 
+         return isBetweenDates(start, end);
+      }
    },
    "NAMORO10": {
       type: "percentage",
-      discount: 0.1, 
-      description: "NAMORO10", /*No Dia dos Namorados, ganhe 10% de desconto no total!*/
-      condition: (shopItems) => true 
+      discount: 0.1,
+      condition: () => isToday(12, 6)
    },
    "DEMAIS600": {
       type: "fixed",
       discount: 600,
-      description: "DEMAIS600", /*Em compras acima de R$5000,00 ganhe R$6000 de desconto no total!*/
-      condition: (shopItems) => getTotalValue(shopItems) >= 5000
+      condition: (items, total) => total >= 5000
    }
 };
 
-const getTotalValue = (shopItems) => {
-   let total = 0;
-   shopItems.forEach(item => {
-      const priceText = item.querySelector(".item-info .item-price .price").textContent;
-      const price = parseFloat(priceText.replace("R$", "").replace(",", "."));
-      let quantity = parseInt(item.querySelector(".item-options .item-quantity .quantity").textContent, 10) || 1;
-      total += price * quantity;
-   });
-   return total;
-};
-
 let activeCoupon = null;
-const applyCoupon = () => {
-   const couponCode = couponInput.value.trim().toUpperCase(); 
-   const coupon = couponList[couponCode]; 
-   const shopItems = document.querySelectorAll(".shop-item");
-   
-   disableButtonTemporarily(applyCouponBtn); 
 
-   if (shopItems.length === 0) {
+const getTotalValue = (items) => {
+   return Array.from(items).reduce((total, item) => {
+      const priceText = item.querySelector(".price").textContent;
+      const price = parseFloat(priceText.replace("R$", "").replace(",", "."));
+      const quantity = parseInt(item.querySelector(".quantity").textContent, 10) || 1;
+      return total + (price * quantity);
+   }, 0);
+}
+
+const applyCoupon = () => {
+   const code = couponInput.value.trim().toUpperCase();
+   const items = shopItemsSelector();
+   const subtotal = getTotalValue(items);
+   disableButtonTemporarily(applyCouponBtn);
+
+   if (items.length === 0) {
       showAlert("Você precisa adicionar itens ao carrinho primeiro!", "warning");
       return;
    }
    if (activeCoupon) {
       showAlert("Você pode aplicar apenas um cupom por compra!", "warning");
-      couponInput.value = ""; 
+      couponInput.value = "";
       return;
    }
 
-   if (coupon) {
-      if (coupon.condition(shopItems)) {
-         showAlert(`Cupom ${coupon.description} aplicado!`, "success");
-         couponInput.value = ""; 
-         activeCoupon = coupon;
-         updateCartTotal(); 
-      } else {
-         showAlert(`O cupom ${coupon.description} não pode ser aplicado. Verifique as condições.`, "warning");
-         couponInput.value = "";
-         activeCoupon = null; 
-      }
-   } else {
+   const coupon = couponList[code];
+   if (!coupon) {
       showAlert("Cupom inválido ou expirado.", "warning");
-      couponInput.value = ""; 
-      activeCoupon = null;
+      couponInput.value = "";
+      return;
    }
-};
+
+   if (!coupon.condition(items, subtotal)) {
+      showAlert(`O cupom ${code} não pode ser aplicado. Verifique as condições.`, "warning");
+      couponInput.value = "";
+      return;
+   }
+
+   activeCoupon = { code, ...coupon };
+   showAlert(`Cupom ${code} aplicado!`, "success");
+   couponInput.value = "";
+   updateCartTotal();
+}
+
+const validateCoupon = () => {
+   if (!activeCoupon) return;
+
+   const items = shopItemsSelector();
+   const subtotal = getTotalValue(items);
+
+   const coupon = couponList[activeCoupon.code];
+   if (!coupon.condition(items, subtotal)) {
+      showAlert(`O cupom ${activeCoupon.code} não é mais válido. O valor do carrinho foi alterado.`, "warning");
+      activeCoupon = null;
+      updateCartTotal(); 
+   }
+}
 applyCouponBtn.addEventListener("click", applyCoupon);
 
-//Function to calculate Cart total Value
-//This Function calculates the total and subtotal of the products in the cart
-const updateCartTotal = () => {
-   const shopItems = document.querySelectorAll(".shop-item");
-   let subtotal = getTotalValue(shopItems);
-   let total = subtotal;
-   
-   if (activeCoupon) {
-      if (activeCoupon.type === "percentage") {
-         total = subtotal * (1 - activeCoupon.discount);
-      } else if (activeCoupon.type === "fixed") {
-         total = subtotal - activeCoupon.discount;
-      }
-      if (total < 0) total = 0; 
-   }
-
-   const subtotalDisplay = document.querySelector(".subtotal");
-   const totalDisplay = document.querySelector(".total");
-
-   [subtotalDisplay, totalDisplay].forEach(display => {
-      display.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-      display.style.opacity = "0";
-      display.style.transform = "translateY(-10px)";
+const animateTotalDisplay = (subtotal, total) => {
+   [subtotalDisplay, totalDisplay].forEach(el => {
+      el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+      el.style.opacity = "0";
+      el.style.transform = "translateY(-10px)";
    });
 
    setTimeout(() => {
       subtotalDisplay.textContent = `R$ ${subtotal.toFixed(2)}`;
       totalDisplay.textContent = `R$ ${total.toFixed(2)}`;
-      [subtotalDisplay, totalDisplay].forEach(display => {
-         display.style.opacity = "1";
-         display.style.transform = "translateY(0)";
+      [subtotalDisplay, totalDisplay].forEach(el => {
+         el.style.opacity = "1";
+         el.style.transform = "translateY(0)";
       });
    }, 500);
-};
+}
 
+const updateCartTotal = () => {
+   const items = shopItemsSelector();
+   const subtotal = getTotalValue(items);
+   let total = subtotal;
+
+   if (activeCoupon) {
+      const { type, discount } = activeCoupon;
+      total = type === "percentage" ? subtotal * (1 - discount) : subtotal - discount;
+      if (total < 0) total = 0;
+   }
+
+   animateTotalDisplay(subtotal, total);
+}
 
 const updateShopMessage = () => {
-   const shopItems = document.querySelectorAll(".shop-item"); 
-   const shopMessage = document.querySelector(".shop-message"); 
+   const shopItems = shopItemsSelector(); 
+   const shopMessage = document.querySelector(".shop-message");
+   const alert = shopBtn.querySelector(".alert"); 
    shopMessage.classList.toggle("active", shopItems.length === 0);
    shopBtn.classList.toggle("active", shopItems.length > 0);
-   const alert = shopBtn.querySelector(".alert");
    alert.classList.toggle("active", shopItems.length > 0);
-   updateCartTotal();
 };
 
 const setupQuantityControls = (container, onQuantityChange = null) => {
@@ -287,11 +308,13 @@ const setupQuantityControls = (container, onQuantityChange = null) => {
       if (quantity > 1) {
          quantity--;
          updateDisplay();
+         validateCoupon();
       }
    });
    increaseBtn.addEventListener("click", () => {
       quantity++;
       updateDisplay();
+      validateCoupon();
    });
 };
 
@@ -353,22 +376,7 @@ var swiper = new Swiper(".brandsSwiper", {
    Product modals, tabs and cards
 ===================================================== */
 
-//Product Image Swiper
-document.querySelectorAll(".product-img-swiper").forEach((swiperContainer) => {
-   new Swiper(swiperContainer, {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      pagination: {
-         el: swiperContainer.querySelector(".swiper-pagination"), // Captura a paginação específica do produto
-         clickable: true,
-         renderBullet: function (bulletIndex, className) {
-            var slide = swiperContainer.querySelectorAll(".swiper-slide")[bulletIndex];
-            var imgSrc = slide.querySelector("img").src;
-            return `<span class="${className}"><img src="${imgSrc}" alt="Slide ${bulletIndex + 1}" /></span>`;
-         },
-      },
-   });
-});
+
 
 //Filter product cards according to product tabs and slides swiper.
 document.addEventListener("DOMContentLoaded", () => {
@@ -420,13 +428,34 @@ document.addEventListener("DOMContentLoaded", () => {
    }
 
    //Product Card Configurations
+   //Here are all the settings about the products and their modals
    const products = document.querySelectorAll(".products-container .card-with-modal");
    products.forEach(product => {
 
-      //Comments Counter of the products
-      const comments = product.querySelectorAll(".comment");
-      const commentsDisplay = product.querySelector(".comments-display");
-      commentsDisplay.textContent = `${comments.length} ${comments.length === 1 ? 'Comentário' : 'Comentários'}`;
+      //Product Image Swiper
+      product.querySelectorAll(".product-img-swiper").forEach((swiperContainer) => {
+         new Swiper(swiperContainer, {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: {
+               el: swiperContainer.querySelector(".swiper-pagination"), // Captura a paginação específica do produto
+               clickable: true,
+               renderBullet: function (bulletIndex, className) {
+                  var slide = swiperContainer.querySelectorAll(".swiper-slide")[bulletIndex];
+                  var imgSrc = slide.querySelector("img").src;
+                  return `<span class="${className}"><img src="${imgSrc}" alt="Slide ${bulletIndex + 1}" /></span>`;
+               },
+            },
+         });
+      });
+
+      //Add Price according the info of the product
+      const priceContent = product.querySelector('.product-info .normal-price.info').textContent;
+      const priceValue = parseFloat(priceContent.replace("R$", "").replace(",", "."));
+      const priceDiscount = `R$ ${(priceValue * 0.8).toFixed(2).replace(".", ",")}`;
+      product.querySelector(".product-info .price-with-descount.info").textContent = priceDiscount;
+      product.querySelector(".product-description .price-descount-display").textContent = priceDiscount;
+      product.querySelector('.product-description .price-display').textContent = priceContent;
 
       //Add Buttons Sizes according the info of the product
       const sizesText = product.querySelector('.product-options.info .option.info p span').textContent;
@@ -441,18 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
             sizeBtn.textContent = sizeValue;
             productSizeContainer.appendChild(sizeBtn);
          };
-         
-      //Add Price according the info of the product
-      const priceContent = product.querySelector('.product-info .normal-price.info').textContent;
-      const priceValue = parseFloat(priceContent.replace("R$", "").replace(",", "."));
-      const priceDiscount = `R$ ${(priceValue * 0.8).toFixed(2).replace(".", ",")}`;
-      product.querySelector(".product-info .price-with-descount.info").textContent = priceDiscount;
-      product.querySelector(".product-description .price-descount-display").textContent = priceDiscount;
-      product.querySelector('.product-description .price-display').textContent = priceContent;
       
-      //Quantity Button of the product
-      setupQuantityControls(product);
-
       //Add active class to size button
       const productSize = product.querySelector(".product-size");
       const productSizeBtns = productSize.querySelectorAll(".size-btn");
@@ -461,6 +479,40 @@ document.addEventListener("DOMContentLoaded", () => {
             setActiveButton(productSizeBtns, sizeBtn);
          });
       });
+
+      //Quantity Button of the product
+      setupQuantityControls(product);
+
+      //Comments Counter of the products
+      const comments = product.querySelectorAll(".comment");
+      const commentsDisplay = product.querySelector(".comments-display");
+      commentsDisplay.textContent = `${comments.length} ${comments.length === 1 ? 'Comentário' : 'Comentários'}`;
+      
+      //Gets Stars of comments and create the average in the product card.
+      const commentElements = product.querySelectorAll(".product-comments .comment");
+      let totalRating = 0;
+
+      commentElements.forEach(comment => {
+         const starIcons = comment.querySelectorAll(".comment-stars li i");
+         let ratingForComment = 0;
+         starIcons.forEach(star => {
+            if (star.classList.contains("ri-star-fill")) ratingForComment += 1;
+            else if (star.classList.contains("ri-star-half-line")) ratingForComment += 0.5;
+         });
+         totalRating += ratingForComment;
+         });
+
+      let averageRating = totalRating / commentElements.length;
+      averageRating = Math.round(averageRating * 2) / 2;
+      const productStarsContainer = product.querySelector(".product-stars.info");
+      productStarsContainer.innerHTML = "";   
+      for (let i = 1; i <= 5; i++) {
+         const starIcon = document.createElement("i");
+         if (averageRating >= i) starIcon.className = "ri-star-fill";
+         else if (averageRating >= i - 0.5) starIcon.className = "ri-star-half-line";
+         else starIcon.className = "ri-star-line";
+         productStarsContainer.appendChild(starIcon);
+      };
       
       //Open/Close product modals.
       const productCard = product.querySelector(".product-card");
@@ -468,7 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const modalCloseBtn = product.querySelector(".modal-close-btn");
       const productModal = product.querySelector(".product-modal");
 
-      const setupModalTrigger = (selector) => {
+      const ModalTriggerWithoutFilter = (selector) => {
          const buttons = document.querySelectorAll(selector);
          buttons.forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -499,8 +551,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
          });
       }
-      setupModalTrigger(".popular-swiper .swiper-slide .slide-info a");
-      setupModalTrigger(".notices-container .notice .notice-btn");
+      ModalTriggerWithoutFilter(".popular-swiper .swiper-slide .slide-info a");
+      ModalTriggerWithoutFilter(".notices-container .notice .notice-btn");
       
       productCard.addEventListener("click", () => {
          productBackdrop.style.display = "flex";
@@ -518,32 +570,6 @@ document.addEventListener("DOMContentLoaded", () => {
             productBackdrop.style.display = "none";
          }, 200);
       });
-
-      //Gets Stars of comments and create the average in the product card.
-      const commentElements = product.querySelectorAll(".product-comments .comment");
-      let totalRating = 0;
-
-      commentElements.forEach(comment => {
-         const starIcons = comment.querySelectorAll(".comment-stars li i");
-         let ratingForComment = 0;
-         starIcons.forEach(star => {
-            if (star.classList.contains("ri-star-fill")) ratingForComment += 1;
-            else if (star.classList.contains("ri-star-half-line")) ratingForComment += 0.5;
-         });
-         totalRating += ratingForComment;
-         });
-
-      let averageRating = totalRating / commentElements.length;
-      averageRating = Math.round(averageRating * 2) / 2;
-      const productStarsContainer = product.querySelector(".product-stars.info");
-      productStarsContainer.innerHTML = "";   
-      for (let i = 1; i <= 5; i++) {
-         const starIcon = document.createElement("i");
-         if (averageRating >= i) starIcon.className = "ri-star-fill";
-         else if (averageRating >= i - 0.5) starIcon.className = "ri-star-half-line";
-         else starIcon.className = "ri-star-line";
-         productStarsContainer.appendChild(starIcon);
-      };
 
       //Add Product to Shop Cart
       const addToCartBtn = product.querySelector(".add-to-cart-btn.border-btn");
@@ -574,6 +600,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const quantitySpan = existingItem.querySelector(".item-options .quantity");
             const currentQuantity = parseInt(quantitySpan.textContent, 10);
             quantitySpan.textContent = currentQuantity + productQuantity;
+
+            setupQuantityControls(existingItem, updateCartTotal);
+            validateCoupon();
             updateCartTotal();
             return;
          }
@@ -595,8 +624,8 @@ document.addEventListener("DOMContentLoaded", () => {
          shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
          setupQuantityControls(shopItem, updateCartTotal);
          updateShopMessage();
+         validateCoupon();
          updateCartTotal();
-         shopItem.classList.add("listeners-attached");
 
          const removeBtn = shopItem.querySelector(".item-options .remove-item");
          removeBtn.addEventListener("click", () => {
@@ -606,9 +635,11 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                shopItem.remove();
                updateShopMessage();
+               validateCoupon();
                updateCartTotal();
             }, 500);
          });
+
       });
 
    });
@@ -638,13 +669,13 @@ themeBtn.addEventListener("click", () => {
    const getCurrentIcon = () => themeBtn.classList.contains("active-sun-icon") ? "sun" : "moon";
    const getCurrentTheme = () => document.body.classList.contains("light-theme") ? "light" : "dark";
 
-   localStorage.setItem("fabian-saved-icon", getCurrentIcon());
-   localStorage.setItem("fabian-saved-theme", getCurrentTheme());
+   localStorage.setItem("earth-saved-icon", getCurrentIcon());
+   localStorage.setItem("earth-saved-theme", getCurrentTheme());
 });
 
 // Get saved theme icon and theme on document loaded.
-const savedIcon = localStorage.getItem("fabian-saved-icon");
-const savedTheme = localStorage.getItem("fabian-saved-theme");
+const savedIcon = localStorage.getItem("earth-saved-icon");
+const savedTheme = localStorage.getItem("earth-saved-theme");
 
 document.addEventListener("DOMContentLoaded", () => {
    themeBtn.classList[savedIcon === "sun" ? "add" : "remove"]("active-sun-icon");
