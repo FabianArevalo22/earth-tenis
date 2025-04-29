@@ -149,6 +149,11 @@ const couponList = {
       discount: 0.1,
       condition: (items, total) => items.length >= 2
    },
+   "COLECAO25": {
+      type: "percentage",
+      discount: 0.25,
+      condition: (items, total) => items.length >= 4
+   },
    "EARTHDAY": {
       type: "percentage",
       discount: 0.2,
@@ -177,6 +182,16 @@ const couponList = {
          const end = new Date(blackFriday);
          end.setDate(end.getDate() + 3); 
          return isBetweenDates(start, end);
+      }
+   },
+   "EARTHWEEK20": {
+   type: "percentage",
+   discount: 0.20,
+   condition: () => {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 4, 1); 
+      const end = new Date(now.getFullYear(), 4, 7);
+      return isBetweenDates(start, end);
       }
    },
    "NAMORO10": {
