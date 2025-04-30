@@ -8,7 +8,7 @@ const showAlert = (message = "Alerta!", type = "error") => {
    const alertTypes = {
       success: {
          icon: "ri-checkbox-circle-fill",
-         title: "Adicionado!"
+         title: "Sucesso!"
       },
       error: {
          icon: "ri-close-circle-fill",
@@ -595,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showAlert("Selecione um tamanho!", "warning");
             return;
          }
-         showAlert("Produto adicionado ao carrinho com sucesso!", "success");
+         showAlert("Produto adicionado ao carrinho!", "success");
 
          const productImage = product.querySelector(".product-img img").src;
          const productName = product.querySelector(".product-description h3").textContent;
@@ -658,6 +658,97 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
    });
+});
+/* =====================================================
+   Send/Receive emails from contact form - EmailJS
+===================================================== */
+(function() {
+   emailjs.init({
+     publicKey: "YWvx8RBXQ2CWsEe2q",
+   });
+})();
+const FormBtn = document.querySelector("form .submit-btn")
+EarthContactForm = document.getElementById("earth-tenis-contact-form");
+EarthContactForm.addEventListener('submit', function(event) {
+   event.preventDefault();
+   emailjs.sendForm('service_wz0vm5i', 'template_7dquq0h', '#earth-tenis-contact-form')
+       .then(() => {
+         disableButtonTemporarily(FormBtn);
+         showAlert("O seu email foi enviado com sucesso!", "success");
+         EarthContactForm.reset();
+       }, () => {
+         disableButtonTemporarily(FormBtn);
+         showAlert("Houve um erro ao enviar o seu email!", "error");
+       });
+});
+/* =====================================================
+   Bottom navigation menu
+===================================================== */
+//Each bottom navigation menu items active on page scroll.
+window.addEventListener("scroll", () => {
+   const navMenuSections = document.querySelectorAll(".nav-menu-section");
+   const scrollY = window.pageYOffset;
+
+   navMenuSections.forEach((navMenuSection) => {
+      let sectionHeight = navMenuSection.offsetHeight;
+      let sectionTop = navMenuSection.offsetTop - 50;
+      let id = navMenuSection.getAttribute("id");
+
+      if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+         document.querySelector(".bottom-nav .menu li a[href*=" + id + "]").classList.add("current");
+      }else{
+         document.querySelector(".bottom-nav .menu li a[href*=" + id + "]").classList.remove("current");
+
+      }
+   });
+});
+
+//Javascript to show bottom navigation menu on home(page load).
+window.addEventListener("DOMContentLoaded", () => {
+   const bottomNav = document.querySelector(".bottom-nav");
+   bottomNav.classList.toggle("active", window.scrollY < 10);
+});
+
+//Javascript to show/hide bottom navigation menu on home(scroll).
+const bottomNav = document.querySelector(".bottom-nav");
+const menuHideBtn = document.querySelector(".menu-hide-btn");
+const menuShowBtn = document.querySelector(".menu-show-btn");
+var navTimeout;
+
+window.addEventListener("scroll", () => {
+   bottomNav.classList.add("active");
+   menuShowBtn.classList.remove("active");
+
+   if(window.scrollY < 10){
+      menuHideBtn.classList.add("active");
+      function scrollStopped(){
+         bottomNav.classList.add("active");
+      }
+      clearTimeout(navTimeout);
+      navTimeout = setTimeout(scrollStopped, 2500);
+   }
+
+   if(window.scrollY > 10){
+      menuHideBtn.classList.add("active");
+      function scrollStopped(){
+         bottomNav.classList.remove("active");
+         menuShowBtn.classList.add("active");
+      }
+      clearTimeout(navTimeout);
+      navTimeout = setTimeout(scrollStopped, 2500);
+   }
+});
+//Hide bottom navigation menu on click menu-hide-btn.
+menuHideBtn.addEventListener("click", () => {
+   bottomNav.classList.toggle("active");
+   menuHideBtn.classList.toggle("active");
+   menuShowBtn.classList.toggle("active");
+});
+//Show bottom navigation menu on click menu-show-btn.
+menuShowBtn.addEventListener("click", () => {
+   bottomNav.classList.toggle("active");
+   menuHideBtn.classList.add("active");
+   menuShowBtn.classList.toggle("active");
 });
 
 /* =====================================================
