@@ -666,7 +666,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="ri-delete-bin-fill remove-item"></i>
          </div>
          `;
-         shop.insertBefore(shopItem, document.querySelector(".shop-about"));
+         shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
          setupQuantityControls(shopItem, updateCartTotal);
          updateShopMessage();
          validateCoupon();
@@ -857,17 +857,17 @@ window.addEventListener("scroll", () => {
 /* =====================================================
    ScrollReveal JS animations
 ===================================================== */
-ScrollReveal({
-   distance: '60px',
-   duration: 1500,
-   delay: 300
-});
-document.addEventListener("DOMContentLoaded", () => {
-   ScrollReveal().reveal('.shoe-container, .section-title', {delay: 100, origin: 'top'});
-   ScrollReveal().reveal('.about-introdution, .about-tabs .tab-btn, .products-tabs .tab-btn, .products-container .product-card', {delay: 150, origin: 'right', interval: 100 });
-   ScrollReveal().reveal('.home-social, .home-scroll-btn, .about-tab-content, .notices-container, .popular-swiper, .brands, .brandsSwiper, .safe-purchase', {delay: 200, origin: 'bottom'});
-   ScrollReveal().reveal('.inspirations h3, .inspirations p, .inspirationsSwiper, .contact-info h3, .contact-details .contact-item ', {delay: 100, origin: 'left', interval: 100});
-   ScrollReveal().reveal('.contact-social-links li', {delay: 200, origin: 'bottom', interval: 100});
-   ScrollReveal().reveal('.contact-form-body', {delay: 200, origin: 'right'});
-   ScrollReveal().reveal('footer span, .footer-menu .menu-item, .copy-right', {delay: 250, origin: 'bottom', interval: 100 });
-});
+// ScrollReveal({
+//    distance: '60px',
+//    duration: 1500,
+//    delay: 300
+// });
+// document.addEventListener("DOMContentLoaded", () => {
+//    ScrollReveal().reveal('.shoe-container, .section-title', {delay: 100, origin: 'top'});
+//    ScrollReveal().reveal('.about-introdution, .about-tabs .tab-btn, .products-tabs .tab-btn, .products-container .product-card', {delay: 150, origin: 'right', interval: 100 });
+//    ScrollReveal().reveal('.home-social, .home-scroll-btn, .about-tab-content, .notices-container, .popular-swiper, .brands, .brandsSwiper, .safe-purchase', {delay: 200, origin: 'bottom'});
+//    ScrollReveal().reveal('.inspirations h3, .inspirations p, .inspirationsSwiper, .contact-info h3, .contact-details .contact-item ', {delay: 100, origin: 'left', interval: 100});
+//    ScrollReveal().reveal('.contact-social-links li', {delay: 200, origin: 'bottom', interval: 100});
+//    ScrollReveal().reveal('.contact-form-body', {delay: 200, origin: 'right'});
+//    ScrollReveal().reveal('footer span, .footer-menu .menu-item, .copy-right', {delay: 250, origin: 'bottom', interval: 100 });
+// });
