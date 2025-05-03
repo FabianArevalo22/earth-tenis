@@ -332,7 +332,32 @@ const setupQuantityControls = (container, onQuantityChange = null) => {
       validateCoupon();
    });
 };
+/* =====================================================
+   About Us
+===================================================== */
+const aboutTabs = document.querySelector(".about-tabs");
+const aboutUsTabsBtn = aboutTabs.querySelectorAll(".tab-btn");
+const AboutTabContents = document.querySelectorAll(".about-tab-content");
 
+var aboutTabNav = function(aboutTabClick){
+   AboutTabContents.forEach((aboutTabContent) =>{
+      aboutTabContent.style.display = "none";
+      aboutTabContent.classList.remove("active");
+   });
+   aboutUsTabsBtn.forEach((aboutUsTabBtn) =>{
+      aboutUsTabBtn.classList.remove("active"); 
+   });
+   AboutTabContents[aboutTabClick].style.display = "flex";
+   setTimeout(() => {
+      AboutTabContents[aboutTabClick].classList.add("active");
+   }, 100);
+   aboutUsTabsBtn[aboutTabClick].classList.add("active");
+}
+aboutUsTabsBtn.forEach((aboutUsTabBtn, i) => {
+   aboutUsTabBtn.addEventListener("click", () => {
+      aboutTabNav(i);
+   });
+});
 /* =====================================================
    Notices
 ===================================================== */
@@ -386,12 +411,18 @@ var swiper = new Swiper(".brandsSwiper", {
      prevEl: ".swiper-button-prev",
    },
 });
+var swiper = new Swiper(".inspirationsSwiper", {
+   slidesPerView: 3,
+   spaceBetween: 10,
+   navigation: {
+     nextEl: ".swiper-button-next",
+     prevEl: ".swiper-button-prev",
+   },
+});
 
 /* =====================================================
    Product modals, tabs and cards
 ===================================================== */
-
-
 
 //Filter product cards according to product tabs and slides swiper.
 document.addEventListener("DOMContentLoaded", () => {
@@ -541,34 +572,28 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener("click", () => {
                const filter = btn.getAttribute("data-filter");
                if (productCard.getAttribute("data-filter") === filter) {
-                  product.classList.remove("hidden");
-                  product.style.opacity = "1";
-                  product.style.transition = ".5s ease";
-                  productBackdrop.style.display = "flex";
+                  const wasHidden = product.classList.contains("hidden");
       
+                  if (wasHidden) {
+                     product.classList.remove("hidden");
+                     product.classList.add("temp-visible"); 
+                     product.style.opacity = "1";
+                     product.style.transition = ".5s ease";
+                  }
+      
+                  productBackdrop.style.display = "flex";
                   setTimeout(() => {
                      productBackdrop.classList.add("active");
                      productModal.classList.add("active");
                   }, 300);
-      
-                  modalCloseBtn.addEventListener("click", () => {
-                     setTimeout(() => {
-                        productBackdrop.classList.remove("active");
-                        productModal.classList.remove("active");
-                     }, 100);
-                     setTimeout(() => {
-                        productBackdrop.style.display = "none";
-                        product.classList.add("hidden");
-                        product.style.opacity = "0";
-                     }, 200);
-                  });
                }
             });
          });
-      }
+      };
       ModalTriggerWithoutFilter(".popular-swiper .swiper-slide .slide-info a");
       ModalTriggerWithoutFilter(".notices-container .notice .notice-btn");
-      
+      ModalTriggerWithoutFilter(".inspirationsSwiper .swiper-slide .see-product");
+
       productCard.addEventListener("click", () => {
          productBackdrop.style.display = "flex";
          setTimeout(() => {
@@ -583,6 +608,11 @@ document.addEventListener("DOMContentLoaded", () => {
          }, 100);
          setTimeout(() => {
             productBackdrop.style.display = "none";
+            if (product.classList.contains("temp-visible")) {
+               product.classList.add("hidden");
+               product.style.opacity = "0";
+               product.classList.remove("temp-visible");
+            }
          }, 200);
       });
 
@@ -636,7 +666,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="ri-delete-bin-fill remove-item"></i>
          </div>
          `;
-         shop.insertBefore(shopItem, document.querySelector(".shop-resume"));
+         shop.insertBefore(shopItem, document.querySelector(".shop-about"));
          setupQuantityControls(shopItem, updateCartTotal);
          updateShopMessage();
          validateCoupon();
@@ -758,7 +788,34 @@ window.addEventListener("scroll", () => {
     const earthTenisHeader = document.querySelector(".earth-tenis-header");
     earthTenisHeader.classList.toggle("shrink", window.scrollY > 0);
  });
+/* =====================================================
+   Customized cursor on mousemove
+===================================================== */
+const cursor = document.querySelector(".cursor");
+const cursorDot = cursor.querySelector(".cursor-dot");
+const cursorCircle = cursor.querySelector(".cursor-circle");
+document.addEventListener("mousemove", (e) => {
+   let x = e.clientX;
+   let y = e.clientY;
 
+   cursorDot.style.top = y + "px";
+   cursorDot.style.left = x + "px";
+   cursorCircle.style.top = y + "px";
+   cursorCircle.style.left = x + "px";
+});
+const cursorHoverLinks = document.querySelectorAll("body a, .theme-btn, .shop-btn, .earth-tenis-main-btn, .brandsSwiper .swiper-slide.avaliable, .product-card, .swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet, .see-product, .contact-social-links li, .contact-form .submit-btn, .menu-show-btn, .menu-hide-btn");
+cursorHoverLinks.forEach((cursorHoverLink) => {
+   cursorHoverLink.addEventListener("mouseover", () => {
+      cursorDot.classList.add("large");
+      cursorCircle.style.display = "none";
+   });
+});
+cursorHoverLinks.forEach((cursorHoverLink) => {
+   cursorHoverLink.addEventListener("mouseout", () => {
+      cursorDot.classList.remove("large");
+      cursorCircle.style.display = "block";
+   });
+});
 /* =====================================================
    Website dark/light theme
 ===================================================== */
@@ -786,4 +843,13 @@ const savedTheme = localStorage.getItem("earth-saved-theme");
 document.addEventListener("DOMContentLoaded", () => {
    themeBtn.classList[savedIcon === "sun" ? "add" : "remove"]("active-sun-icon");
    document.body.classList[savedTheme === "light" ? "add" : "remove"]("light-theme");
+});
+
+//Scroll Indicator Bar
+window.addEventListener("scroll", () => {
+   const scrollIndicatorBar = document.querySelector(".scroll-indicator-bar")
+   const pageScroll = document.documentElement.scrollTop;
+   const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+   const scrollValue = (pageScroll / totalHeight) * 100;
+   scrollIndicatorBar.style.width = scrollValue + "%";
 });
