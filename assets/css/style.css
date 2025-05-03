@@ -738,7 +738,6 @@ letter-spacing: -1px;
     row-gap: 3px;
     animation: up-down 1.5s linear infinite;
     animation-delay: 1.85s;
-    transition: all .3s;
 }
 @keyframes up-down{
     0%{
