@@ -684,7 +684,6 @@ document.addEventListener("DOMContentLoaded", () => {
                updateCartTotal();
             }, 500);
          });
-
       });
 
    });
@@ -791,31 +790,31 @@ window.addEventListener("scroll", () => {
 /* =====================================================
    Customized cursor on mousemove
 ===================================================== */
-const cursor = document.querySelector(".cursor");
-const cursorDot = cursor.querySelector(".cursor-dot");
-const cursorCircle = cursor.querySelector(".cursor-circle");
-document.addEventListener("mousemove", (e) => {
-   let x = e.clientX;
-   let y = e.clientY;
+// const cursor = document.querySelector(".cursor");
+// const cursorDot = cursor.querySelector(".cursor-dot");
+// const cursorCircle = cursor.querySelector(".cursor-circle");
+// document.addEventListener("mousemove", (e) => {
+//    let x = e.clientX;
+//    let y = e.clientY;
 
-   cursorDot.style.top = y + "px";
-   cursorDot.style.left = x + "px";
-   cursorCircle.style.top = y + "px";
-   cursorCircle.style.left = x + "px";
-});
-const cursorHoverLinks = document.querySelectorAll("body a, .theme-btn, .shop-btn, .earth-tenis-main-btn, .brandsSwiper .swiper-slide.avaliable, .product-card, .swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet, .see-product, .contact-social-links li, .contact-form .submit-btn, .menu-show-btn, .menu-hide-btn");
-cursorHoverLinks.forEach((cursorHoverLink) => {
-   cursorHoverLink.addEventListener("mouseover", () => {
-      cursorDot.classList.add("large");
-      cursorCircle.style.display = "none";
-   });
-});
-cursorHoverLinks.forEach((cursorHoverLink) => {
-   cursorHoverLink.addEventListener("mouseout", () => {
-      cursorDot.classList.remove("large");
-      cursorCircle.style.display = "block";
-   });
-});
+//    cursorDot.style.top = y + "px";
+//    cursorDot.style.left = x + "px";
+//    cursorCircle.style.top = y + "px";
+//    cursorCircle.style.left = x + "px";
+// });
+// const cursorHoverLinks = document.querySelectorAll("body a, .theme-btn, .shop-btn, .earth-tenis-main-btn, .brandsSwiper .swiper-slide.avaliable, .product-card, .swiper-button-next, .swiper-button-prev, .swiper-pagination-bullet, .see-product, .contact-social-links li, .contact-form .submit-btn, .menu-show-btn, .menu-hide-btn");
+// cursorHoverLinks.forEach((cursorHoverLink) => {
+//    cursorHoverLink.addEventListener("mouseover", () => {
+//       cursorDot.classList.add("large");
+//       cursorCircle.style.display = "none";
+//    });
+// });
+// cursorHoverLinks.forEach((cursorHoverLink) => {
+//    cursorHoverLink.addEventListener("mouseout", () => {
+//       cursorDot.classList.remove("large");
+//       cursorCircle.style.display = "block";
+//    });
+// });
 /* =====================================================
    Website dark/light theme
 ===================================================== */
