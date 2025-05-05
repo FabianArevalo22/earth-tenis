@@ -2180,3 +2180,73 @@ letter-spacing: -1px;
    color: var(--color-01);
    transition: .3s;
 }
+/* =========================================
+   Media Queries (min-width: 1600px)
+========================================= */
+@media screen and (min-width: 1600px){
+   :root{
+      --h1-font-size: 6.00rem;     
+      --h2-font-size: 2.81rem;     
+      --h3-font-size: 2.46rem;     
+      --h4-font-size: 1.79rem;     
+      --h5-font-size: 1.54rem;    
+
+      --xlarge-font-size: 1.85rem;   
+      --large-font-size: 1.54rem;    
+      --medium-font-size: 1.48rem;   
+      --base-font-size: 1.38rem;   
+      --small-font-size: 1.34rem;  
+      --tiny-font-size: 1.23rem;
+   }   
+   .earth-tenis-container{
+      max-width: 100%;
+      margin-left: 75px;
+      margin-right: 75px;
+   }
+   .shoe-img{
+      width: 530px;
+      height: 530px;
+   }
+   .header-menu{
+      column-gap: 40px;
+   }
+   .header-btns{
+      column-gap: 35px;
+   }
+   .home-scroll-btn i {
+      font-size: 2.5rem;
+   }
+   .home-social .social-line{
+      height: 300px;
+   }
+   .theme-btn i, .shop-btn i{
+      font-size: 2.20rem;
+   }
+   .bottom-nav .menu li a i {
+      font-size: 1.82rem;
+      padding: 13px;
+   }
+   .bottom-nav .menu-hide-btn {
+      font-size: 1.97rem;
+   }
+   .menu-show-btn {
+      width: 100px;
+      height: 65px;
+   }
+   .menu-show-btn .bar-01, .menu-show-btn .bar-02 {
+      background: var(--primary-color);
+      width: 52px;
+      height: 5.2px;
+      transition: .15s;
+   }
+   .about-introdution {
+      width: 1040px;
+      height: 390px;
+   }
+   .introdution-info{
+      width: 560px;
+   }
+   .introdution-img{
+      width: 400px;
+   }
+}
