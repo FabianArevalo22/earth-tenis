@@ -404,20 +404,33 @@ var swiper = new Swiper(".popular-swiper", {
 });
 
 var swiper = new Swiper(".brandsSwiper", {
-   slidesPerView: 5,
-   spaceBetween: 15,
+   slidesPerView: 3, 
+   spaceBetween: 7,
    navigation: {
      nextEl: ".swiper-button-next",
      prevEl: ".swiper-button-prev",
    },
-});
+   breakpoints: {
+     481: {
+       slidesPerView: 5,
+       spaceBetween: 15,
+     },
+   },
+ });
+
 var swiper = new Swiper(".inspirationsSwiper", {
-   slidesPerView: 3,
-   spaceBetween: 10,
+   slidesPerView: 2,
+   spaceBetween: 5,
    navigation: {
      nextEl: ".swiper-button-next",
      prevEl: ".swiper-button-prev",
    },
+   breakpoints: {
+      481: {
+        slidesPerView: 3,
+        spaceBetween: 10,
+      },
+    },
 });
 
 /* =====================================================

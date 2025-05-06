@@ -2277,8 +2277,6 @@ letter-spacing: -1px;
    }
    .notices-container {
       padding: 20px calc((100vw - 100%) / 2);
-   }
-   .notices-container {
       grid-auto-rows: 200px;
    }
    .popular-swiper .swiper-wrapper {
@@ -2458,9 +2456,541 @@ letter-spacing: -1px;
    .coupon-input {
       font-size: var(--medium-font-size);
   }
-  
-  
-  
-
-   
 }
+/* =========================================
+   Media Queries (max-width: 480px)
+========================================= */
+@media screen and (max-width: 480px){
+   :root{
+      /* ======= Font sizes ======= */
+      --h1-font-size: 2.25rem;
+      --h2-font-size: 1.9rem;  
+      --h3-font-size: 1.65rem;
+      --h4-font-size: 1.25rem;
+      --h5-font-size: 1.02rem;
+
+      --xlarge-font-size: 1.25rem;
+      --large-font-size: 1.1rem;
+      --medium-font-size: 1.03rem;
+      --base-font-size: 1rem;
+      --small-font-size: .9rem;
+      --tiny-font-size: .74rem;
+   }
+   .earth-tenis-container{
+      max-width: 100%;
+      margin-left: 20px;
+      margin-right: 20px;
+   }
+   .earth-tenis-header{
+      padding: 20px 0;
+   }
+   .shoe-container{
+      flex-direction: column;
+      gap: 10px
+   }
+   .shoe-img{
+      width: 180px;
+      height: 180px;
+   }
+   .shoe-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+   }
+   .shoe-info .text-content {
+      row-gap: 5px;
+   }
+   .shoe-info .hello-text, .shoe-info .we-are {
+      text-align: center;
+      font-size: var(--small-font-size);
+   }
+   .shoe-info .we-are {
+      margin-bottom: 10px;
+   }
+   .earth-tenis-main-btn {
+      padding: 7px 15px;
+      border-radius: 5px;
+   }
+   .home-container .earth-tenis-wrapper {
+      flex-direction: column-reverse;
+   }
+   .home-social{
+      position: relative;
+   }
+   .home-social span{
+      display: none;
+   }
+   .home-social .social-line{
+      display: none;
+   }
+   .home-social .social-icons{
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      margin-top: 15px;
+   }
+   .header-menu{
+      display: none;
+   }
+   .home-scroll-btn {
+      display: none;
+   }
+   .header-btns{
+      column-gap: 15px;
+   }
+   .theme-btn i, .shop-btn i{
+      font-size: 1.5rem;
+   }
+   .bottom-nav{
+      width: 100%;
+      padding: 0 20px;
+   }
+   .bottom-nav.active {
+      bottom: 20px;
+   }
+   .bottom-nav .menu{
+      padding: 10px 20px;
+      justify-content: space-between;
+      column-gap: 7px;
+      width: 100%;
+      border-radius: 6px;
+   }
+   .bottom-nav .menu li a i{
+      font-size: 1.15rem;
+      padding: 7px;
+   }
+   .bottom-nav .menu-hide-btn{
+      font-size: 1.25rem;
+   }
+   .menu-show-btn{
+      width: 75px;
+      height: 45px;
+      row-gap: 4px;
+      bottom: -30px;
+   }
+   .menu-show-btn.active{
+      bottom: 20px;
+   }
+   .menu-show-btn .bar-01, 
+   .menu-show-btn .bar-02{
+      width: 37px;
+      height: 3px;
+   }
+   .earth-tenis-sub-container {
+      padding-top: 3em;
+      padding-bottom: 2em;
+   }
+   .section-title {
+      margin-bottom: 45px;
+   }
+   .about-container {
+      gap: 20px;
+      margin-bottom: 25px;
+   }   
+   .about-introdution {
+      width: 100%;
+      height: 250px;
+      padding: 10px;
+      border-radius: 4px;
+   }
+   .introdution-info{
+      width: 100%;
+   }
+   .introdution-img{
+      display: none;
+   }
+   .introdution-info p {
+      font-size: var(--tiny-font-size);
+   }
+   .header-menu .menu-item a {
+      font-size: var(--large-font-size);
+   }
+   .earth-tenis-logo a, .earth-tenis-logo a i {
+      font-size: 1.5rem;
+   }
+   .introdution-info h4{
+      font-size: var(--small-font-size);
+      text-align: center;
+   }
+   .about-tabs {
+      column-gap: 10px;
+      row-gap: 10px;
+      margin-bottom: 25px;
+   }
+   .about-tabs .tab-btn {
+      font-size: var(--small-font-size);
+      padding: 7px 0;
+   }
+   .about-tabs .tab-btn.active {
+      padding: 7px 10px;
+      border-radius: 4px;
+   }
+   .about-card {
+      width: 100%;
+      padding: 15px;
+      gap: 3px;
+   }
+   .about-card .about-img {
+      margin-top: 5px;
+      width: 100%;
+      height: 150px;
+   }
+   .about-card .values {
+      margin-bottom: 5px;
+      gap: 5px;
+   }
+   .about-card .values li p {
+      font-size: .8rem;
+      text-align: start;
+   }
+   .about-card .description {
+      font-size: var(--small-font-size);
+   }
+   .about-card .title {
+      font-size: var(--h4-font-size);
+   }
+   .notices-container {
+      padding: 8px;
+      grid-auto-rows: 100px;
+      gap: 8px;
+   }
+   .notices-container .notice {
+      border-radius: 4px;
+      padding: 7px;
+   }
+   .big {
+      grid-column: span 4;
+      grid-row: span 3;
+   }
+   .medium {
+      grid-column: span 4;
+      grid-row: span 2;
+   }
+   .small {
+      grid-column: span 4;
+      grid-row: span 1;
+   }
+   .notices-container .notice::before {
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.7);
+   }
+   .notices-container .notice h3, .notices-container .notice h4 {
+      font-size: .98rem;
+   }
+   .notices-container .notice p, .notices-container .notice a {
+      font-size: .68rem;
+   }
+   .popular-swiper .swiper-wrapper {
+      height: 350px;
+   }
+   .popular-swiper .swiper-button-next i, .popular-swiper .swiper-button-prev i {
+      font-size: 2rem;
+   }
+   .swiper-slide .slide-info h1 {
+      font-size: var(--h3-font-size);
+   }
+   .swiper-slide .slide-info p, .swiper-slide .slide-info a p {
+      font-size: var(--small-font-size);
+   }
+   .swiper-slide .swiper-slide-img img {
+      border-radius: 6px;
+   }
+   .popular-swiper .swiper-pagination-bullet, .popular-swiper .swiper-pagination-bullet-active {
+      background: var(--primary-color);
+      width: 6px;
+      height: 6px;
+   }
+   .brandsSwiper .swiper-wrapper {
+      height: 100px;
+   }
+   .brandsSwiper .swiper-slide {
+      width: 100px;
+      padding: 10px;
+   }
+   .brandsSwiper .swiper-button-next i, .brandsSwiper .swiper-button-prev i, .inspirationsSwiper .swiper-button-next i, .inspirationsSwiper .swiper-button-prev i {
+      font-size: 2rem;
+   }
+   .brandsSwiper .swiper-slide .coming-soon {
+      top: 3px;
+      left: 3px;
+      padding: 4px;
+      border-radius: 4px;
+   }
+   .brandsSwiper .swiper-slide .coming-soon h5 {
+      font-size: var(--tiny-font-size);
+   }
+   .safe-info h2 {
+      font-size: var(--h4-font-size);
+      text-align: center;
+   }
+   .safe-info p {
+      font-size: var(--small-font-size);
+      text-align: center;
+   }
+   .safe-purchase {
+      flex-direction: column;
+      margin-top: 0;
+      border-radius: 6px;
+      padding: 15px;
+   }
+   .safe-purchase .safe-info {
+      gap: 10px;
+   }
+   .safe-img {
+      width: 100%;
+      height: 170px;
+   }
+   .safe-img img {
+      border-radius: 4px;
+   }
+   .apply-coupon-btn, .shop-buy-btn, .safe-btn {
+      padding: 7px 15px;
+      font-size: var(--small-font-size);
+      border-radius: 4px;
+   }
+   .products-tabs {
+      column-gap: 10px;
+      row-gap: 10px;
+      margin-bottom: 45px;
+   }
+   .products-tabs .tab-btn {
+      font-size: var(--small-font-size);
+      padding: 7px;
+      border-radius: 4px;
+   }
+   .products-tabs .tab-btn.active {
+      padding: 7px 15px;
+   }
+   .products-container {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 7px;
+      row-gap: 7px;
+   }
+   .product-card {
+      width: 130px;
+      border-radius: 4px;
+   }
+   .product-card .product-brand {
+      width: 25px;
+      height: 25px;
+      margin: 10px;
+   }
+   .product-card .product-info {
+      padding: 8px;
+   }
+   .product-card .product-img {
+      height: 130px;
+   }
+   .product-card .product-info .shop-icon {
+      font-size: .8rem;
+      margin: 6px;
+   }
+   .product-card .product-info .product-options {
+      gap: 3px;
+   }
+   .product-card .product-info .info {
+      margin-top: 2px;
+   }
+   .product-card .product-info span, .product-card .product-info h4{
+      font-size: .48rem;
+   }
+   .product-card .product-info .product-stars {
+      font-size: .8rem;
+   }
+   .product-options .option p, .product-options .option span {
+      font-size: .40rem;
+   }
+   .product-card .product-info .normal-price {
+      font-size: .54rem;
+   }
+   .product-card .product-info .price-with-descount {
+      font-size: .64rem;
+   }
+   .inspirationsSwiper .swiper-wrapper {
+      height: 200px;
+   }
+   .brands p, .inspirations p {
+      font-size: var(--small-font-size);
+   }
+   .swiper-slide .see-product i {
+      font-size: var(--h5-font-size);
+   }
+   .inspirationsSwiper .swiper-slide .see-product {
+      margin: 8px;
+      padding: 8px;
+   }
+   .inspirationsSwiper .swiper-slide .instagram {
+      font-size: var(--h5-font-size);
+   }
+   .contact-container {
+      flex-direction: column;
+      row-gap: 55px;
+   }
+   .contact-info {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+   }
+   .contact-details {
+      row-gap: 20px;
+      margin-bottom: 20px;
+   }
+   .contact-social-links li {
+      font-size: 1.35rem;
+      width: 60px;
+      height: 60px;
+   }
+   .contact-icon {
+      font-size: 1.35rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+   }
+   .contact-method {
+      row-gap: 3px;
+   }
+   .contact-method h4 {
+      font-size: var(--small-font-size);
+   }
+   .contact-social-links {
+      column-gap: 10px;
+      justify-content: center;
+   }
+   .contact-form-body {
+      padding: 25px;
+      border-radius: 8px;
+   }
+   .contact-form-body h2 {
+      margin-bottom: 15px;
+   }
+   .contact-form-body p {
+      margin-bottom: 20px;
+   }
+   .contact-form-body form {
+      row-gap: 8px;
+   }
+   .contact-form-body form .input-group input, .contact-form-body form .input-group textarea {
+      border-radius: 6px;
+   }
+   .earth-tenis-footer {
+      padding: 18px;
+      padding-bottom: 85px;
+   }
+   .earth-tenis-footer .earth-tenis-container .inner {
+      row-gap: 15px;
+   }
+   .footer-menu {
+      column-gap: 15px;
+      row-gap: 15px;
+   }
+   .earth-tenis-footer .copy-right {
+      margin-top: 0;
+   }
+   .product-modal {
+      max-width: 300px;
+      padding: 15px;
+      border-radius: 6px;
+   }
+   .product-modal .modal-content {
+      max-height: 420px;
+   }
+   .product-modal .modal-img {
+      width: 100%;
+      height: 420px;
+   }
+   .modal-content .product-description {
+      width: 600px;
+      height: 650px;
+   }
+   .product-img-swiper .swiper-pagination-bullet {
+      width: 110px;
+      height: 110px;
+   }
+   .modal-content p {
+      font-size: var(--medium-font-size);
+   }
+   .product-size .size-btn {
+      font-size: var(--medium-font-size);
+      padding: 5px 25px;
+   }
+   .modal-content .product-description .product-size {
+      gap: 16px;
+   }
+   .product-buy .add-to-cart-btn {
+      font-size: var(--medium-font-size);
+      font-weight: var(--font-medium);
+   }
+   .comment .comment-user-img {
+      width: 110px;
+      height: 110px;
+   }
+   .comment .comment-user-info .comment-stars {
+      font-size: 1.5rem;
+      gap: 9px;
+   }
+   .comment .comment-text p {
+      font-size: var(--large-font-size);
+   }
+   .swiper-slide .slide-info h1 img {
+      width: 30px;
+      height: 30px;
+   }
+   .product-modal .modal-img .modal-logo {
+      width: 130px;
+      height: 130px;
+   }
+   .comment .comment-user-info {
+      justify-content: center;
+   }
+   .modal-close-btn {
+      font-size: 1rem;
+      margin: 5px;
+   }
+   .alert-text .text-1 {
+      font-size: var(--large-font-size);
+   }
+   .alert-text .text-2 {
+      font-size: var(--base-font-size);
+   }
+   .alert-content i {
+      font-size: 3.4rem;
+   }
+   .alert-message {
+      padding: 25px 35px;
+   }
+   #alert-container {
+      min-width: 500px;
+   }
+   .shop {
+      width: 800px;
+      padding: 20px 40px;
+   }
+   .shop-item {
+      min-height: 180px;
+   }
+   .shop-item .item-options .item-quantity button {
+      padding: 5px 15px;
+   }  
+   .shop-item .remove-item, .shop .shop-close-btn {
+      font-size: 2.1rem;
+   }
+   .shop-item .item-info h5 {
+      font-size: var(--medium-font-size);
+   }
+   .shop-item .item-info p {
+      font-size: var(--small-font-size);
+   }
+   .shop-item .item-img {
+      width: 140px;
+      height: 140px;
+   }
+   .resume-info h4 {
+      font-size: var(--medium-font-size);
+   }
+   .coupon-input {
+      font-size: var(--medium-font-size);
+   }
+}   
