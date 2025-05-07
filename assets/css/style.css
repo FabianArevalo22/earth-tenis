@@ -2748,7 +2748,7 @@ letter-spacing: -1px;
    }
    .apply-coupon-btn, .shop-buy-btn, .safe-btn {
       padding: 10px 20px;
-      font-size: var(--small-font-size);
+      font-size: var(--base-font-size);
       border-radius: 4px;
       align-items: center;
    }
@@ -3008,16 +3008,16 @@ letter-spacing: -1px;
       font-size: var(--base-font-size);
    }
    .alert-text .text-2 {
-      font-size: .84rem;
+      font-size: 1rem;
    }
    .alert-content i {
-      font-size: 1.9rem;
+      font-size: 2.2rem;
    }
    .alert-message .alert-text {
       margin: 0 5px;
    }
    .alert-message {
-      padding: 10px;
+      padding: 15px;
       max-width: 280px;
       border-radius: 4px;
    }
@@ -3033,23 +3033,23 @@ letter-spacing: -1px;
       row-gap: 10px;
    }
    .shop h3 {
-      font-size: var(--h4-font-size);
+      font-size: var(--h3-font-size);
    }
    .shop .shop-close-btn {
-      margin: 9px;
+      margin: 20px;
       z-index: var(--z-high);
    }
    .shop .shop-message {
       width: 100%;
    }
    .shop .shop-message i {
-      font-size: 1.8rem;
+      font-size: 2.3rem;
    }
    .shop .shop-message h4 {
-      font-size: var(--h5-font-size);
+      font-size: var(--h4-font-size);
    }
    .shop .shop-message p {
-      font-size: var(--small-font-size);
+      font-size: var(--base-font-size);
    }
    .resume-container {
       gap: 7px;
@@ -3060,7 +3060,7 @@ letter-spacing: -1px;
    .shop-item {
       border-radius: 4px;
       flex-direction: column;
-      padding: 10px;
+      padding: 12px;
       gap: 7px;
       height: fit-content;
       min-height: 220px;
@@ -3069,7 +3069,7 @@ letter-spacing: -1px;
       padding: 3px 10px;
    }  
    .shop-item .remove-item, .shop .shop-close-btn {
-      font-size: 1.2rem;
+      font-size: 1.8rem;
    }
    .shop-item .item-info h5 {
       font-size: var(--medium-font-size);
