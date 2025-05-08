@@ -2458,6 +2458,168 @@ letter-spacing: -1px;
   }
 }
 /* =========================================
+   Media Queries (max-width: 1200px)
+========================================= */
+@media screen and (max-width: 1200px){
+   .earth-tenis-container{
+      max-width: 100%;
+      margin-left: 55px;
+      margin-right: 55px;
+   }
+   .notices-container {
+      padding: 20px 55px;
+   }
+   
+}
+/* =========================================
+   Media Queries (max-width: 992px)
+========================================= */
+@media screen and (max-width: 992px){
+   .earth-tenis-container{
+      max-width: 100%;
+      margin-left: 50px;
+      margin-right: 50px;
+   }
+   .shoe-img{
+      width: 350px;
+      height: 350px;
+   }
+   .home-scroll-btn {
+      display: none;
+   }
+   .home-social {
+      display: none;
+   }
+   .earth-tenis-sub-container {
+      padding-top: 5em;
+      padding-bottom: 3em;
+   }
+   .section-title {
+      margin-bottom: 45px;
+   }
+   .about-card {
+      width: 600px;
+      padding: 15px;
+      gap: 10px;
+   }
+   .about-card .about-img {
+      margin-top: 5px;
+      width: 100%;
+      height: 200px;
+   }
+   .about-card .values {
+      margin-bottom: 5px;
+      gap: 10px;
+   }
+   .notices-container {
+      padding: 15px 50px;
+      grid-auto-rows: 120px;
+   }
+   .notices-container .notice {
+      border-radius: 4px;
+      padding: 12px;
+   }
+   .big {
+      grid-column: span 4;
+      grid-row: span 3;
+   }
+   .medium {
+      grid-column: span 4;
+      grid-row: span 2;
+   }
+   .small {
+      grid-column: span 4;
+      grid-row: span 1;
+   }
+   .notices-container .notice::before {
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+   }
+   .swiper-slide .slide-info h1 {
+      font-size: var(--h2-font-size);
+   }
+   .products-tabs .tab-btn {
+      border-radius: 4px;
+   }
+   .products-tabs .tab-btn.active {
+      border-radius: 4px;
+   }
+   .product-card {
+      width: 205px;
+      border-radius: 5px;
+   }
+   .product-card .product-img {
+      height: 205px;
+   }
+   .product-card .product-brand {
+      width: 40px;
+      height: 40px;
+      margin: 8px;
+   }
+   .product-card .product-info span, .product-card .product-info h4{
+      font-size: .73rem;
+   } 
+   .product-card .product-info .product-stars {
+      font-size: 1rem;
+   }
+   .product-options .option p, .product-options .option span {
+      font-size: .63rem;
+   }
+   .product-card .product-info .normal-price {
+      font-size: .75rem;
+   }
+   .product-card .product-info .price-with-descount {
+      font-size: .92rem;
+   } 
+   .inspirationsSwiper .swiper-wrapper {
+      height: 290px;
+   }
+   .contact-container {
+      flex-direction: column;
+      row-gap: 55px;
+   }
+   .contact-form-body form .input-group input, .contact-form-body form .input-group textarea {
+      border-radius: 6px;
+   }
+   .product-modal {
+      max-width: 920px;
+      padding: 35px;
+      border-radius: 6px;
+   }
+   .product-modal .modal-content {
+      max-height: 550px;
+   }
+   .product-modal .modal-img {
+      width: 400px;
+      height: 550px;
+   }
+   .product-modal .product-description {
+      width: 400px;
+      height: 550px;
+      margin-right: 10px;
+   }
+   ::-webkit-scrollbar {
+      width: 5px;
+      background: var(--scrollbar-color);
+   }
+   .swiper-slide .slide-info h1 img {
+      width: 30px;
+      height: 30px;
+   } 
+   .product-modal .modal-img .modal-logo {
+      width: 100px;
+      height: 100px;
+   }
+   .comment .comment-user-info {
+      justify-content: center;
+      height: fit-content;
+   }
+   .modal-close-btn {
+      font-size: 1.8rem;
+      margin: 4px;
+   }
+}   
+/* =========================================
    Media Queries (max-width: 768px)
 ========================================= */
 @media screen and (max-width: 768px){
