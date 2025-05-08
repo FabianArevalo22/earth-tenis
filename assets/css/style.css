@@ -2533,6 +2533,9 @@ letter-spacing: -1px;
       gap: 40px;
       margin-top: 30px;
    }
+   .home-social .social-icons li a {
+      font-size: 1.50rem;
+   }   
    .header-menu{
       display: none;
    }
@@ -2543,7 +2546,7 @@ letter-spacing: -1px;
       column-gap: 20px;
    }
    .theme-btn i, .shop-btn i{
-      font-size: 1.7rem;
+      font-size: 2rem;
    }
    .bottom-nav{
       width: 100%;
@@ -2610,7 +2613,7 @@ letter-spacing: -1px;
       font-size: var(--xlarge-font-size);
    }
    .earth-tenis-logo a, .earth-tenis-logo a i {
-      font-size: 1.7rem;
+      font-size: 2rem;
    }
    .introdution-info h4{
       font-size: var(--large-font-size);
@@ -2632,7 +2635,7 @@ letter-spacing: -1px;
    .about-card {
       width: 100%;
       padding: 15px;
-      gap: 3px;
+      gap: 10px;
    }
    .about-card .about-img {
       margin-top: 5px;
@@ -2644,7 +2647,7 @@ letter-spacing: -1px;
       gap: 10px;
    }
    .about-card .values li p {
-      font-size: 1rem;
+      font-size: var(--small-font-size);
       text-align: start;
    }
    .about-card .description {
@@ -2654,7 +2657,7 @@ letter-spacing: -1px;
       font-size: var(--h4-font-size);
    }
    .notices-container {
-      padding: 12px;
+      padding: 15px 20px;
       grid-auto-rows: 100px;
       gap: 12px;
    }
@@ -2711,8 +2714,11 @@ letter-spacing: -1px;
       width: 100px;
       padding: 20px;
    }
-   .brandsSwiper .swiper-button-next i, .brandsSwiper .swiper-button-prev i, .inspirationsSwiper .swiper-button-next i, .inspirationsSwiper .swiper-button-prev i {
+   .inspirationsSwiper .swiper-button-next i, .inspirationsSwiper .swiper-button-prev i {
       font-size: 3rem;
+   }
+   .brandsSwiper .swiper-button-next i, .brandsSwiper .swiper-button-prev i {
+      font-size: 2rem;
    }
    .brandsSwiper .swiper-slide .coming-soon {
       top: 3px;
@@ -2793,7 +2799,7 @@ letter-spacing: -1px;
       gap: 3px;
    }
    .product-card .product-info .info {
-      margin-top: 2px;
+      margin-top: 5px;
    }
    .product-card .product-info span, .product-card .product-info h4{
       font-size: .65rem;
@@ -2847,7 +2853,7 @@ letter-spacing: -1px;
       height: 75px;
    }
    .contact-icon {
-      font-size: 1.80rem;
+      font-size: 2rem;
       width: 75px;
       height: 75px;
       border-radius: 6px;
@@ -2898,7 +2904,7 @@ letter-spacing: -1px;
    }
    .product-modal {
       max-width: 320px;
-      padding: 22px;
+      padding: 30px;
       border-radius: 6px;
    }
    .product-modal .modal-content {
@@ -2907,18 +2913,18 @@ letter-spacing: -1px;
    }
    .product-modal .modal-img {
       width: 100%;
-      height: 260px;
+      height: 300px;
    }
    .modal-content .product-description {
       width: 100%;
       height: fit-content;
       justify-content: start;
-      gap: 5px;
+      gap: 10px;
       margin-right: 10px;
    }
    .product-img-swiper .swiper-pagination-bullet {
-      width: 45px;
-      height: 45px;
+      width: 60px;
+      height: 60px;
       border-radius: 4px;
    }
    .product-img-swiper .swiper-pagination-bullet-active {
@@ -2932,7 +2938,7 @@ letter-spacing: -1px;
       text-align: center;
    }
    .modal-content p {
-      font-size: var(--small-font-size);
+      font-size: var(--base-font-size);
    }
    .modal-content h4 {
       font-size: var(--large-font-size);
@@ -2987,7 +2993,7 @@ letter-spacing: -1px;
    }
    .comment .comment-text p {
       font-size: var(--small-font-size);
-      margin-top: 0;
+      margin-top: 10px;
    }
    .swiper-slide .slide-info h1 img {
       width: 30px;
@@ -2999,16 +3005,17 @@ letter-spacing: -1px;
    }
    .comment .comment-user-info {
       justify-content: center;
+      height: fit-content;
    }
    .modal-close-btn {
-      font-size: 1rem;
-      margin: 5px;
+      font-size: 1.7rem;
+      margin: 2px;
    }
    .alert-text .text-1 {
       font-size: var(--base-font-size);
    }
    .alert-text .text-2 {
-      font-size: 1rem;
+      font-size: var(--tiny-font-size);
    }
    .alert-content i {
       font-size: 2.2rem;
@@ -3019,12 +3026,12 @@ letter-spacing: -1px;
    .alert-message {
       padding: 15px;
       max-width: 280px;
-      border-radius: 4px;
+      border-radius: 8px;
    }
    #alert-container {
       min-width: 70px;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 20px;
    }
    .shop {
       width: 100%;
@@ -3068,14 +3075,18 @@ letter-spacing: -1px;
    .shop-item .item-options .item-quantity button {
       padding: 3px 10px;
    }  
-   .shop-item .remove-item, .shop .shop-close-btn {
+   .shop .shop-close-btn {
       font-size: 1.8rem;
+   }
+   .shop-item .remove-item {
+      font-size: 1.4rem;
    }
    .shop-item .item-info h5 {
       font-size: var(--medium-font-size);
+      letter-spacing: 0;
    }
    .shop-item .item-info p {
-      font-size: var(--small-font-size);
+      font-size: var(--base-font-size);
    }
    .shop-item .item-img {
       width: 100%;
