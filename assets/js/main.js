@@ -412,9 +412,13 @@ var swiper = new Swiper(".brandsSwiper", {
    },
    breakpoints: {
      481: {
-       slidesPerView: 5,
+       slidesPerView: 4,
        spaceBetween: 15,
      },
+     761: {
+      slidesPerView: 5,
+      spaceBetween: 15,
+    },
    },
  });
 
