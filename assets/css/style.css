@@ -2546,7 +2546,7 @@ letter-spacing: -1px;
       column-gap: 20px;
    }
    .theme-btn i, .shop-btn i{
-      font-size: 2rem;
+      font-size: 1.7rem;
    }
    .bottom-nav{
       width: 100%;
@@ -2563,8 +2563,8 @@ letter-spacing: -1px;
       border-radius: 6px;
    }
    .bottom-nav .menu li a i{
-      font-size: 1.25rem;
-      padding: 8px;
+      font-size: 1.45rem;
+      padding: 10px;
    }
    .bottom-nav .menu-hide-btn{
       font-size: 1.25rem;
@@ -2613,7 +2613,7 @@ letter-spacing: -1px;
       font-size: var(--xlarge-font-size);
    }
    .earth-tenis-logo a, .earth-tenis-logo a i {
-      font-size: 2rem;
+      font-size: 1.7rem;
    }
    .introdution-info h4{
       font-size: var(--large-font-size);
@@ -2903,7 +2903,7 @@ letter-spacing: -1px;
       margin-top: 0;
    }
    .product-modal {
-      max-width: 320px;
+      max-width: 350px;
       padding: 30px;
       border-radius: 6px;
    }
@@ -2923,8 +2923,8 @@ letter-spacing: -1px;
       margin-right: 10px;
    }
    .product-img-swiper .swiper-pagination-bullet {
-      width: 60px;
-      height: 60px;
+      width: 47px;
+      height: 47px;
       border-radius: 4px;
    }
    .product-img-swiper .swiper-pagination-bullet-active {
@@ -2938,7 +2938,7 @@ letter-spacing: -1px;
       text-align: center;
    }
    .modal-content p {
-      font-size: var(--base-font-size);
+      font-size: var(--small-font-size);
    }
    .modal-content h4 {
       font-size: var(--large-font-size);
@@ -2974,6 +2974,9 @@ letter-spacing: -1px;
       font-size: var(--tiny-font-size);
       font-weight: var(--font-medium);
    }
+   .modal-content .product-comments {
+      padding-top: 15px;
+   }
    .modal-content .product-comments .comment {
       margin: 10px 10px 10px 0px;
       padding: 10px;
@@ -2984,8 +2987,8 @@ letter-spacing: -1px;
       background: var(--scrollbar-color);
   }
    .comment .comment-user-img {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
    }
    .comment .comment-user-info .comment-stars {
       font-size: .8rem;
@@ -3008,8 +3011,8 @@ letter-spacing: -1px;
       height: fit-content;
    }
    .modal-close-btn {
-      font-size: 1.7rem;
-      margin: 2px;
+      font-size: 1.5rem;
+      margin: 4px;
    }
    .alert-text .text-1 {
       font-size: var(--base-font-size);
@@ -3070,7 +3073,7 @@ letter-spacing: -1px;
       padding: 12px;
       gap: 7px;
       height: fit-content;
-      min-height: 220px;
+      min-height: 235px;
    }
    .shop-item .item-options .item-quantity button {
       padding: 3px 10px;
