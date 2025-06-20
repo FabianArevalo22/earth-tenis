@@ -1,0 +1,365 @@
+/* =================== Google Fonts ====================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root{
+    /* ========== Main colors HSL(hue, saturation, lightness) ========== */
+    /* Blue - hsl(217, 85%, 74%); */
+    /* Purple - hsl(245, 54%, 74%); */
+    /* Teal - hsl(181, 47%, 49%); */
+    /* Yellow - hsl(65, 60%, 70%); */
+    /* Green - hsl(162, 60%, 65%); */
+    /* Red - hsl(356, 67%, 70%); */
+    /* Pink - hsl(330, 73%, 72%); */
+ 
+    --hue: 217;
+    --sat: 85%;
+    --light: 74%;
+ 
+    --primary-color: hsl(var(--hue) var(--sat) var(--light)); /* primary */
+    --white-color: hsl(var(--hue) 45% 98%); /* white */
+    --dark-color: hsl(var(--hue) 26% 12%); /* dark */
+ 
+    /* ======= Changeable colors for dark/light themes ======= */
+    --color-01: hsl(var(--hue) var(--sat) var(--light)); /* primary to dark */
+    --color-02: hsl(var(--hue) 45% 98%); /* white to dark */
+    --color-03: hsl(var(--hue) 26% 12%); /* dark to white */
+    --color-04: hsl(var(--hue) 0% 62%); /* light-graygray to dark-gray */
+    --color-05: hsl(var(--hue) 26% 12%); /* dark to primary */
+ 
+    --body-color: hsl(250 26% 12%); /* dark to white */
+    --hover-color: hsl(var(--hue) var(--sat) calc(var(--light) - 7%));
+ 
+    /* ======= Background colors ======= */
+    --bottom-nav-bg: hsl(var(--hue) 32% 25% / .65);
+    --card-bg: linear-gradient(120deg, hsl(var(--hue) 54% 74% / .15), hsl(var(--hue) 54% 74% / .05));
+    --modal-backdrop-bg: hsl(var(--hue) 54% 74% / .1);
+    --footer-bg: linear-gradient(360deg, hsl(var(--hue) 54% 74% / .15), hsl(var(--hue) 54% 74% / .1));
+ 
+    --scrollbar-color: hsl(var(--hue) 25% 20%);
+    --scrollbar-thumb: hsl(var(--hue) var(--sat) var(--light));
+    --scrollbar-thumb-hover: hsl(var(--hue) var(--sat) calc(var(--light) - 7%));
+ 
+    /* ======= Font and typography ======= */
+    --body-font-family: "Inter", serif;
+    
+    /* ======= Font sizes ======= */
+    --h1-font-size: 3.8rem;
+    --h2-font-size: 2.25rem;  
+    --h3-font-size: 1.97rem;
+    --h4-font-size: 1.43rem;
+    --h5-font-size: 1.23rem;
+ 
+    --xlarge-font-size: 1.48rem;
+    --large-font-size: 1.23rem;
+    --medium-font-size: 1.18rem;
+    --base-font-size: 1.1rem;
+    --small-font-size: 1.07rem;
+    --tiny-font-size: .98rem;
+    
+    /* ======= Font weights ======= */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    --font-bold: 700;
+ 
+    /* ======= Layering order(z-index) ======= */
+    --z-minus: -1;
+    --z-base: 0;
+    --z-low: 1;
+    --z-high: 10;
+    --z-content: 100;
+    --z-tooltip: 1000;
+    --z-fixed: 1100;
+    --z-overlay: 1110;
+    --z-modal: 1990;
+    --z-alert: 9000;
+    --z-max: 9999;
+}
+
+
+/* =========================================
+   Base Styles
+========================================= */
+html{
+   scroll-behavior: smooth;
+ }
+ body{
+   color: var(--color-02);
+   background: var(--color-05);
+   transition: .3s;
+}
+
+.topo {
+   height: 10vmin;
+   width: 29vmax;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: -5vmin;
+}
+.btnTopo {
+   height: 10vmin;
+   width: 7vmax;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+}
+.return-btn:hover {
+   color: var(--hover-color);
+}
+/* ========== Dark/Light theme buttons ========== */
+.theme-btn{
+   position: relative;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+   width: 27px;
+   cursor: pointer;
+}
+.theme-btn i{
+   position: absolute;
+   color: var(--color-01);
+   font-size: 1.7rem;
+   cursor: pointer;
+   transition: .3s;
+}
+.theme-btn:hover i{
+   color: var(--hover-color);
+   transform: rotate(-15deg);
+}
+.theme-btn.active-sun-icon .moon-icon,
+.theme-btn .sun-icon{
+   opacity: 1;
+   transition: .3s;
+}
+.theme-btn.active-sun-icon .sun-icon,
+.theme-btn .moon-icon{
+   opacity: 0;
+   transition: .3s;
+}
+
+/* ======= Light theme ======= */
+.light-theme{
+   /* ======= Changeable colors for dark/light themes ======= */
+   --color-01: hsl(var(--hue) 26% 12%); /* primary to dark */
+   --color-02: hsl(var(--hue) 26% 12%); /* white to dark */
+   --color-03: hsl(var(--hue) 45% 98%); /* dark to white */
+   --color-04: hsl(var(--hue) 9% 46%); /* light-graygray to dark-gray */
+   --color-05: hsl(var(--hue) var(--sat) var(--light)); /* dark to primary */
+ 
+   --body-color: hsl(var(--hue) 45% 98%); /* dark to white */
+ 
+ 
+   /* ======= Background colors ======= */
+   --bottom-nav-bg: hsl(var(--hue) 32% 85% / .8);
+   --card-bg: hsl(0 0% 100%);
+   --modal-backdrop-bg: hsl(var(--hue) 50% 12% / .5);
+   --footer-bg: linear-gradient(360deg, hsl(var(--hue) var(--sat) var(--light)), hsl(var(--hue) var(--sat) var(--light) / .75));
+ 
+   --scrollbar-color: hsl(var(--hue) 9% 60%);
+   --scrollbar-thumb: hsl(var(--hue) 9% 25%);
+   --scrollbar-thumb-hover: hsl(var(--hue) 9% 17%);
+}
+
+/* Botão voltar */
+a {
+   position: relative;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+   width: 27px;
+   cursor: pointer;
+   color: var(--color-01);
+   font-size: 1.7rem;
+   margin: 3vmin;
+   text-decoration: none;
+}
+
+.conteiner {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: row-reverse;
+}
+.infoJogo {
+   height: 80vmin;
+   width: 25vmax;
+   color: var(--color-02);
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   flex-direction: column;
+}
+.gradeCartas {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: column;
+}
+.linhaCartas {
+   width: 70vmax;
+   height: 23.5vmin;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: row;
+   perspective: 1000px;
+}
+.carta24 {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: row;
+   position: relative;
+   margin: 1.25vmin;
+   height: 21vmin;
+   width: 15.75vmin;
+   border: white;
+   border-style: solid;
+   border-radius: 1vmin;
+   background-color: var(--color-01);
+   cursor: pointer;
+   color: white;
+   font-size: 10vmin;
+   transform-style: preserve-3d;
+   transition: transform .5s;
+}
+.carta24.virado {
+  transform: rotateY(180deg);
+}
+.frente {
+   width: 12vmin;
+   height: 12vmin;
+   position: absolute;
+   backface-visibility: hidden;
+   transform: rotateY(180deg);
+}
+.verso {
+   position: absolute;
+   backface-visibility: hidden;
+}
+#dificuldade {
+   width: 70px;
+   background-color: var(--primary-color);
+   border-radius: 5px;
+   border-color: var(--color-02);
+   border-width: 3px;
+   color: var(--color-02);
+   cursor: pointer;
+}
+#reiniciar {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: row;
+   width: 130px;
+   border: solid;
+   background-color: var(--primary-color);
+   border-radius: 5px;
+   border-color: var(--color-02);
+   border-width: 3px;
+   padding: 10px;
+   cursor: pointer;
+}
+.carta24:hover {
+  background-color: var(--hover-color);
+}
+.reiniciar:hover {
+  background-color: var(--hover-color);
+}
+@media (orientation: portrait) {
+   .conteiner {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: column;
+   }
+   .hud {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+   }
+   .topo {
+      height: 15vmax;
+      width: 95vmin;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -5vmin;
+   }
+   .vazia {
+      width: 10vmax;
+   }
+   .btnTopo {
+      height: 10vmin;
+      width: 10vmax;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+   }
+   .infoJogo {
+      height: 30vmax;
+      width: 90vmin;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: row;
+      margin-top: -5vmax;
+   }
+   h1{
+      font-size: 3vmax;
+      margin-top: 0px;
+      margin-bottom: 0px;
+   }
+   h3 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+   } 
+   .gradeCartas {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+      margin-top: -20vmax;
+   }
+   .linhaCartas {
+      width: 25vmin;
+      height: 70vmax;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: column;
+   }
+   .carta24 {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+      margin: 1vmin;
+      height: 19vmin;
+      width: 19vmin;
+      border-radius: 0.5vmin;
+      font-size: 10vmin;
+   }
+   #dificuldade {
+      width: 70px;
+      border-radius: 5px;
+      border-width: 3px;
+      margin: 1vmax;
+      margin-right: 0px;
+   }
+   .reiniciar {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+      width: 130px;
+      border-radius: 5px;
+      border-width: 3px;
+      padding: 10px;
+      margin-top: 75vmax;
+   }
+}
