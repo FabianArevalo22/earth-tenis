@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const cartas = document.querySelectorAll('.carta24');
 const imagens = document.querySelectorAll('.frente');
-const reiniciar = document.getElementById
+const reiniciar = document.getElementById("reiniciar");
+/* const venceu = document.getElementsByClassName('.vitoria'); */
 
 let temCartaVirada = false;
 let primeiraCarta, segundaCarta;
@@ -64,24 +65,30 @@ let selecaoCartas = ["assets/imgs/products-imgs/air-force-1-supreme-flax-1.jpg",
    "assets/imgs/products-imgs/tenis-adidas-yeezy-boost-350-zebra-1.jpg",
    "assets/imgs/products-imgs/air-jordan-4-travis-scott-azul-1.jpg",
 ]
-let ordemCartas = [];
+let parSelecionado = [];
 
 inicializar();
 
 function inicializar() {
+
+   cartas.forEach(carta => carta.addEventListener('click', viraCarta));
+
    embaralhar();
    for(imagem in imagens) {
-      imagens[imagem].src = `${selecaoCartas[imagem]}`
-      ordemCartas.push(imagem%12);
+      imagens[imagem].src = `${selecaoCartas[imagem]}`;
+   }
+   for(let carta of cartas) {
+      carta.classList.remove('virado');
    }
    
    qtdTurnos = 0;
    qtdEncontrados = 0;
-   qtdRestantes = 0;
+   qtdRestantes = 24;
 
    rodadas.innerHTML = `Turnos: ${qtdTurnos}`;
    encontrados.innerHTML = `Pares encontrados: ${qtdEncontrados}`;
    restantes.innerHTML = `Pares restantes: ${qtdRestantes}`;
+   
 }
 
 function embaralhar() {
@@ -103,13 +110,18 @@ function viraCarta() {
    else {
       segundaCarta = this;
       temCartaVirada = false;
-      let formaPar = firstCard.dataset.framework === secondCard.dataset.framework;
-      formaPar ? formou() : desviraCartas();
+      const img1 = primeiraCarta.querySelector('.frente').src;
+      const img2 = segundaCarta.querySelector('.frente').src;
+      if(img1 === img2)
+      { formou(); }
+      else
+      { desviraCartas(); }
       qtdTurnos++;
       segundaCarta.removeEventListener('click', viraCarta);
       rodadas.innerHTML = `Turnos: ${qtdTurnos}`;
       encontrados.innerHTML = `Pares encontrados: ${qtdEncontrados}`;
       restantes.innerHTML = `Pares restantes: ${qtdRestantes}`;
+      parSelecionado = [];
    }
 }
 
@@ -120,12 +132,15 @@ function formou() {
 
 function desviraCartas() {
    setTimeout(() => {
-     firstCard.classList.remove('virado');
-     secondCard.classList.remove('virado');
-     firstCard.addEventListener('click', viraCarta);
-     secondCard.addEventListener('click', viraCarta);
-   }, 1500);
+     primeiraCarta.classList.remove('virado');
+     segundaCarta.classList.remove('virado');
+     primeiraCarta.addEventListener('click', viraCarta);
+     segundaCarta.addEventListener('click', viraCarta);
+   }, 700);
 }
 
+/* if(qtdRestantes === 24) {
+   venceu.classList.remove('invisivel');
+} */
 
-cartas.forEach(carta => carta.addEventListener('click', viraCarta));
+reiniciar.addEventListener('click', inicializar);
