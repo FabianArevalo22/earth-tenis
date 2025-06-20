@@ -3896,4 +3896,9 @@ letter-spacing: -1px;
    .coupon-area {
       gap: 0;
    }
-}   
+}
+.game {
+   margin-top: -2.5vmin;
+   margin-left: -4vmin;
+   margin-right: 1.5vmin;
+}
