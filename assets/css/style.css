@@ -3906,6 +3906,6 @@ letter-spacing: -1px;
    align-items: center;
    cursor: pointer;
    a {
-      color: var(--primary-color);
+      color: var(--color-01);
    }
 }
