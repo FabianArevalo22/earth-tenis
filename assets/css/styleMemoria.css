@@ -190,6 +190,9 @@ a {
    justify-content: space-evenly;
    flex-direction: column;
 }
+.vazia {
+   width: 3vmax;
+}
 .info-sub {
    height: 20vmin;
    display: flex;
