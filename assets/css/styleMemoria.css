@@ -85,7 +85,7 @@ html{
    scroll-behavior: smooth;
  }
  body{
-   color: var(--color-02);
+   color: white;
    background: var(--color-05);
    transition: .3s;
 }
@@ -104,8 +104,9 @@ html{
    display: flex;
    justify-content: end;
    align-items: center;
+   color: var(--color-02);
 }
-.return-btn:hover {
+a:hover {
    color: var(--hover-color);
 }
 /* ========== Dark/Light theme buttons ========== */
@@ -114,7 +115,6 @@ html{
    display: flex;
    justify-content: end;
    align-items: center;
-   width: 27px;
    cursor: pointer;
 }
 .theme-btn i{
@@ -168,7 +168,6 @@ a {
    display: flex;
    justify-content: end;
    align-items: center;
-   width: 27px;
    cursor: pointer;
    color: var(--color-01);
    font-size: 1.7rem;
@@ -185,36 +184,60 @@ a {
 .infoJogo {
    height: 80vmin;
    width: 25vmax;
-   color: var(--color-02);
+   color: white;
    display: flex;
    align-items: center;
    justify-content: space-evenly;
    flex-direction: column;
 }
-.gradeCartas {
+.info-sub {
+   height: 20vmin;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-direction: column;
+}
+#gradeCartas {
    display: flex;
    align-items: center;
    justify-content: space-around;
    flex-direction: column;
 }
-.linhaCartas {
-   width: 70vmax;
-   height: 23.5vmin;
+.linhaCartas12, .linhaCartas24, .linhaCartas40 {
    display: flex;
    align-items: center;
    justify-content: space-around;
    flex-direction: row;
    perspective: 1000px;
+   transition: 0.5s;
 }
-.carta24 {
+.linhaCartas12 {
+   width: 70vmax;
+   height: 31.4vmin;
+}
+.linhaCartas24 {
+   width: 70vmax;
+   height: 23.5vmin;
+}
+.linhaCartas40 {
+   width: 70vmax;
+   height: 18.8vmin;
+}
+.frente {
+   position: absolute;
+   backface-visibility: hidden;
+   transform: rotateY(180deg);
+}
+.verso {
+   position: absolute;
+   backface-visibility: hidden;
+}
+.carta12, .virado12, .carta24, .virado24, .carta40, .virado40 {
    display: flex;
    align-items: center;
    justify-content: space-around;
    flex-direction: row;
    position: relative;
-   margin: 1.25vmin;
-   height: 21vmin;
-   width: 15.75vmin;
    border: white;
    border-style: solid;
    border-radius: 1vmin;
@@ -225,28 +248,96 @@ a {
    transform-style: preserve-3d;
    transition: transform .5s;
 }
-.carta24.virado {
-  transform: rotateY(180deg);
+.carta12, .virado12 {
+   margin: 1.7vmin;
+   height: 28vmin;
+   width: 21vmin;
+   .frente {
+      height: 16vmin;
+      width: 16vmin;
+   }
 }
-.frente {
-   width: 12vmin;
-   height: 12vmin;
-   position: absolute;
-   backface-visibility: hidden;
+.virado12 {
    transform: rotateY(180deg);
 }
-.verso {
+.carta24, .virado24 {
+   margin: 1.25vmin;
+   height: 21vmin;
+   width: 15.75vmin;
+   .frente {
+      height: 12vmin;
+      width: 12vmin;
+   }
+}
+.virado24 {
+   transform: rotateY(180deg);
+}
+.carta40, .virado40 {
+   margin: 1vmin;
+   height: 16.8vmin;
+   width: 12.6vmin;
+   .frente {
+      height: 9.6vmin;
+      width: 9.6vmin;
+   }
+}
+.virado40 {
+   transform: rotateY(180deg);
+}
+.selecao {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: row;
+   color: white;
+}
+#opcoes {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   flex-direction: column;
    position: absolute;
-   backface-visibility: hidden;
+   width: 6vmax;
+   background-color: var(--color-01);
+   border: solid;
+   border-radius: 5px;
+   border-color: white;
+   border-width: 3px;
+   margin-top: 1px;
+   margin-left: 0.5vmax;
+   h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 5.9vmax;
+      margin-top: 0.1vmin;
+      margin-bottom: 0.1vmin;
+      cursor: pointer;
+   }
 }
 #dificuldade {
-   width: 70px;
-   background-color: var(--primary-color);
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   width: 6vmax;
+   margin-top: 0;
+   margin-bottom: 0;
+   margin-left: 0.5vmax;
+   background-color: var(--color-01);
+   border: solid;
    border-radius: 5px;
-   border-color: var(--color-02);
+   border-color: white;
    border-width: 3px;
-   color: var(--color-02);
+   color: white;
    cursor: pointer;
+}
+.virado2 i {
+   transform-style: preserve-3d;
+   transition: transform .5s;
+   transform: rotateX(180deg);
+}
+.ri-arrow-down-s-line {
+   transition: transform .5s;
 }
 #reiniciar {
    display: flex;
@@ -255,14 +346,14 @@ a {
    flex-direction: row;
    width: 130px;
    border: solid;
-   background-color: var(--primary-color);
+   background-color: var(--color-01);
    border-radius: 5px;
-   border-color: var(--color-02);
+   border-color: white;
    border-width: 3px;
    padding: 10px;
    cursor: pointer;
 }
-.carta24:hover {
+.carta12:hover, .carta24:hover, .carta40:hover {
   background-color: var(--hover-color);
 }
 .reiniciar:hover {
@@ -270,10 +361,15 @@ a {
 }
 .vitoria {
    position: absolute;
-   left: 0.5;
+   font-size: 8vmax;
+   color: greenyellow;
 }
 .invisivel {
    visibility: hidden;
+}
+.borrado {
+   filter: blur(3px);
+   transition: 1s;
 }
 @media (orientation: portrait) {
    .conteiner {
@@ -310,10 +406,9 @@ a {
       height: 30vmax;
       width: 90vmin;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-evenly;
-      flex-direction: row;
+      flex-direction: column;
       margin-top: -5vmax;
    }
    h1{
@@ -322,52 +417,96 @@ a {
       margin-bottom: 0px;
    }
    h3 {
+      font-size: 1.1em;
       margin-top: 0px;
       margin-bottom: 0px;
    } 
-   .gradeCartas {
+   select {
+      font-size: 4vmin;
+      width: 20vmin !important;
+   }
+   .info-sub {
+      width: 90vmin;
+      font-size: 4vmin;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: row;
+   }
+   #gradeCartas {
       display: flex;
       align-items: center;
       justify-content: space-around;
       flex-direction: row;
       margin-top: -20vmax;
    }
-   .linhaCartas {
-      width: 25vmin;
-      height: 70vmax;
+   .linhaCartas12, .linhaCartas24, .linhaCartas40 {
       display: flex;
       align-items: center;
       justify-content: space-around;
       flex-direction: column;
+      height: 70vmax;
    }
-   .carta24 {
+   .linhaCartas12 {
+      width: 33vmin;
+   }
+   .linhaCartas24 {
+      width: 25vmin;
+   }
+   .linhaCartas40 {
+      width: 20vmin;
+   }
+   .carta12, .virado12, .carta24, .virado24, .carta40, .virado40 {
       display: flex;
       align-items: center;
       justify-content: space-around;
       flex-direction: row;
+      position: relative;
+      border-radius: 0.5vmin;
+   }
+   .carta12, .virado12 {
+      margin: 1.3vmin;
+      height: 25.3vmin;
+      width: 25.3vmin;
+   }
+   .carta24, .virado24 {
       margin: 1vmin;
       height: 19vmin;
       width: 19vmin;
-      border-radius: 0.5vmin;
-      font-size: 10vmin;
+   }
+   .carta40, .virado40 {
+      margin: 1vmin;
+      height: 15.2vmin;
+      width: 15.2vmin;
    }
    #dificuldade {
-      width: 70px;
+      width: 18vmin;
       border-radius: 5px;
       border-width: 3px;
       margin: 1vmax;
       margin-right: 0px;
+   }
+   #opcoes {
+      flex-direction: row;
+      width: 51vmin;
+      margin-top: 0px;
+      margin-left: -17vmin;
+      h3 {
+         width: 17vmin;
+         margin-left: 0.1vmin;
+         margin-right: 0.1vmin;
+      }
    }
    #reiniciar {
       display: flex;
       align-items: center;
       justify-content: space-around;
       flex-direction: row;
-      width: 130px;
+      width: 30vmin;
+      font-size: 6vmin;
       border-radius: 5px;
       border-width: 3px;
       padding: 10px;
-      margin-top: 75vmax;
-   }
-   
+      margin-top: 73vmax;
+   }   
 }
