@@ -20,131 +20,32 @@
                         <i class="ri-sun-fill sun-icon"></i>
                         <i class="ri-moon-fill moon-icon"></i>
                     </div>
-                    <div class="return-btn"><a href="https://fabianarevalo22.github.io/earth-tenis/"><i class="ri-arrow-right-line"></i></a></div>
+                    <div class="return-btn"><a href="index.html"><i class="ri-arrow-right-line"></i></a></div>
                 </div>
             </div>
             <div class="infoJogo">
-                <div>
-                    <label for="dificuldade">Selecione a Dificuldade: </label>
-                    <select name="dificuldade" id="dificuldade">
-                        <option value="facil">Fácil</option>
-                        <option value="medio" selected>Médio</option>
-                        <option value="dificil">Difícil</option>
-                    </select>
+                <div class="info-sub">
+                    <div class="selecao">
+                        <h3>Selecione a Dificuldade: </h3>
+                        <div class="dropdown">
+                            <h3 id="dificuldade">Médio <i class="ri-arrow-down-s-line"></i></h3>
+                            <div id="opcoes" class="invisivel">
+                                <h3 id="facil">Fácil</h3>
+                                <h3 id="medio">Médio</h3>
+                                <h3 id="dificil">Difícil</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 id="turnos">Turnos: </h3>
                 </div>
-                <h3 id="turnos">Turnos: </h3>
-                <h3 id="paresEncontrados">Pares encontrados: </h3>
-                <h3 id="paresRestantes">Pares restantes: </h3>
+                <div class="info-sub">
+                    <h3 id="paresEncontrados">Pares encontrados: </h3>
+                    <h3 id="paresRestantes">Pares restantes: </h3>
+                </div>
                 <h2 id="reiniciar">Reiniciar</h2>
             </div>
         </div>
-        <div class="gradeCartas">
-            <div class="linhaCartas">
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-            </div>
-            <div class="linhaCartas">
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-            </div>
-            <div class="linhaCartas">
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-            </div>
-            <div class="linhaCartas">
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-                <div class="carta24">
-                    <i class="ri-planet-fill verso"></i>
-                    <img class="frente" alt="">
-                </div>
-            </div>
-            <!-- <div class="vitoria invisivel"><h1>Você ganhou!</h1></div> -->
-        </div>
+        <div id="gradeCartas"></div>
     </div>
     <script src="assets/js/memoria.js"></script>
 </body>
